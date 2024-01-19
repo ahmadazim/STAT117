@@ -67,6 +67,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -172,7 +201,35 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#logistics" id="toc-logistics" class="nav-link active" data-scroll-target="#logistics">Logistics</a></li>
+  <li><a href="#course-overview" id="toc-course-overview" class="nav-link" data-scroll-target="#course-overview">Course Overview</a>
+  <ul class="collapse">
+  <li><a href="#objectives" id="toc-objectives" class="nav-link" data-scroll-target="#objectives">Objectives</a></li>
+  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites">Prerequisites</a></li>
+  </ul></li>
+  <li><a href="#lectures-and-sections" id="toc-lectures-and-sections" class="nav-link" data-scroll-target="#lectures-and-sections">Lectures and Sections</a></li>
+  <li><a href="#homework" id="toc-homework" class="nav-link" data-scroll-target="#homework">Homework</a>
+  <ul class="collapse">
+  <li><a href="#homework-grading" id="toc-homework-grading" class="nav-link" data-scroll-target="#homework-grading">Homework Grading</a></li>
+  </ul></li>
+  <li><a href="#project-assessment" id="toc-project-assessment" class="nav-link" data-scroll-target="#project-assessment">Project Assessment</a></li>
+  <li><a href="#exam" id="toc-exam" class="nav-link" data-scroll-target="#exam">Exam</a></li>
+  <li><a href="#class-participation" id="toc-class-participation" class="nav-link" data-scroll-target="#class-participation">Class Participation</a></li>
+  <li><a href="#grades" id="toc-grades" class="nav-link" data-scroll-target="#grades">Grades</a></li>
+  <li><a href="#computing" id="toc-computing" class="nav-link" data-scroll-target="#computing">Computing</a></li>
+  <li><a href="#course-materials" id="toc-course-materials" class="nav-link" data-scroll-target="#course-materials">Course Materials</a></li>
+  <li><a href="#canvas" id="toc-canvas" class="nav-link" data-scroll-target="#canvas">Canvas</a></li>
+  <li><a href="#disability-accommodations-for-timed-exams." id="toc-disability-accommodations-for-timed-exams." class="nav-link" data-scroll-target="#disability-accommodations-for-timed-exams.">Disability accommodations for timed exams.</a></li>
+  <li><a href="#collaboration-policy-statement" id="toc-collaboration-policy-statement" class="nav-link" data-scroll-target="#collaboration-policy-statement">Collaboration policy statement</a>
+  <ul class="collapse">
+  <li><a href="#you-use-it-you-cite-it" id="toc-you-use-it-you-cite-it" class="nav-link" data-scroll-target="#you-use-it-you-cite-it">You use it, you cite it</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -196,9 +253,140 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>About this site...</p>
+<section id="logistics" class="level1">
+<h1>Logistics</h1>
+<ul>
+<li><strong>Time:</strong> Tue/Thu, 9:00am–10:15am in Science Center 705</li>
+<li><strong>Instructor:</strong> Giovanni Parmigiani</li>
+<li><strong>E-mail:</strong> Please use canvas messaging for all course-related matters</li>
+<li><strong>Office Hours:</strong> Thu 10:30am–11:45am in SC 316.06, or by appointment</li>
+<li><strong>Canvas site:</strong> <a href="https://canvas.harvard.edu/courses/129153">https://canvas.harvard.edu/courses/129153</a></li>
+<li><strong>TF:</strong> Ahmad Abdel-Azim</li>
+<li><strong>Section Times:</strong> TBD</li>
+<li><strong>TF Office Hours:</strong> TBD</li>
+</ul>
+</section>
+<section id="course-overview" class="level1">
+<h1>Course Overview</h1>
+<p>The course is an introduction to the application of statistical concepts in biomedical research, through the lens of biomarker research in cancer biology and medicine. The foundation are two comprehensive collections of data on gene expression and clinical characteristics for patients with cancer of the ovaries (<a href="http://bioconductor.org/packages/release/data/experiment/html/curatedOvarianData.html"><em>CuratedOvarianData</em></a>) and breast (<a href="http://bioconductor.org/packages/release/data/experiment/html/curatedBreastData.html"><em>CuratedBreastData</em></a>). The notes for Lecture 1 on the Canvas site provide an overview of goals and methods covered.</p>
+<section id="objectives" class="level2">
+<h2 class="anchored" data-anchor-id="objectives">Objectives</h2>
+<p>To develop a sense for practical applications of statistical thinking and tools in biomedical sciences. To learn how to make and defend statistical modeling choices in complex realistic applications. To constructively critique the analyses of others. To develop a working knowledge of R tools relevant for biomedical data science applications.</p>
+</section>
+<section id="prerequisites" class="level2">
+<h2 class="anchored" data-anchor-id="prerequisites">Prerequisites</h2>
+<ul>
+<li><strong>Required:</strong> Stat 110 and (AP Stat or 102 or 104)/111/139</li>
+<li><strong>Recommended:</strong> Stat 115; Basics of R programming</li>
+</ul>
+</section>
+</section>
+<section id="lectures-and-sections" class="level1">
+<h1>Lectures and Sections</h1>
+<p>The course uses a combination of lectures, required sections, online discussions, individual homeworks, and both individual and group projects. Emphasis is placed on peer-to-peer discussion / critique and class presentations.</p>
+<p>Lecture notes, including discussion topics will be shared at least one week ahead of the class. Students are expected to review the notes and post comments and questions on Canvas prior to class by noon the day before class. The instructor will review these comments and use them to lead discussion in class. Clarifications will be abundant, but lecture will be hard to follow without having read the notes.</p>
+<p>Lectures will focus on discussions and project critiques. Sections will cover hands-on examples and programming. Attendance is mandatory for both.</p>
+<p>One-hour weekly sections will begin the second week of the course. Sections will be the place to work through examples, review lecture material in a more detailed way, solve problems, and learn how to use the statistics packages for implementing the various methods taught in the course.</p>
+</section>
+<section id="homework" class="level1">
+<h1>Homework</h1>
+<p>The workload will consist of four homework assignments and three projects. Homework will help you master analysis and coding skills to carry out the projects.</p>
+<p>Homework assignments will be posted on the course’s canvas page. You will be told when the assignment is posted online. Homework solutions are due by midnight (EST) on the due date. You are free to discuss and work on homework problems with other students, but you should write up your solutions independently (see the collaboration policy statement).</p>
+<p>The official course policy is that no late homework will be accepted. In return for your timely submission of homework, we will make every effort to return graded homework promptly. % See Table~<span class="math inline">\(\ref{tab:ws}\)</span> for key dates.</p>
+<section id="homework-grading" class="level2">
+<h2 class="anchored" data-anchor-id="homework-grading">Homework Grading</h2>
+<p>Homework assignments will be graded by a grader or TF on a scale from 1 to 5. Homeworks are graded in large part on the clarity of your presentation of the solutions, not just their correctness. Homeworks that are generally clear and correct will earn scores of 4 or 5; those less so will earn a 3. Sloppy, incorrect and/or incomplete homeworks will receive a 1 or 2. All homeworks will count toward your course grade – we will not drop any homework grades.</p>
+</section>
+</section>
+<section id="project-assessment" class="level1">
+<h1>Project Assessment</h1>
+<p>The course requires three projects. Projects will be graded by the TF on the same scale as the homework.</p>
+<p>Separately, projects will also be reviewed by a peer group, and some will be discussed in class. After projects are turned in, we will form mini-groups (4-5 students) to discuss each other’s projects. Each group will hold a guided discussion of project results, and nominates one project for class discussion in the next lecture. The instructor will review nominated projects and choose two or three. No additional credit will be given for this selection as they will be identified for controversy/discussion value as much as quality.</p>
+<p>The final project will be due sometimes after the end of classes. Students will make a class presentation of the final project’s results. We will set aside three lecture slots at the end of the semester for this. The final project will incorporate any feedback, and a discussion of how it was addressed. Additional more specific instructions will be given when the final project is posted.</p>
+</section>
+<section id="exam" class="level1">
+<h1>Exam</h1>
+<p>The course will have one take-home midterm exam during the semester. The midterm will test methodological concepts from the first half of the course. Students will be required to take it online in a three-hour session within a 24-hour window.</p>
+</section>
+<section id="class-participation" class="level1">
+<h1>Class Participation</h1>
+<p>Class participation is important and will be evaluated based on contributions to the canvas discussions, team project presentations + q&amp;a, and class discussions.</p>
+</section>
+<section id="grades" class="level1">
+<h1>Grades</h1>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Component</th>
+<th>Weight</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Homework assignments</td>
+<td>20%</td>
+<td>(5% each)</td>
+</tr>
+<tr class="even">
+<td>Midterm Exam</td>
+<td>20%</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Course Projects</td>
+<td>20%</td>
+<td>(10% Each)</td>
+</tr>
+<tr class="even">
+<td>Class Participation</td>
+<td>10%</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Final Project including Presentation</td>
+<td>30%</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="computing" class="level1">
+<h1>Computing</h1>
+<p>The computer package for this course is R, which runs on Windows, MacOS, and Linux systems, and can be used natively or within the Rstudio environment. R is free and available online through . The free version of Rstudio is at \ R is straightforward to learn, but is sufficiently powerful and versatile to be useful for many projects that you might carry out after this course. Reference guides on R and on the specific R packages required by the projects will be placed on the course web site. Only basic prior knowledge of R is needed. General concepts and examples will be provided, but a fair amount of independence is expected in figuring out details. The online resources are very helpful.</p>
+<p>Student are expected to turn in homework and project solutions in an R markdown language. RStudio offers both traditional R markdown and Quarto —which is the language used to develop the class materials.</p>
+<p>Quarto supports python and you may use python functionality for your final project.</p>
+</section>
+<section id="course-materials" class="level1">
+<h1>Course Materials</h1>
+<p>There is no textbook for the course. Lectures will often include additional reading. Students are expected to fill most gaps on their own, but are always welcome to discuss further readings on canvas or in class.</p>
+<p>Helpful materials include general references on computing and modeling, such as,</p>
+<ul>
+<li>W. N. Venables, D. M. Smith and the R Core Team. <em>An introduction to R</em>. <a href="https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf"><em>free download</em></a></li>
+<li>G. James, D. Witten, T. Hastie, R Tibshirani. <em>An Introduction to Statistical Learning, with Applications in R.</em> <a href="http://www-bcf.usc.edu/~gareth/ISL/ISLR%20First%20Printing.pdf"><em>free download</em></a></li>
+<li>G. Parmigiani. <em>Modeling in Medical Decision Making</em>. Wiley 2002.</li>
+</ul>
+<p>as well as articles or book chapters specific to the individual topics. All course materials will be free and available through the course website.</p>
+</section>
+<section id="canvas" class="level1">
+<h1>Canvas</h1>
+<p>All course documents, including homework assignments, supplementary material, links to data and software, will be available on this course web site Students will receive course announcements through canvas e-mail. Homework and projects will be submitted through canvas.</p>
+</section>
+<section id="disability-accommodations-for-timed-exams." class="level1">
+<h1>Disability accommodations for timed exams.</h1>
+<p>Students needing academic adjustments or accommodations because of a documented disability must present their Faculty Letter from the <a href="http://www.aeo.fas.harvard.edu"><em>Accessible Education Office (AEO)</em></a> and speak with the instructor by the end of the third week of the term. Failure to do so may result in us being unable to respond in a timely manner. All discussions will remain confidential.</p>
+</section>
+<section id="collaboration-policy-statement" class="level1">
+<h1>Collaboration policy statement</h1>
+<p>University policies against plagiarism will be strictly enforced. You are encouraged to discuss problem sets with your classmates, but each student must write up and code solutions separately. Be sure that you have worked through each problem yourself and that the answers you submit are the results of your own efforts. You also may not share or view another student’s computer code, submit output from another student’s computer session, or allow another student to view your code or output. A good rule of thumb: if a fellow student asks if you would like to discuss a homework problem, we encourage you to say “yes”; if a fellow student asks to see your answer to a homework problem or R code, the answer is “no.”</p>
+<section id="you-use-it-you-cite-it" class="level2">
+<h2 class="anchored" data-anchor-id="you-use-it-you-cite-it">You use it, you cite it</h2>
+<p>If you use AI like chatGPT to generate text or code for canvas discussions, projects or class presentations, you need to acknowledge the source and put the code or comment in quotes (or equivalent) the way you would if you were citing John Tukey or Aristoteles.</p>
+<p>Using chatGPT text or code without acknowledgment will be considered cheating.</p>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
