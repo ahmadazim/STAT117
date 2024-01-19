@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.545">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>STAT 117: Data Analysis in Modern Biostatistics</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">STAT 117: Data Analysis in Modern Biostatistics</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html"> 
+<span class="menu-text">Syllabus</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-lectures" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Lectures</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-lectures">    
+        <li>
+    <a class="dropdown-item" href="./L1-intro.html">
+ <span class="dropdown-text">Lecture 1 (January 24, 2023) Introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L2-biomarkers.html">
+ <span class="dropdown-text">Lecture 2: Cancer Biomarkers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L3-data.html">
+ <span class="dropdown-text">Lecture 3: Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L4-metrics.html">
+ <span class="dropdown-text">Lecture 4: Basics of Biomarker Evaluation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L5-decision.html">
+ <span class="dropdown-text">Lecture 5 (February 7, 2023) Decision Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L6-bayes.html">
+ <span class="dropdown-text">Lecture 6 (February 9, 2023) Bayesian Modeling</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L7-mcmc.html">
+ <span class="dropdown-text">Lecture 7 (February 14, 2023) Monte Carlo Markov Chains</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L8-timetoevent.html">
+ <span class="dropdown-text">Lecture 8 (February 16, 2023) Time to Event Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L9-comparing.html">
+ <span class="dropdown-text">Lecture 9 (February 21, 2023) Comparing Criteria for Biomarker Discovery</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L10-fdr.html">
+ <span class="dropdown-text">Lecture 10 (February 28, 2023) False Discovery Rates</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L11-regmean.html">
+ <span class="dropdown-text">Lecture 11: Regression to the Mean</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L12-shrinkage.html">
+ <span class="dropdown-text">Lecture 12: Shrinkage</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L14-shrinkage2.html">
+ <span class="dropdown-text">Lecture 14 (March 21, 2023) Shrinkage part 2</span></a>
+  </li>  
+        <li class="dropdown-header">L15-metaanlysis2.qmd</li>
+        <li>
+    <a class="dropdown-item" href="./L17-twomarkers.html">
+ <span class="dropdown-text">Lecture 17 (March 29, 2023)</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#lecture-5-february-7-2023-decision-analysis" id="toc-lecture-5-february-7-2023-decision-analysis" class="nav-link active" data-scroll-target="#lecture-5-february-7-2023-decision-analysis">Lecture 5 (February 7, 2023) Decision Analysis</a>
+  <ul class="collapse">
+  <li><a href="#decision-analysis" id="toc-decision-analysis" class="nav-link" data-scroll-target="#decision-analysis">Decision Analysis</a>
+  <ul class="collapse">
+  <li><a href="#decision-tree" id="toc-decision-tree" class="nav-link" data-scroll-target="#decision-tree">Decision Tree</a></li>
+  <li><a href="#optimal-decision-wout-the-biomarker" id="toc-optimal-decision-wout-the-biomarker" class="nav-link" data-scroll-target="#optimal-decision-wout-the-biomarker">Optimal Decision w/out the Biomarker</a></li>
+  <li><a href="#optimal-decision-with-the-biomarker" id="toc-optimal-decision-with-the-biomarker" class="nav-link" data-scroll-target="#optimal-decision-with-the-biomarker">Optimal Decision with the Biomarker</a></li>
+  <li><a href="#optimal-two-stage-decision-strategy" id="toc-optimal-two-stage-decision-strategy" class="nav-link" data-scroll-target="#optimal-two-stage-decision-strategy">Optimal Two-stage Decision Strategy</a></li>
+  <li><a href="#illustration" id="toc-illustration" class="nav-link" data-scroll-target="#illustration">Illustration</a></li>
+  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+
+
+<div style="page-break-after: always;"></div>
+<section id="lecture-5-february-7-2023-decision-analysis" class="level1">
+<h1>Lecture 5 (February 7, 2023) Decision Analysis</h1>
+<section id="decision-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="decision-analysis">Decision Analysis</h2>
+<section id="decision-tree" class="level3">
+<h3 class="anchored" data-anchor-id="decision-tree">Decision Tree</h3>
+<p>We will now introduce biomarker analysis through a decision-theoretic framework. “Modeling in Medical Decision Making” goes over these concepts in detail. I posted a copy on the canvas files. A seminal paper on this topic in the medical area is <span class="citation" data-cites="Pauker1980nejm">[@Pauker1980nejm]</span>.</p>
+<p>We try to model the clinical application of biomarker expressions levels to medical decision making. Our model can be use to quantify the value using the marker for specific individuals and groups, and ca also be used to determine the optimal threshold for a continuous marker in a formal way. We begin with a fixed threshold.</p>
+<p>To motivate our discussion, we introduce an example where a clinician must make an informed decision regarding whether to conduct a surgery for an ovarian cancer patient when it is not known ahead of time whether the surgery can be performed “optimally” as defined earlier. Should the clinician conduct a surgery where the tumor is operable optimally, then a large utility should be subsequently accrued by the patient. However, a low utility may be experienced by the patient when a surgery is performed while the tumor was only amanable to a suboptimal outcome. We present the following decision tree that captures such a scenario.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><embed src="Figures/TreeWithBiom.pdf" class="img-fluid"></p>
+<figcaption>Decision Tree for Evaluating the Clinical Utility of a Biomarker</figcaption>
+</figure>
+</div>
+<p>In the decision tree, the clinician encounters two decisions: 1) whether to measure the biomarker and 2) whether to perform surgery, possibly using the biomarker to make a more informed decision. To simplify a bit, we assume that it is know that higher levels of the biomarkers are associated with a better chance that the tumor may be operable optimally. If biomarker analysis is to be done, then a surgery will be conducted on the basis of whether the biomarker expression level for the patient is above a pre-defined threshold. We will later study the results of varying the threshold. This yields a total of <span class="math inline">\(2^3 = 8\)</span> possible outcomes. We let <span class="math inline">\(q\)</span> denote the joint probability that the biomarker exceed the threshold. Let the condiational probabilities that the surgery is suboptimal given the biomarker is above (below) the threshold be <span class="math inline">\(p_{+}\)</span> (<span class="math inline">\(p_{-}\)</span>). Then the marginal probability that the surgery is suboptimal, <span class="math inline">\(p = q p_+ + (1-q) p_-\)</span>. This is relevant in the case in which no biomarker is observed. In the notation for utiilties the first index is 1 if surgery and 0 if not; the second index is 1 if the outcome is optimal and 0 if not.</p>
+</section>
+<section id="optimal-decision-wout-the-biomarker" class="level3">
+<h3 class="anchored" data-anchor-id="optimal-decision-wout-the-biomarker">Optimal Decision w/out the Biomarker</h3>
+<p>We first focus on the bottom part of the tree which corresponds to proceeding to surgery without a biomarker. This admits four total outcomes based on the surgery decision and operability of the tumor. There are probabilities and utilities associated with each. The probabilities of a suboptimal outcome are marginalized with respect to the biomarker status because the biomarker data is not collected and thus unknown. These probabilities and utilities can be used to derive expected utilities, as follows:</p>
+<p>To maximize the expected utility at the binary node representing sugery, we will choose a surgery if:</p>
+<p><span class="math display">\[
+p u_{11} + (1-p) u_{10} &gt; p u_{01} + (1-p) u_{00}
+\]</span></p>
+<p>which is equivalent to</p>
+<p><span class="math display">\[
+p ( u_{11}-u_{01} ) &gt; (1-p) ( u_{00}-u_{10} )
+\]</span></p>
+<p>Here, <span class="math inline">\(u_{00}-u_{10}\)</span> compares the health outcome of a suboptimally operable patient without <span class="math inline">\(u_{00}\)</span> and with <span class="math inline">\(u_{10}\)</span> surgery. We expect the overall survival to be short and similar in both cases, although the quality of life will be worse if surgery is performed, so this difference will be positive and not very large.</p>
+<p>Next, <span class="math inline">\(u_{11}-u_{01}\)</span> compares the health outcome of an optimally operable patient without <span class="math inline">\(u_{01}\)</span> and with <span class="math inline">\(u_{11}\)</span> surgery. We expect the overall survival to be far better under the surgery option, as the tumor is removed successfully, although the quality of life will be worse. Overall this difference will be positive and possibly large.</p>
+<p>Having established the sign of these utility differences, we can rewrite the inequality as <span class="math display">\[
+\frac {p} {1-p} &gt; \frac {u_{00}-u_{10} }  { u_{11}-u_{01} }
+\]</span> emphasizing that the decision to perform surgery in the absence of the biomarker information depends on the probabilities only through the odds, and on the utilities only through the ratio of differences between the utilities associated with the same debulking state.</p>
+<p>As the likelihood of a successful surgery is generally moderately high, say 30 to 70 percent depending on the population, and the ratio on the right is small, the standard practice in the absence of a biomarker is to perform surgery.</p>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="optimal-decision-with-the-biomarker" class="level3">
+<h3 class="anchored" data-anchor-id="optimal-decision-with-the-biomarker">Optimal Decision with the Biomarker</h3>
+<p>Can a biomarker change this picture? Let’s consider the two surgery decision nodes at the top of the figure, those that are made after making the observation of whether the biomarker exceeds the threshold. Recall we are assuming the biomarker is positively and monotonically associated with the ability to perform an optimal surgery. So we expect <span class="math inline">\(p_+ &gt; p\)</span> and without additional work we can conclude that the optimal option is surgery there too.</p>
+<p>So the biomarker will be of clinical use is if it can reverse the decision for women whose biomarker level is below the threshold. Using the same logic as earlier, this requires <span class="math display">\[
+\frac {p_-} {1-p_-} &gt; \frac {u_{00}-u_{10} }  { u_{11}-u_{01} }
+\]</span> Let’s assume this hold at the chosen threshold. If there is no threshold for which this is the case, then we can rule the biomarker out.</p>
+<div style="page-break-after: always;"></div>
+<p>Now we that know the optimal decisions under each of the outcome of the biomarker “chance node” we can move back the the first decision: whether the biomarker should be collected. Without any cost or other consequences for the observation itself, the data should be collected, because the biomarker-based decisions will leave the positive women equally well off and the negative women better off. It is important to quantify how much better off on average women will be. This is a quantifiction of the worthyness of the biomarker in the context of this decision. If can be use to a) compare this worthiness to the cost or potential negative consequences of making the observation and b) compare biomarkers.</p>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="optimal-two-stage-decision-strategy" class="level3">
+<h3 class="anchored" data-anchor-id="optimal-two-stage-decision-strategy">Optimal Two-stage Decision Strategy</h3>
+<p>The expected utility of observing the biomarker and then proceeding optimally after the reslt is observed is <span class="math display">\[
+q ( p_+ u_{11} + (1-p_+) u_{10}) + (1-q) ( p_- u_{01} + (1-p_-) u_{00})
+\]</span></p>
+<p>It can be useful to rewrite this expression in terms of the sensitivity and specificity of the biomarker. Some definitions: the threshold is <span class="math inline">\(\tau\)</span>, a positive test is <span class="math inline">\(X &gt; \tau\)</span>, the positive label is “optimal”, the conditional cdfs of <span class="math inline">\(X\)</span> given the label are <span class="math inline">\(F_0\)</span> and <span class="math inline">\(F_1\)</span>. The sensitivity is <span class="math display">\[p( X &gt; \tau | \mbox{Optimal} ) = 1-F_1(\tau)\]</span> and the specificity is <span class="math display">\[p( X \leq \tau | \mbox{Suboptimal} ) = F_0(\tau)\]</span></p>
+<p>These relate to the <span class="math inline">\(p\)</span>’s and <span class="math inline">\(q\)</span>’s via <span class="math display">\[
+qp_+ = p (1-F_1(\tau)) \quad \quad
+q(1-p_+) = (1-p)(1-F_0(\tau))  \quad \quad
+(1-q)p_- = p F_1(\tau) \quad \quad
+(1-q)(1-p_-) = (1-p) F_0(\tau)
+\]</span> so we can rewrite the expected utility as</p>
+<p><span class="math display">\[
+p \left[ (1-F_1(\tau)) u_{11} + F_1(\tau) u_{01} \right] + (1-p) \left[ (1-F_0(\tau)) u_{10} + F_0(\tau)u_{00} \right]
+\]</span></p>
+<div style="page-break-after: always;"></div>
+<p>Putting all these pieces together now we have that the benefit of using the biomarker compared to making a decision without using the biomarker is:</p>
+<span class="math display">\[\begin{align*}
+p \left[ (1-F_1(\tau)) u_{11} + F_1(\tau) u_{10} \right] + (1-p) \left[ (1-F_0(\tau)) u_{01} + F_0(\tau)u_{00} \right] \\
+- \max  \left( p u_{11} + (1-p) u_{10}, p u_{01} + (1-p) u_{00} \right)
+\end{align*}\]</span>
+<p>This quantity can be used to assess the expected utility as a function of the threshold, assuming one proceeds optimally.</p>
+<p>This logic is an example of “Value of Information” analysis (VoI), a very general principle for quantifying the value of collecting a particular piece of data, in the context of solving a specific decision task. <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7612603/"><span class="citation" data-cites="Jackson2022arsa">@Jackson2022arsa</span></a> review this extensively and provide many useful references.</p>
+<p><a href="http://dx.doi.org/10.1198/000313008X370302"><span class="citation" data-cites="vickers2008as">@vickers2008as</span></a> has an interesting perspective on how to bypass the specification of the ratio <span class="math inline">\(( u_{00}-u_{10} )/( u_{11}-u_{01} )\)</span>, which results in an approach called decision curve analysis.</p>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="illustration" class="level3">
+<h3 class="anchored" data-anchor-id="illustration">Illustration</h3>
+<p>To illustrate a decision analysis and show how it can be used to investigate alternative thresholds, we have created the following example. The biomarker is our friendly zinc finger protein from earlier. The label is debulking status.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>benefit <span class="ot">=</span> <span class="cf">function</span>(<span class="at">X=</span>XX,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">Y=</span>YY,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                   pp,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">u00 =</span> <span class="dv">3</span>, </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">u11 =</span> <span class="dv">20</span>, </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">u10 =</span> <span class="dv">2</span>, </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">u01 =</span> <span class="dv">15</span> </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>                   ){</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>uD2yes <span class="ot">=</span> pp<span class="sc">*</span>u11 <span class="sc">+</span> (<span class="dv">1</span><span class="sc">-</span>pp)<span class="sc">*</span>u10</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>uD2no <span class="ot">=</span> pp<span class="sc">*</span>u01 <span class="sc">+</span> (<span class="dv">1</span><span class="sc">-</span>pp)<span class="sc">*</span>u00</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>uNoMarker <span class="ot">=</span> <span class="fu">max</span>(uD2yes,uD2no)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>tau <span class="ot">=</span> <span class="fu">seq</span>(<span class="fu">min</span>(X),<span class="fu">max</span>(X),<span class="at">by=</span> ( <span class="fu">max</span>(X)<span class="sc">-</span><span class="fu">min</span>(X) )<span class="sc">/</span><span class="dv">100</span> )</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>F0 <span class="ot">=</span> F1 <span class="ot">=</span> <span class="fu">rep</span>(<span class="cn">NA</span>,<span class="fu">length</span>(tau))</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (jj <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(tau)){</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  F1[jj] <span class="ot">=</span> <span class="fu">mean</span>(X[Y<span class="sc">==</span><span class="dv">1</span>] <span class="sc">&lt;=</span> tau[jj])</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  F0[jj] <span class="ot">=</span> <span class="fu">mean</span>(X[Y<span class="sc">==</span><span class="dv">0</span>] <span class="sc">&lt;=</span> tau[jj])</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>uMarker <span class="ot">=</span> pp <span class="sc">*</span> (<span class="dv">1</span><span class="sc">-</span>F1) <span class="sc">*</span> u11 <span class="sc">+</span> (<span class="dv">1</span><span class="sc">-</span>pp) <span class="sc">*</span> (<span class="dv">1</span><span class="sc">-</span>F0)<span class="sc">*</span> u10 <span class="sc">+</span> pp <span class="sc">*</span> F1 <span class="sc">*</span> u01 <span class="sc">+</span>  (<span class="dv">1</span><span class="sc">-</span>pp) <span class="sc">*</span> F0 <span class="sc">*</span> u00</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>benefitMarker <span class="ot">=</span> uMarker <span class="sc">-</span> uNoMarker</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">return</span>(<span class="fu">list</span>(<span class="at">tau=</span>tau,<span class="at">benefitMarker=</span>benefitMarker,</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>            <span class="at">uD2yes=</span>uD2yes,<span class="at">uD2no=</span>uD2no))</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="cell" data-warnings="false">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(curatedOvarianData)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(GSE32063_eset)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>GeneName <span class="ot">=</span> <span class="st">"ZNF487"</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>XX <span class="ot">=</span> <span class="fu">exprs</span>(GSE32063_eset)[GeneName,]</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>YY <span class="ot">=</span> <span class="fu">pData</span>(GSE32063_eset)[,<span class="st">"debulking"</span>] <span class="sc">==</span> <span class="st">"optimal"</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">benefit</span>(<span class="at">pp=</span><span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>)<span class="sc">$</span>tau,<span class="fu">benefit</span>(<span class="at">pp=</span><span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>)<span class="sc">$</span>benefitMarker,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">type=</span><span class="st">"l"</span>,<span class="at">lwd=</span><span class="dv">2</span>,<span class="at">ylim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,.<span class="dv">5</span>),</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">"Benefit of Biomarker"</span>,<span class="at">xlab=</span><span class="st">"tau"</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">benefit</span>(<span class="at">pp=</span>.<span class="dv">1</span>)<span class="sc">$</span>tau,<span class="fu">benefit</span>(<span class="at">pp=</span>.<span class="dv">1</span>)<span class="sc">$</span>benefitMarker,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">type=</span><span class="st">"l"</span>,<span class="at">lwd=</span><span class="dv">2</span>,<span class="at">col=</span><span class="st">"blue"</span>)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">benefit</span>(<span class="at">pp=</span>.<span class="dv">3</span>)<span class="sc">$</span>tau,<span class="fu">benefit</span>(<span class="at">pp=</span>.<span class="dv">4</span>)<span class="sc">$</span>benefitMarker,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">type=</span><span class="st">"l"</span>,<span class="at">lwd=</span><span class="dv">2</span>,<span class="at">col=</span><span class="st">"green"</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">0</span>,<span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="L5-decision_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Benefit of Biomarker against tau</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Negative Benefit?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><p>Why are these curves not monotone?</p></li>
+<li><p>Why is it that a biomarker can provide an average positive benefit for some threshold and a negative benefit for others?</p></li>
+<li><p>Is it good or bad that these curves are flat at the top over a fairly broad range?</p></li>
+<li><p>Tinker with the utility values to get a better sense for how the trade-offs play out.</p></li>
+</ul>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<p>We can also analyze the various cost-benefit tradeoffs below:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(.<span class="dv">1</span>,<span class="fu">benefit</span>(<span class="at">pp=</span>.<span class="dv">1</span>)<span class="sc">$</span>uD2yes,<span class="fu">benefit</span>(<span class="at">pp=</span>.<span class="dv">1</span>)<span class="sc">$</span>uD2no)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1 3.8 4.2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(.<span class="dv">2</span>,<span class="fu">benefit</span>(<span class="at">pp=</span>.<span class="dv">2</span>)<span class="sc">$</span>uD2yes,<span class="fu">benefit</span>(<span class="at">pp=</span>.<span class="dv">2</span>)<span class="sc">$</span>uD2no)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2 5.6 5.4</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(.<span class="dv">4</span>,<span class="fu">benefit</span>(<span class="at">pp=</span>.<span class="dv">4</span>)<span class="sc">$</span>uD2yes,<span class="fu">benefit</span>(<span class="at">pp=</span>.<span class="dv">4</span>)<span class="sc">$</span>uD2no)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.4 9.2 7.8</code></pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+</section>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<div id="refs" role="list">
+
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

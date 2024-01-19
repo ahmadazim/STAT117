@@ -1,0 +1,357 @@
+\newpage
+
+# Lecture 17 (March 29, 2023)
+
+## Finding partners
+
+Many statistical learning tools acan be used to identify predictors that, as a group, help us classify observations. This lecture covers a baic exercise in model building which, although extremely simplistic compared to even the most common of methods like regularized regression or random forests, can help build intuition for the challenges of building model from high dimensional noisy data. I also use this opportunity to switch to a time-to-event outcome.
+
+### Data
+
+In this section we will be utilizing data from the `TCGA_eset` dataset.
+
+We will be considering continuous biomarker gene expressions in the TCGA study. The phenotype of interest will be a time-to-event variable, `days_to_tumor_recurrence`
+
+
+```{r, message=F, warnings = F, cache=F}
+library(survival)
+library(curatedOvarianData)
+data(TCGA_eset)
+GGG = as.matrix(cbind(exprs(TCGA_eset)))
+RecurrenceSurvObj = Surv( time = pData(TCGA_eset)[,"days_to_tumor_recurrence"],
+                          event = pData(TCGA_eset)[,"recurrence_status"]=="recurrence")
+BinaryRecurrenceAt2y = pData(TCGA_eset)[,"days_to_tumor_recurrence"] < 365*2
+BinaryRecurrenceAt2y[ pData(TCGA_eset)[,"recurrence_status"]!="recurrence" & pData(TCGA_eset)[,"days_to_tumor_recurrence"] < 365*2 ] = NA
+```
+
+\newpage
+We will then filter out the biomarkers with low IQR. A biomarker with a low IQR generally indicates a lack of variation within the range of possible values the biomarker takes. A lack of variation in turn may suggest a lack of discriminative ability. We will filter out genes with an IQR less than or equal to $1$.
+
+```{r}
+IQR.cutoff = 1
+GGG.IQR = apply(GGG,1,IQR)
+GGG.filtered = GGG[GGG.IQR>IQR.cutoff,]
+GGG.cor = cor(t(GGG.filtered))
+```
+\newpage
+
+### One Marker at the Time
+
+Then, we introduce a function that is similar to the `CompScores` function in preceeding sections. This new function, named `CompScoresTE`, will help us compute scoring metrics for recurrence based on marginal associations. Specifically, for each biomarker it computes the coefficient resulting from a Cox Proportional Hazards model fit on the biomarker, the negative log p-value of the coefficient, and the IQR of the biomarker.
+
+\newpage
+
+```{r}
+library(survival)
+library(survcomp)
+CompScoresTE = function(XX,YY){
+NGenes = nrow(XX)
+ScoreNames = c("coxRR","nlpvalue","IQR")
+SSS = data.frame(matrix(NA,NGenes,length(ScoreNames)))
+colnames(SSS) = ScoreNames
+for (gg in 1:NGenes){
+  cox.out = coxph(YY ~ XX[gg,])
+  SSS[gg,"nlpvalue"] = -log(summary(cox.out)$coefficients[,"Pr(>|z|)"])
+  SSS[gg,"coxRR"] = summary(cox.out)$coefficients[,"exp(coef)"]
+  SSS[gg,"IQR"] = IQR(XX[gg,])
+}
+return(SSS)
+}
+Scores = CompScoresTE(XX=GGG.filtered,YY=RecurrenceSurvObj)
+```
+
+\newpage
+
+From this, we can resample the labels and obtain a null distribution for our data. We then set a cutoff of $1.2$ for the coefficient from the Cox Proportional Hazards model and $7$ for the negative log p-value of the coefficient. We then can tabulate which biomarkers are above these two values, in both the null and observed distributions.
+
+```{r}
+set.seed(1)
+LabelsNull = sample(1:ncol(GGG.filtered))
+RecurrenceSurvObjNull =  
+  Surv( time = pData(TCGA_eset)[LabelsNull,"days_to_tumor_recurrence"], event = pData(TCGA_eset)[LabelsNull,"recurrence_status"]=="recurrence")
+ScoresNull = CompScoresTE(XX=GGG.filtered,YY=RecurrenceSurvObjNull)
+table(Scores[,"coxRR"]>1.2)
+table(ScoresNull[,"coxRR"]>1.2)
+table(Scores[,"nlpvalue"]>7)
+table(ScoresNull[,"nlpvalue"]>7)
+```
+
+\newpage
+
+## Two Markers at the Time
+
+### Linear Combination
+
+We will now compute scores for pairs and pick the best partner biomarker. We will also examine all possible additional variables in a multivariable model.
+
+Here one of the two partners is fixed (in this case the winner of the one-gene-at-the-time competition). The score for the pair is the Wald test for the model as a whole (both variables in vs no variable in).
+
+```{r}
+CompScoresPairs1 = function(XX,YY,gg0){
+NGenes = nrow(XX)
+ScoreNames = c("coxRR0","coxRRa","nlpvalueW","cor")
+SSS = data.frame(matrix(NA,NGenes,length(ScoreNames)))
+colnames(SSS) = ScoreNames
+for (gg in (1:NGenes) ){
+  cox.out = coxph(YY ~ XX[gg,]+XX[gg0,])
+  SSS[gg,"coxRR0"] = summary(cox.out)$coefficients[2,"exp(coef)"]
+  SSS[gg,"coxRRa"] = summary(cox.out)$coefficients[1,"exp(coef)"]
+  SSS[gg,"nlpvalueW"] = - log ( summary(cox.out)$wald["pvalue"] )
+  SSS[gg,"cor"] = cor(XX[gg,],XX[gg0,])
+}
+return(SSS)
+}
+
+TopGene = (1:nrow(Scores))[Scores[,"nlpvalue"]==max(Scores[,"nlpvalue"])]
+TopGenes7 = (1:nrow(Scores))[Scores[,"nlpvalue"]>7]
+ScoresPairs1 = CompScoresPairs1(XX=GGG.filtered,YY=RecurrenceSurvObj,gg0=TopGene)
+TopPair1 = (1:nrow(ScoresPairs1))[ScoresPairs1[,"nlpvalueW"]==max(ScoresPairs1[,"nlpvalueW"])]
+```
+
+\newpage
+
+We can then plot the single predictor negative log p-value against the negative log p-value associated with multiple variables.
+
+The lone point on the right is the best gene paired with itself, so the horizontal line represents the "bar" we need to meet for the pair to be better than the single.
+
+Colors highlight with positive (blue) or negative (orange)
+correlation with the top gene, exceeding .1 in absolute value.
+
+```{r, fig.cap="Multivariable vs. Single Predictor Negative Log P-value Plot"}
+plot( Scores[,"nlpvalue"],ScoresPairs1[,"nlpvalueW"], pch=".", cex=5, 
+      ylab="Mutivariable negative log p-value", 
+      xlab="Single predictor negative log p-value"  )
+abline(h=Scores[TopGene,"nlpvalue"])
+abline(0,1)
+PosCor = ScoresPairs1[ ,"cor"] > .1
+NegCor = ScoresPairs1[ ,"cor"] < - .1
+points( Scores[ PosCor,"nlpvalue"],
+        ScoresPairs1[ PosCor,"nlpvalueW"], pch=".", col="blue", cex=5 )
+points( Scores[ NegCor,"nlpvalue"],
+        ScoresPairs1[ NegCor,"nlpvalueW"], pch=".", col="orange", cex=5 )
+```
+
+
+::: callout-note
+Comment
+::: 
+
+\newpage
+
+### Plain Averaging
+
+We now take a slightly different approach by computing scores by pairs, picking one biomarker, and then looking at all possible "averaging partners".
+
+```{r}
+CompScoresPairs2 = function(XX,YY,gg0){
+NGenes = nrow(XX)
+ScoreNames = c("coxRRa","nlpvalueW","cor")
+SSS = data.frame(matrix(NA,NGenes,length(ScoreNames)))
+colnames(SSS) = ScoreNames
+for (gg in 1:NGenes) {
+  XXa = ( XX[gg,]+XX[gg0,] ) / 2
+  cox.out = coxph(YY ~ XXa)
+  SSS[gg,"coxRRa"] = summary(cox.out)$coefficients[1,"exp(coef)"]
+  SSS[gg,"nlpvalueW"] = - log ( summary(cox.out)$wald["pvalue"] )
+  SSS[gg,"cor"] = cor(XX[gg,],XX[gg0,])
+}
+return(SSS)
+}
+
+ScoresPairs2 = CompScoresPairs2(XX=GGG.filtered,YY=RecurrenceSurvObj,gg0=TopGene)
+TopPair2 = (1:nrow(ScoresPairs2))[ScoresPairs2[,"nlpvalueW"]==
+                                    max(ScoresPairs2[,"nlpvalueW"])]
+TopPartners11 = (1:nrow(ScoresPairs2))[ScoresPairs2[,"nlpvalueW"]>11]
+TopPartnersNegCor = (1:nrow(ScoresPairs2))[ScoresPairs2[,"nlpvalueW"]>11 & 
+                                             ScoresPairs2[ ,"cor"] < - .1]
+TopPartnersPosCor = (1:nrow(ScoresPairs2))[ScoresPairs2[,"nlpvalueW"]>11 & 
+                                             ScoresPairs2[ ,"cor"] > .1]
+```
+
+\newpage
+
+The plot of interest would then be the single predictor negative log p-value against the averaged predictor negative log p-value.
+
+```{r, fig.cap="Averaged vs. Single Predictor Negative Log P-value Plot"}
+plot( Scores[,"nlpvalue"],ScoresPairs2[,"nlpvalueW"], pch=".", cex=3, xlab="Single variable negative log p-value", ylab="Averaged predictors negative log p-value"  )
+abline(h=Scores[TopGene,"nlpvalue"])
+abline(0,1)
+PosCor = ScoresPairs2[ ,"cor"] > .1
+points( Scores[ PosCor,"nlpvalue"],ScoresPairs2[ PosCor,"nlpvalueW"], 
+        pch=".", col="blue", cex=5 )
+NegCor = ScoresPairs2[ ,"cor"] < - .1
+points( Scores[ NegCor,"nlpvalue"],ScoresPairs2[ NegCor,"nlpvalueW"], 
+        pch=".", col="orange", cex=5 )
+```
+
+
+::: callout-note
+Comment:
+
+* Why is the largest p-value encountered in this point and not the previous one?
+
+* Why the lobster claw?
+
+* The second best gene used to be the best partner in the linear combination, but now when we simply average the result is terrible. Why?
+
+Some hints are in the following two figure, but it helps to puzzle it out for at least a bit before you proceed.
+
+::: 
+
+\newpage
+
+The following table reports the correlation, exponentiated coefficient value, and the associated scores.
+
+```{r}
+cbind(ScoresPairs2[TopGenes7,c("cor","coxRRa")],Scores[TopGenes7,c("coxRR")])
+```
+
+\newpage
+
+We can also plot the multivariable negative log p-value against the averaged predictor negative log p-value, further greying out those with marginal positive association with the outcome.
+
+```{r, fig.cap="Multivariable vs. Averaged Predictor Negative Log P-value Plot"}
+plot( ScoresPairs1[,"nlpvalueW"],ScoresPairs2[,"nlpvalueW"], pch=".", cex=5, xlab="Mutivariable negative log p-value", ylab="Averaged predictors negative log p-value" )
+abline(0,1)
+PosCor = ScoresPairs1[ ,"cor"] > .1
+NegCor = ScoresPairs1[ ,"cor"] < - .1
+PosCoef = ScoresPairs1[,"coxRRa"] > 1
+points( ScoresPairs1[ PosCor,"nlpvalueW"],ScoresPairs2[ PosCor,"nlpvalueW"], 
+        pch=".", col="blue", cex=5 )
+points( ScoresPairs1[ NegCor,"nlpvalueW"],ScoresPairs2[ NegCor,"nlpvalueW"], 
+        pch=".", col="orange", cex=5 )
+points( ScoresPairs1[ PosCoef,"nlpvalueW"],ScoresPairs2[ PosCoef,"nlpvalueW"], 
+        pch=".", col="gray", cex=5 )
+```
+
+\newpage
+
+An additional plot below compares the top gene and the top pair as identified above. 
+
+
+```{r, fig.cap = "Top Pair vs. Top Gene Plot"}
+plot( GGG.filtered[TopGene,], GGG.filtered[TopPair1,])
+```
+
+
+\newpage
+
+### Supplementary Figure
+
+A few miscellaneious plots, mostly to give you a sense for the fact that signal is weak and modeling is hard.
+
+We now plot the expression values for the genes with a high combined predictor negative log p-value and that are positively correlated with the identified best gene. The orange/black points indicates recurrence/no recurrence, with recurrence being orange.
+
+```{r, fig.cap="Scatterplot for High Combined Predictor NLP-value and Positive Correlation with Top Gene"}
+par(pty="s")
+plot( GGG.filtered[TopGene,], GGG.filtered[TopPartnersPosCor[2],])
+points(GGG.filtered[TopGene,], GGG.filtered[TopPartnersPosCor[2],],col=1+as.vector( pData(TCGA_eset)[,"recurrence_status"]=="recurrence") )
+```
+
+
+
+```{r, fig.cap=""}
+NG = nrow(GGG.filtered)
+NS = length(as.vector(pData(TCGA_eset)[,"recurrence_status"]=="recurrence"))
+par(pty="m")
+plot(GGG.filtered[TopGene,], rnorm(NS,0,.1)+as.vector(pData(TCGA_eset)[,"recurrence_status"]=="recurrence") )
+```
+
+```{r, fig.cap=""}
+plot( .5 * (GGG.filtered[TopGene,]+GGG.filtered[TopPartnersPosCor[2],] ), rnorm(NS,0,.1)+as.vector(pData(TCGA_eset)[,"recurrence_status"]=="recurrence") )
+```
+
+\newpage
+
+We can also plot the expression values for the genes with a high combined predictor negative log p-value and that are **negatively** correlated with the identified best gene. The red/black points indicates recurrence/no recurrence, with recurrence being red in color.
+
+```{r, fig.cap=""}
+par(pty="s")
+plot( GGG.filtered[TopGene,], GGG.filtered[TopPartnersNegCor[1],])
+points(GGG.filtered[TopGene,], GGG.filtered[TopPartnersNegCor[1],],col=1+as.vector( pData(TCGA_eset)[,"recurrence_status"]=="recurrence") )
+```
+
+
+```{r, fig.cap=""}
+par(pty="m")
+plot(GGG.filtered[TopGene,], rnorm(NS,0,.1)+as.vector(pData(TCGA_eset)[,"recurrence_status"]=="recurrence") )
+```
+
+```{r, fig.cap=""}
+plot( .5 * (GGG.filtered[TopGene,]+GGG.filtered[TopPartnersNegCor[1],] ), rnorm(NS,0,.1)+as.vector(pData(TCGA_eset)[,"recurrence_status"]=="recurrence") )
+```
+
+\newpage
+
+The following figures plot the expression values for the multivariable top pairs.
+
+```{r, fig.cap=""}
+plot( GGG.filtered[TopGene,], GGG.filtered[TopPair1,])
+```
+
+```{r, fig.cap=""}
+plot( GGG.filtered[TopPair1,], GGG.filtered[TopPair2,])
+```
+
+
+\newpage
+
+We now plot the expression values for the top pairs by averaging. 
+
+```{r, fig.cap=""}
+plot( GGG.filtered[TopGene,], GGG.filtered[TopPair2,])
+```
+
+```{r, fig.cap=""}
+plot( GGG.filtered[TopPair1,], GGG.filtered[TopPair2,])
+```
+
+\newpage
+
+Here are more visualizations through a Kaplan-Meier Curve
+
+```{r}
+km.as.one = survfit (RecurrenceSurvObj ~ 1)
+km.by.topgene = survfit (RecurrenceSurvObj ~ GGG.filtered[TopGene,] > median(GGG.filtered[TopGene,]))
+km.by.toppair1 = survfit (RecurrenceSurvObj ~ GGG.filtered[TopPair1,]>
+median(GGG.filtered[TopPair1,]))
+km.by.toppair2 = survfit (RecurrenceSurvObj ~ GGG.filtered[TopPair2,]>median(GGG.filtered[TopPair2,]))
+```
+
+```{r, fig.cap="Kaplan-Meier Curve Regressed on Intercept Only"}
+plot(km.as.one)
+```
+
+```{r, fig.cap="Kaplan-Meier Curve Regressed on Top Gene by Median"}
+plot(km.by.topgene)
+```
+
+```{r, fig.cap="Kaplan-Meier Curve Regressed on Top Pair 1"}
+plot(km.by.toppair1)
+```
+
+```{r, fig.cap="Kaplan-Meier Curve Regressed on Top Pair 2"}
+plot(km.by.toppair2)
+```
+
+\newpage
+
+We can also obtain the Cox Proprotional Hazards Model. 
+
+```{r}
+cox.pair1 = coxph(RecurrenceSurvObj ~ GGG.filtered[TopGene,]+GGG.filtered[TopPair1,])
+summary(cox.pair1)
+
+pair2.mean = ( GGG.filtered[TopGene,]+GGG.filtered[TopPair2,] ) / 2
+cox.pair2 = coxph(RecurrenceSurvObj ~ pair2.mean)
+summary(cox.pair2)
+
+cor( t(GGG.filtered[c(TopGene,TopPair1,TopPair2),]) )
+```
+
+<!-- Coding that corresponds to L21c.Rmd Ends Here -->
+
+
+
+
+

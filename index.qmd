@@ -1,0 +1,13 @@
+---
+title: "STAT 117: Data Analysis in Modern Biostatistics"
+subtitle: "Learning Biostatistics Through Cancer Biomarker Discovery"
+author: "Giovanni Parmigiani and Albert Wu"
+date: "today"
+---
+
+**Overview:** The course is an introduction to the application of statistical concepts in biomedical research, through the lens of biomarker research in cancer biology and medicine. The foundation are two comprehensive collections of data on gene expression and clinical characteristics for patients with cancer of the ovaries and breast. 
+
+**Objectives:** To develop a sense for practical applications of statistical thinking and tools in biomedical sciences. To learn how to make and defend statistical modeling choices in complex realistic applications. To constructively critique the analyses of others. To develop a working knowledge of R tools relevant for biomedical data science applications.
+
+
+**Sections and Office Hours:**

@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.545">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>STAT 117: Data Analysis in Modern Biostatistics</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">STAT 117: Data Analysis in Modern Biostatistics</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html"> 
+<span class="menu-text">Syllabus</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-lectures" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Lectures</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-lectures">    
+        <li>
+    <a class="dropdown-item" href="./L1-intro.html">
+ <span class="dropdown-text">Lecture 1 (January 24, 2023) Introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L2-biomarkers.html">
+ <span class="dropdown-text">Lecture 2: Cancer Biomarkers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L3-data.html">
+ <span class="dropdown-text">Lecture 3: Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L4-metrics.html">
+ <span class="dropdown-text">Lecture 4: Basics of Biomarker Evaluation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L5-decision.html">
+ <span class="dropdown-text">Lecture 5 (February 7, 2023) Decision Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L6-bayes.html">
+ <span class="dropdown-text">Lecture 6 (February 9, 2023) Bayesian Modeling</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L7-mcmc.html">
+ <span class="dropdown-text">Lecture 7 (February 14, 2023) Monte Carlo Markov Chains</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L8-timetoevent.html">
+ <span class="dropdown-text">Lecture 8 (February 16, 2023) Time to Event Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L9-comparing.html">
+ <span class="dropdown-text">Lecture 9 (February 21, 2023) Comparing Criteria for Biomarker Discovery</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L10-fdr.html">
+ <span class="dropdown-text">Lecture 10 (February 28, 2023) False Discovery Rates</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L11-regmean.html">
+ <span class="dropdown-text">Lecture 11: Regression to the Mean</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L12-shrinkage.html">
+ <span class="dropdown-text">Lecture 12: Shrinkage</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L14-shrinkage2.html">
+ <span class="dropdown-text">Lecture 14 (March 21, 2023) Shrinkage part 2</span></a>
+  </li>  
+        <li class="dropdown-header">L15-metaanlysis2.qmd</li>
+        <li>
+    <a class="dropdown-item" href="./L17-twomarkers.html">
+ <span class="dropdown-text">Lecture 17 (March 29, 2023)</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#lecture-8-february-16-2023-time-to-event-data" id="toc-lecture-8-february-16-2023-time-to-event-data" class="nav-link active" data-scroll-target="#lecture-8-february-16-2023-time-to-event-data">Lecture 8 (February 16, 2023) Time to Event Data</a>
+  <ul class="collapse">
+  <li><a href="#time-to-event-biomarkers" id="toc-time-to-event-biomarkers" class="nav-link" data-scroll-target="#time-to-event-biomarkers">Time-to-Event Biomarkers</a>
+  <ul class="collapse">
+  <li><a href="#censored-data" id="toc-censored-data" class="nav-link" data-scroll-target="#censored-data">Censored Data</a></li>
+  <li><a href="#survival-and-hazard-functions" id="toc-survival-and-hazard-functions" class="nav-link" data-scroll-target="#survival-and-hazard-functions">Survival and Hazard Functions</a></li>
+  <li><a href="#kaplan-maier-construction" id="toc-kaplan-maier-construction" class="nav-link" data-scroll-target="#kaplan-maier-construction">Kaplan-Maier Construction</a></li>
+  </ul></li>
+  <li><a href="#modeling-dependence-between-a-biomarker-and-a-censored-outcome" id="toc-modeling-dependence-between-a-biomarker-and-a-censored-outcome" class="nav-link" data-scroll-target="#modeling-dependence-between-a-biomarker-and-a-censored-outcome">Modeling Dependence Between a Biomarker and a Censored Outcome</a>
+  <ul class="collapse">
+  <li><a href="#concordance-index" id="toc-concordance-index" class="nav-link" data-scroll-target="#concordance-index">Concordance Index</a></li>
+  <li><a href="#log-hazard-modeling" id="toc-log-hazard-modeling" class="nav-link" data-scroll-target="#log-hazard-modeling">Log Hazard Modeling</a></li>
+  <li><a href="#exponential-and-weibull-time-to-event-distributions" id="toc-exponential-and-weibull-time-to-event-distributions" class="nav-link" data-scroll-target="#exponential-and-weibull-time-to-event-distributions">Exponential and Weibull Time-to-Event Distributions</a></li>
+  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+
+
+<div style="page-break-after: always;"></div>
+<section id="lecture-8-february-16-2023-time-to-event-data" class="level1">
+<h1>Lecture 8 (February 16, 2023) Time to Event Data</h1>
+<section id="time-to-event-biomarkers" class="level2">
+<h2 class="anchored" data-anchor-id="time-to-event-biomarkers">Time-to-Event Biomarkers</h2>
+<p>We will now look at time-to-event outcomes. In many clinical applications, the researcher will have access to both whether or not an event occurred, but the also the event occurred. Only considering one of the two pieces of information will result in an either incomplete or incorrect analysis of a problem of interest. Being able to use both types of data results in better inferences.</p>
+<section id="censored-data" class="level3">
+<h3 class="anchored" data-anchor-id="censored-data">Censored Data</h3>
+<p>An important new concept in this lecture is that of censored data. For example, the ovarian cancer studies considered in curatedOvarianData, inluding Yoshihara B, only followed patient for a limited period of time. As a result, the time elapsed between diagnosis and death (survival time) is known for some but not for all patients. The outcome data includes “days_to_death” and “vital_status”. Let’s take a look.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(curatedOvarianData)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(GSE32063_eset)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survival)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">cbind</span>(<span class="fu">pData</span>(GSE32063_eset)[,<span class="st">"days_to_death"</span>],</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>           <span class="fu">pData</span>(GSE32063_eset)[,<span class="st">"vital_status"</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1]   [,2]      
+[1,] "780"  "living"  
+[2,] "1110" "living"  
+[3,] "600"  "deceased"
+[4,] "2910" "living"  
+[5,] "1710" "deceased"
+[6,] "810"  "deceased"</code></pre>
+</div>
+</div>
+<p>The vital status variable captures whether a patient was alive at the end of the study, in which case the days-to-death variable is a lower bound to the time . The jargon for this in biostat is that the time-to-the event is “right censored”. Censored data will require different statistical approaches (e.g.&nbsp;they come with a different likelihood function) compared to non-censored data. Ignoring censoring can lead to substantial biases. Thinking hard about the censoring mechanism is also very important.</p>
+<p>This is a commonly used way to encode the censoring information:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>SurvObj <span class="ot">=</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">Surv</span>( <span class="at">time =</span> <span class="fu">pData</span>(GSE32063_eset)[,<span class="st">"days_to_death"</span>], </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">event =</span> <span class="fu">pData</span>(GSE32063_eset)[,<span class="st">"vital_status"</span>]<span class="sc">==</span><span class="st">"deceased"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(SurvObj)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  780+ 1110+  600  2910+ 1710   810 </code></pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="survival-and-hazard-functions" class="level3">
+<h3 class="anchored" data-anchor-id="survival-and-hazard-functions">Survival and Hazard Functions</h3>
+<p>A quick reminder of the terminology: the survival function is the probability of surviving until time <span class="math inline">\(t\)</span>. The hazard <span class="math inline">\(h\)</span>, or intensity, is the rate of occurrence of the event relative to the number of individual still available to experience it.</p>
+<p><span class="math display">\[\begin{eqnarray*}
+S(t) &amp; = &amp; P ( \mbox{Event occurs after time t}) \\
+F(t) &amp; = &amp; 1 - S(t) \\
+dF(t) / dt &amp; = &amp; f(t) \\
+h(t) &amp; = &amp; f(t) / S(t)
+\end{eqnarray*}\]</span></p>
+<p>You can go back and forth between <span class="math inline">\(h\)</span> and <span class="math inline">\(F\)</span> under smoothenss conditions.</p>
+<p>To check you followed the logic so far, say <span class="math inline">\(S(t)\)</span> depends on some parameters <span class="math inline">\(\theta\)</span> and try to write down the likelihood function for <span class="math inline">\(\theta\)</span> the six observations in the code chunk just above.</p>
+</section>
+<section id="kaplan-maier-construction" class="level3">
+<h3 class="anchored" data-anchor-id="kaplan-maier-construction">Kaplan-Maier Construction</h3>
+<p>The Kaplan-Maier algorithm provides a nonparametric maximum likelihood estimate of the survival function for censored data. It is the counterpart of the empirical survival function (i.e.&nbsp;one minus the empirical c.d.f.) which we may use in fully observed data.</p>
+<p>The following plot yields the Kaplan-Meier curve. The survfit functions produces this if you set up a “regression” only including the intercept.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survminer)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>km.as.one <span class="ot">=</span> <span class="fu">survfit</span> (SurvObj <span class="sc">~</span> <span class="dv">1</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsurvplot</span>(km.as.one,<span class="at">data=</span>SurvObj,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">risk.table.fontsize =</span> <span class="dv">4</span>, <span class="at">break.time.by =</span> <span class="dv">365</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">tables.theme =</span> <span class="fu">theme_cleantable</span>(), </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">axes.offset =</span> <span class="cn">FALSE</span>, <span class="at">tables.y.text =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">risk.table =</span> <span class="st">"nrisk_cumcensor"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="L8-timetoevent_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Kaplan-Meier Curve</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The <a href="https://rubenvp.shinyapps.io/kmplotter/">Kaplan Meier learning tool</a> and associated <a href="https://rmvpaeme.github.io/KaplanMeier_intro/">Kaplan Meier curves: an introduction</a> tutorial are a good way to get a sense for how KM works, with code. Check out the “worse and best case scenario” figures in the tutorial. They give you a sense for the extra uncertainty brought in by censoring. This uncertainty is in addition to the sampling uncertainty we are all accustomed to. Another <a href="https://shariq-mohammed.github.io/files/cbsa2019/1-intro-to-survival.html">Introduction to Survival Analysis using R</a>.</p>
+<div style="page-break-after: always;"></div>
+<p>Next, this is the same population split by debulking status.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survminer)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>Debulking <span class="ot">=</span> <span class="fu">pData</span>(GSE32063_eset)[,<span class="st">"debulking"</span>]</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>km.by.debulking <span class="ot">=</span> <span class="fu">survfit</span> (SurvObj <span class="sc">~</span> Debulking)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsurvplot</span>(km.by.debulking,<span class="at">data=</span>SurvObj,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">risk.table =</span> <span class="st">"nrisk_cumcensor"</span>,<span class="at">conf.int =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">risk.table.fontsize =</span> <span class="dv">4</span>, <span class="at">break.time.by =</span> <span class="dv">365</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">tables.theme =</span> <span class="fu">theme_cleantable</span>(), </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">axes.offset =</span> <span class="cn">FALSE</span>, <span class="at">tables.y.text =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="L8-timetoevent_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Kaplan-Meier Curve by Debulking Status</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+</section>
+</section>
+<section id="modeling-dependence-between-a-biomarker-and-a-censored-outcome" class="level2">
+<h2 class="anchored" data-anchor-id="modeling-dependence-between-a-biomarker-and-a-censored-outcome">Modeling Dependence Between a Biomarker and a Censored Outcome</h2>
+<p>We normally visualize dependence via scatterplots. In this case the response variable is censored, so a scatterplot might look something like this.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>pendant.plot <span class="ot">=</span> <span class="cf">function</span>(time,status,biomarker){</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  TT <span class="ot">=</span> <span class="fu">max</span>(time)<span class="sc">*</span><span class="fl">1.17</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(biomarker[status<span class="sc">==</span><span class="st">"deceased"</span>],time[status<span class="sc">==</span><span class="st">"deceased"</span>],<span class="at">xlab=</span><span class="st">"Biomarker"</span>,<span class="at">ylab=</span><span class="st">"Event Time"</span>,<span class="at">pch=</span><span class="dv">16</span>,<span class="at">cex=</span><span class="dv">2</span>,<span class="at">xlim=</span><span class="fu">c</span>(<span class="fu">min</span>(biomarker),<span class="fu">max</span>(biomarker)),<span class="at">ylim=</span><span class="fu">c</span>(<span class="fu">min</span>(time),<span class="fu">max</span>(time)))</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">points</span>(biomarker[status<span class="sc">==</span><span class="st">"living"</span>],time[status<span class="sc">==</span><span class="st">"living"</span>],<span class="at">pch=</span><span class="dv">1</span>,<span class="at">cex=</span><span class="dv">2</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">segments</span>(biomarker[status<span class="sc">==</span><span class="st">"living"</span>],time[status<span class="sc">==</span><span class="st">"living"</span>],</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>           biomarker[status<span class="sc">==</span><span class="st">"living"</span>],<span class="fu">rep</span>(TT,<span class="fu">sum</span>(status<span class="sc">==</span><span class="st">"living"</span>)))</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">pendant.plot</span>(<span class="at">time=</span><span class="fu">pData</span>(GSE32063_eset)[,<span class="st">"days_to_death"</span>],</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">status=</span><span class="fu">pData</span>(GSE32063_eset)[,<span class="st">"vital_status"</span>],</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">biomarker=</span><span class="fu">exprs</span>(GSE32063_eset)[<span class="st">"ZNF487"</span>,])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="L8-timetoevent_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Scatterplot of survival time by ZNF487 expression</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<section id="concordance-index" class="level3">
+<h3 class="anchored" data-anchor-id="concordance-index">Concordance Index</h3>
+<p>There is a popular way to compute a nonparametric measure of dependence that accounts for this type of censoring: the <em>concordance index</em>. The basic building block are concordant pairs: a pair of patients is called concordant if the biomarker is higher for the patient who experiences the event at a later timepoint. With censored data, we exclude all the pairs for which it is not possible to established whether they are concordant or not. The concordance probability (C-index) is the proportion of concordant pairs among all pairs of subjects. Similar to the AUC, 50 percent represents no dependence. A C-index above 50 percent indicates a negative dependence and a value below 50 percent indicates a positive dependence. For details see <a href="https://statisticaloddsandends.wordpress.com/2019/10/26/what-is-harrells-c-index/">What is Harrell’s C-index?</a></p>
+<p>Let’s look at ZNF487:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">concordance</span>(SurvObj <span class="sc">~</span> <span class="fu">exprs</span>(GSE32063_eset)[<span class="st">"ZNF487"</span>,])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Call:
+concordance.formula(object = SurvObj ~ exprs(GSE32063_eset)["ZNF487", 
+    ])
+
+n= 40 
+Concordance= 0.6389 se= 0.05912
+concordant discordant     tied.x     tied.y    tied.xy 
+       253        143          0          8          0 </code></pre>
+</div>
+</div>
+<p>The C-index was introduced to measure the discrimination of a risk prediction model, in which case the prediction is a real or ordinal valued risk score, and the model works well if low risk goes with longer survival.</p>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="log-hazard-modeling" class="level3">
+<h3 class="anchored" data-anchor-id="log-hazard-modeling">Log Hazard Modeling</h3>
+<p>The next level of analysis is regression. The most common way to model time-to-event data, with or without censoring, is via hazard (or intensity) functions.</p>
+<p><a href="https://doi-org.ezp-prod1.hul.harvard.edu/10.1002/sim.8757"><span class="citation" data-cites="KraghAndersen2021sim">@KraghAndersen2021sim</span></a> provide a thoughtful and concise introduction to time-to-event data. Highly recommended.</p>
+</section>
+<section id="exponential-and-weibull-time-to-event-distributions" class="level3">
+<h3 class="anchored" data-anchor-id="exponential-and-weibull-time-to-event-distributions">Exponential and Weibull Time-to-Event Distributions</h3>
+<p>Let’s start our discussion by calculating the hazard function for Exponential and Weibull distribution.</p>
+<p>The Weibull fits a lot of cancer survival data fairly well. <a href="{https://doi.org/10.1038/s41467-022-28410-9"><span class="citation" data-cites="Plana2022nc">@Plana2022nc</span></a> looks at Weibull fit across hundreds of studies —very interesting work.</p>
+<p>The hazard of the weibull is a polynomial function of time. The <span class="math inline">\(v\)</span> parameter controls whether the event rate is slowing down or picking up speed with time. <span class="math inline">\(\lambda\)</span> acts as an intercept for hazard. A popular tactic is to model <span class="math inline">\(log h\)</span>, via <span class="math inline">\(\log \lambda\)</span> as a function of the biomarker.</p>
+<p>To illustrate this, we will consider the <code>POSTN</code> gene within the <code>GSE32063_eset</code> dataset. In the coding chunk that follows, we will consider <code>XX</code> as the gene expression and <code>XXgmedian</code> as the binary variable created through dichotomizing the expression values at the median.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(curatedOvarianData)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(GSE32063_eset)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survival)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>GeneName <span class="ot">=</span> <span class="st">"POSTN"</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>XX <span class="ot">=</span> <span class="fu">exprs</span>(GSE32063_eset)[GeneName,]</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>XXgmedian <span class="ot">=</span> <span class="dv">1</span> <span class="sc">*</span> ( XX <span class="sc">&gt;</span> <span class="fu">median</span>(XX) )</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>SurvObj <span class="ot">=</span> </span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">Surv</span>( <span class="at">time =</span> <span class="fu">pData</span>(GSE32063_eset)[,<span class="st">"days_to_death"</span>], </span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">event =</span> <span class="fu">pData</span>(GSE32063_eset)[,<span class="st">"vital_status"</span>]<span class="sc">==</span><span class="st">"deceased"</span>)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>POSTN.frame <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">time =</span> <span class="fu">pData</span>(GSE32063_eset)[,<span class="st">"days_to_death"</span>], </span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>              <span class="at">event =</span> <span class="fu">pData</span>(GSE32063_eset)[,<span class="st">"vital_status"</span>]<span class="sc">==</span><span class="st">"deceased"</span>,</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>              <span class="at">expression =</span> XX,</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>              <span class="at">gtmedian =</span> XXgmedian)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The next yields the scatterplot and the Kaplan-Meier curves stratified by an indicator of whether the biomarker exceeds the population median (with and w/out confidence bands), for illustration.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pendant.plot</span>(<span class="at">time=</span><span class="fu">pData</span>(GSE32063_eset)[,<span class="st">"days_to_death"</span>],</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">status=</span><span class="fu">pData</span>(GSE32063_eset)[,<span class="st">"vital_status"</span>],</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">biomarker=</span><span class="fu">exprs</span>(GSE32063_eset)[<span class="st">"POSTN"</span>,])</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>km.by.gene <span class="ot">=</span> <span class="fu">survfit</span> (SurvObj <span class="sc">~</span> XXgmedian)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsurvplot</span>(km.by.gene,<span class="at">data=</span>POSTN.frame)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="L8-timetoevent_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Kaplan-Meier Curve on Median Cut-off</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="L8-timetoevent_files/figure-html/unnamed-chunk-8-2.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Kaplan-Meier Curve on Median Cut-off</figcaption>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsurvplot</span>(km.by.gene,<span class="at">data=</span>POSTN.frame,<span class="at">conf.int=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="L8-timetoevent_files/figure-html/unnamed-chunk-8-3.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Kaplan-Meier Curve on Median Cut-off</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<p>The following gives the survival concordance objects.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">concordance</span>(SurvObj <span class="sc">~</span> XXgmedian, <span class="at">reverse=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Call:
+concordance.formula(object = SurvObj ~ XXgmedian, reverse = TRUE)
+
+n= 40 
+Concordance= 0.5821 se= 0.06193
+concordant discordant     tied.x     tied.y    tied.xy 
+       137         72        187          4          4 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">concordance</span>(SurvObj <span class="sc">~</span> XX, <span class="at">reverse=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Call:
+concordance.formula(object = SurvObj ~ XX, reverse = TRUE)
+
+n= 40 
+Concordance= 0.6389 se= 0.07398
+concordant discordant     tied.x     tied.y    tied.xy 
+       253        143          0          8          0 </code></pre>
+</div>
+</div>
+<p>The loss of concordance gives you one way to think about the information loss from dichotimization.</p>
+<div style="page-break-after: always;"></div>
+<p>Then, we can call out the Cox-Proportional Hazards Model for both the median cut-off variable and the entire gene expression variable. This is a concise introduction to assumptions and interpretation in <a href="https://sphweb.bumc.bu.edu/otlt/mph-modules/bs/bs704_survival/BS704_Survival6.html">Cox Proportional Hazards Regression Analysis</a></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">coxph</span>(SurvObj<span class="sc">~</span>XXgmedian))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Call:
+coxph(formula = SurvObj ~ XXgmedian)
+
+  n= 40, number of events= 22 
+
+            coef exp(coef) se(coef)     z Pr(&gt;|z|)  
+XXgmedian 0.7955    2.2156   0.4544 1.751     0.08 .
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+          exp(coef) exp(-coef) lower .95 upper .95
+XXgmedian     2.216     0.4513    0.9092     5.399
+
+Concordance= 0.582  (se = 0.062 )
+Likelihood ratio test= 3.18  on 1 df,   p=0.07
+Wald test            = 3.06  on 1 df,   p=0.08
+Score (logrank) test = 3.22  on 1 df,   p=0.07</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">coxph</span>(SurvObj<span class="sc">~</span>XX))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Call:
+coxph(formula = SurvObj ~ XX)
+
+  n= 40, number of events= 22 
+
+      coef exp(coef) se(coef)     z Pr(&gt;|z|)  
+XX 0.15808   1.17126  0.08006 1.975   0.0483 *
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+   exp(coef) exp(-coef) lower .95 upper .95
+XX     1.171     0.8538     1.001      1.37
+
+Concordance= 0.639  (se = 0.074 )
+Likelihood ratio test= 3.94  on 1 df,   p=0.05
+Wald test            = 3.9  on 1 df,   p=0.05
+Score (logrank) test = 4.1  on 1 df,   p=0.04</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Metrics
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><p>Does this regression provide useful metrics for evaluating whether POSTN is a useful biomarker?</p></li>
+<li><p>What are some of their strengths and limitations?</p></li>
+</ul>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<p>Now, we can also fit the Cox Proportional Hazards Model to POSTN, which is now a full continuous biomarker, and plot the predicted survival curve for an individual with a biomarker value of <span class="math inline">\(5\)</span> for POSTN.</p>
+<div style="page-break-after: always;"></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">coxph</span>(SurvObj <span class="sc">~</span> XX)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">pty =</span> <span class="st">"s"</span>, <span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">survfit</span>(fit, <span class="at">newdata=</span><span class="fu">data.frame</span>(<span class="at">XX =</span> <span class="sc">-</span> <span class="dv">5</span>)), <span class="at">xscale=</span><span class="fl">365.25</span>, <span class="at">xlab =</span> <span class="st">"Years"</span>, <span class="at">ylab=</span><span class="st">"Survival Probability"</span>, <span class="at">col =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="L8-timetoevent_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Cox Proportional Hazards Curve for Individual with POSTN Level of 5</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="math inline">\(Y|X\)</span> versus <span class="math inline">\(X|Y\)</span>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>With binary data, we operated by modeling class conditional distributions <span class="math inline">\(X|Y\)</span>, and converting to PPV using Bayes rule. With survival data we modeled <span class="math inline">\(Y|X\)</span>.</p>
+<ul>
+<li><p>What are some of the pros and cons of the two approaches?</p></li>
+<li><p>What is the equivalent to PPV in time-to-event data?</p></li>
+</ul>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+</section>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

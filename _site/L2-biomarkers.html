@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.545">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2023-01-26">
+
+<title>STAT 117: Data Analysis in Modern Biostatistics</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">STAT 117: Data Analysis in Modern Biostatistics</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html"> 
+<span class="menu-text">Syllabus</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-lectures" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Lectures</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-lectures">    
+        <li>
+    <a class="dropdown-item" href="./L1-intro.html">
+ <span class="dropdown-text">Lecture 1 (January 24, 2023) Introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L2-biomarkers.html">
+ <span class="dropdown-text">Lecture 2: Cancer Biomarkers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L3-data.html">
+ <span class="dropdown-text">Lecture 3: Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L4-metrics.html">
+ <span class="dropdown-text">Lecture 4: Basics of Biomarker Evaluation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L5-decision.html">
+ <span class="dropdown-text">Lecture 5 (February 7, 2023) Decision Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L6-bayes.html">
+ <span class="dropdown-text">Lecture 6 (February 9, 2023) Bayesian Modeling</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L7-mcmc.html">
+ <span class="dropdown-text">Lecture 7 (February 14, 2023) Monte Carlo Markov Chains</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L8-timetoevent.html">
+ <span class="dropdown-text">Lecture 8 (February 16, 2023) Time to Event Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L9-comparing.html">
+ <span class="dropdown-text">Lecture 9 (February 21, 2023) Comparing Criteria for Biomarker Discovery</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L10-fdr.html">
+ <span class="dropdown-text">Lecture 10 (February 28, 2023) False Discovery Rates</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L11-regmean.html">
+ <span class="dropdown-text">Lecture 11: Regression to the Mean</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L12-shrinkage.html">
+ <span class="dropdown-text">Lecture 12: Shrinkage</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L14-shrinkage2.html">
+ <span class="dropdown-text">Lecture 14 (March 21, 2023) Shrinkage part 2</span></a>
+  </li>  
+        <li class="dropdown-header">L15-metaanlysis2.qmd</li>
+        <li>
+    <a class="dropdown-item" href="./L17-twomarkers.html">
+ <span class="dropdown-text">Lecture 17 (March 29, 2023)</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#lecture-2-cancer-biomarkers" id="toc-lecture-2-cancer-biomarkers" class="nav-link active" data-scroll-target="#lecture-2-cancer-biomarkers">Lecture 2: Cancer Biomarkers</a>
+  <ul class="collapse">
+  <li><a href="#cancer-evolution" id="toc-cancer-evolution" class="nav-link" data-scroll-target="#cancer-evolution">Cancer Evolution</a></li>
+  <li><a href="#cancer-causes" id="toc-cancer-causes" class="nav-link" data-scroll-target="#cancer-causes">Cancer Causes</a></li>
+  <li><a href="#biomarkers" id="toc-biomarkers" class="nav-link" data-scroll-target="#biomarkers">Biomarkers</a>
+  <ul class="collapse">
+  <li><a href="#exemples" id="toc-exemples" class="nav-link" data-scroll-target="#exemples">Exemples</a></li>
+  <li><a href="#broad-categories-of-use-for-biomarkers-in-cancer-care" id="toc-broad-categories-of-use-for-biomarkers-in-cancer-care" class="nav-link" data-scroll-target="#broad-categories-of-use-for-biomarkers-in-cancer-care">Broad Categories of Use for Biomarkers in Cancer Care</a></li>
+  <li><a href="#high-throughput-biology" id="toc-high-throughput-biology" class="nav-link" data-scroll-target="#high-throughput-biology">High Throughput Biology</a></li>
+  <li><a href="#premises-for-measuring-gene-expression-profiles" id="toc-premises-for-measuring-gene-expression-profiles" class="nav-link" data-scroll-target="#premises-for-measuring-gene-expression-profiles">Premises for Measuring Gene Expression Profiles</a></li>
+  <li><a href="#discussion-example" id="toc-discussion-example" class="nav-link" data-scroll-target="#discussion-example">Discussion Example</a></li>
+  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 26, 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="lecture-2-cancer-biomarkers" class="level1">
+<h1>Lecture 2: Cancer Biomarkers</h1>
+<section id="cancer-evolution" class="level2">
+<h2 class="anchored" data-anchor-id="cancer-evolution">Cancer Evolution</h2>
+<p>Cancer arises from evolution of cells within tissues. Changes in the genome code and organization result in changes in cell characteristics. Natural selection operates on this variability so that, for example, cells that divide faster and invade surrounding tissues are sometimes able to grow large colonies and generate tumors. <span class="citation" data-cites="Podlaha:2012vw">@Podlaha:2012vw</span> explains these concepts. <a href="#fig-cancerEvolution" class="quarto-xref">Figure&nbsp;1</a> From <span class="citation" data-cites="Podlaha:2012vw">@Podlaha:2012vw</span> illustrates the typical stages of cancer progression for a cancer that resists to treatment. In this example, we begin with normal cells (blue circles). The progression to cancer starts when a cell acquires a genetic change (for example a DNA mutation, or a chromosomal translocation) which results in a larger and more fit population compared to the normal cells. <span class="citation" data-cites="Podlaha:2012vw">@Podlaha:2012vw</span> remarks that “This process involves the evolution of multiple ‘novel’ cellular traits. Most somatic alterations in epithelial cells lining the colon, for instance, are not advantageous and will disappear with the death of a cell. Occasionally, an alteration that increases the proliferation rate of a cell arises, allowing this cell to increase in number. This population of ‘rogue’ cells can decline with the onset of anti-cancer therapy; however, the arrival of an alteration conferring drug resistance reverses the effects of treatment and allows new growth (b). In some cases, resistance to an anti-cancer drug may already be present in a small subset of tumor cells. In such a scenario, the population of sensitive cancer cells will decline and eventually be replaced by drug-resistant cells. Further alterations may be necessary to enable tumor cells to metastasize (c) and spread to other tissues (d).”</p>
+<div id="fig-cancerEvolution" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-cancerEvolution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<embed src="Figures/Podlaha.pdf" class="img-fluid">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cancerEvolution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Cancer Evolution a the Cell Level
+</figcaption>
+</figure>
+</div>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="cancer-causes" class="level2">
+<h2 class="anchored" data-anchor-id="cancer-causes">Cancer Causes</h2>
+<p>Many factors contribute to the changes in the genome represented by a lighting in <a href="#fig-cancerEvolution" class="quarto-xref">Figure&nbsp;1</a>. <span class="citation" data-cites="Song2018s">@Song2018s</span> review the main categories of causes, also summarized in <a href="#fig-cancerCauses" class="quarto-xref">Figure&nbsp;2</a></p>
+<div id="fig-cancerCauses" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-cancerCauses-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<embed src="Figures/CancerCauses.pdf" class="img-fluid">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cancerCauses-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Categories of Cancer Causes and their Position in Cancer Evolution
+</figcaption>
+</figure>
+</div>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="biomarkers" class="level2">
+<h2 class="anchored" data-anchor-id="biomarkers">Biomarkers</h2>
+<section id="exemples" class="level3">
+<h3 class="anchored" data-anchor-id="exemples">Exemples</h3>
+<p>A biomarker is any readout of biological activity.</p>
+<table class="table">
+<caption>Common biomarkers types used in cancer, with examples</caption>
+<colgroup>
+<col style="width: 36%">
+<col style="width: 63%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Type</th>
+<th>Exemple</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Physiologic</td>
+<td>Patient Performance Status (a score that estimates the patient’s ability to perform activities of daily living)</td>
+</tr>
+<tr class="even">
+<td>Image-based</td>
+<td>Mammograms</td>
+</tr>
+<tr class="odd">
+<td>Specific molecules</td>
+<td>Prostate-Specific Antigen (PSA)</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Circulating Tumor Cells (CTC)</td>
+</tr>
+<tr class="odd">
+<td>Germline Genetic Alterations</td>
+<td>BRCA mutations</td>
+</tr>
+<tr class="even">
+<td>Tumor products in Serum</td>
+<td>Circulating Tumor Cells</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Circulating Tumor DNA</td>
+</tr>
+<tr class="even">
+<td>Tumor Biology Readouts</td>
+<td>Gene expression</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Protein Levels</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Metabolite Levels</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Methylation</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Copy Number Alterations</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Mutational Signatures</td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="broad-categories-of-use-for-biomarkers-in-cancer-care" class="level3">
+<h3 class="anchored" data-anchor-id="broad-categories-of-use-for-biomarkers-in-cancer-care">Broad Categories of Use for Biomarkers in Cancer Care</h3>
+<p>The period between the origin of the cancer and the manifestation of clinical symptoms is called pre-clinical. The clinical period begins with the diagnosis.</p>
+<p><strong>Early detection biomarkers</strong> are used to anticipate the clinical symptoms and begin cancer therapy earlier. Early treatment is often associated with better results, because the cancer is less likely to have begun the process of invading other organs.</p>
+<p>In contrast to early detection biomarkers, <strong>prognostic biomarkers</strong> are used at diagnosis to assess the severity of the disease.</p>
+<p><strong>Therapy selection biomarkers</strong> are those that in addition to severity can predict response to specific treatments. The medical literature often uses the term “predictive” for these biomarkers, but we will avoid this here, because in statistics the word predictive has a broader meaning. These biomarkers can be used at any stage after diagnosis. Some biomarkers are both prognostic and helpful in therapy selection. The distinction between prognostic and therapy-selection markers is somewhat challenging empirically, because very few diagnosed patients go untreated.</p>
+<div id="fig-useBiomarkers" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-useBiomarkers-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<embed src="Figures/Biomarkers.pdf" class="img-fluid">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-useBiomarkers-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Broad Categories of Use for Biomarkers from <span class="citation" data-cites="ou2021jto">@ou2021jto</span>
+</figcaption>
+</figure>
+</div>
+<p>Additional readings:</p>
+<p>Context: <span class="citation" data-cites="Srivastava2020cebp">@Srivastava2020cebp</span>; Broad Statistical Perspective: <span class="citation" data-cites="ou2021jto">@ou2021jto</span></p>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="high-throughput-biology" class="level3">
+<h3 class="anchored" data-anchor-id="high-throughput-biology">High Throughput Biology</h3>
+<p>Today the search for novel and more effective biomarkers often leverages our ability to interrogate the molecular biology of the cell using high throughput technologies.</p>
+<p>We can measure:</p>
+<table class="table">
+<caption>Levels and Types of High Throughput Biology Measurements used in Biomarker Research; An important take-home point is the trade-off between ease of measurement and biological relevance of high-throughput biology investigations.</caption>
+<colgroup>
+<col style="width: 34%">
+<col style="width: 65%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Type</th>
+<th>Issues</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>DNA</td>
+<td>We can read most of the 6+ gigabase pairs in the human genome, count copies of genome sections, compare genomes across cells</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Relatively easy to define and read, getting cheaper</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>A couple of steps removed from shedding light on what the cell(s) are doing</td>
+</tr>
+<tr class="even">
+<td>Various Aspects of Protein Production</td>
+<td>Hard to define and poorly understood, somewhat hard to do well, getting cheaper</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Far more relevant for shedding light on what the cell(s) are doing</td>
+</tr>
+<tr class="even">
+<td>Proteins</td>
+<td>Relatively easy to define, very hard to measure well, expensive. 100.000+ estimated proteins, likely a substantial underestimate</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>The most relevant for shedding light on what the cell(s) are doing</td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<p>To gain a better understanding of how gene expression analysis fits into the broader landscape of different omics data see <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6192166/">@Chakraborty2018bmri</a> who provides a brief overview of the different applications for high throughput biology platforms. Since 2018, when this article was written, at least to major brakthrough have occurred: the ability to measure these in single cells, and the ability to take measurement without disruptin the spatial organization of cells in the original tissue.</p>
+<div style="page-break-after: always;"></div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><embed src="Figures/ChakrabortyF1.pdf" class="img-fluid"></p>
+<figcaption>Pyramid of complexity. From <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6192166/">@Chakraborty2018bmri</a> “The pyramid represents the flow of information from genome (top) to transcriptome (middle), to proteome (bottom). The complexity increases from genome to proteome (indicated by down arrow). The complexity of transcriptome is largely mediated by temporal dynamics and alternative splicing. In contrast, spatiotemporal dynamics and posttranslational modifications (PTMs) are mainly responsible for high proteome complexity. Examples of PTMs include phosphorylation (P) and acetylation (Ac)”.</figcaption>
+</figure>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><embed src="Figures/ChakrabortyT1.pdf" class="img-fluid" style="width:140.0%"></p>
+<figcaption>Omics From <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6192166/">@Chakraborty2018bmri</a></figcaption>
+</figure>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><embed src="Figures/ChakrabortyF4.pdf" class="img-fluid" style="width:100.0%"></p>
+<figcaption>Roles of NGS <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6192166/">@Chakraborty2018bmri</a></figcaption>
+</figure>
+</div>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="premises-for-measuring-gene-expression-profiles" class="level3">
+<h3 class="anchored" data-anchor-id="premises-for-measuring-gene-expression-profiles">Premises for Measuring Gene Expression Profiles</h3>
+<p>In our course we will use high throughput “transcriptomics” data. This is a quantification of the number of copies of messenger RNAs in a sample. We will label RNA measurement by “gene” —these “genes” will be our candidate biomarkers. The next lecture will go into more detail into how this is done. For now it is important to understand that old-fashioned genes are a limited and somewhat arbitrary way of organizing information from RNA analysis. The “What is a gene?” box in <span class="citation" data-cites="Hatje2019be">@Hatje2019be</span> is a very thoughtful and concise explanation. Highly recommended.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+RNA levels have a higher likelihood of being accurate predictors of phenotype (and thus future outcomes) if:
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="a">
+<li>Gene expression levels correlate well with the corresponding protein levels</li>
+<li>More abundant transcripts are more important in determining behavior of cells</li>
+<li>Normal cells have a stable expression profile</li>
+<li>Changes in expression indicate that ``something is happening’’</li>
+<li>Gene expression are a proxy measure for the stimuli that control the cell</li>
+</ol>
+</div>
+</div>
+<p>A useful resource for those with limited biology lingo under their belt is the <a href="https://www.genome.gov/genetics-glossary">Talking Glossary of Genomic and Genetic Terms</a></p>
+<p>And for those who like historical landmarks…. <span class="citation" data-cites="Gilbert1978n">@Gilbert1978n</span></p>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="discussion-example" class="level3">
+<h3 class="anchored" data-anchor-id="discussion-example">Discussion Example</h3>
+<p>A biotech startup collects:</p>
+<ul>
+<li><p>100 blood samples from patients diagnosed with pancreas cancer at DFCI and</p></li>
+<li><p>100 blood samples from patients free of cancer.</p></li>
+</ul>
+<p>They measure a blood biomarker in all samples and present you with the following plot:</p>
+<div class="cell" data-warnings="false">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L2-biomarkers_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>The blue (orange) histogram represents the distribution of RNA counts (XX) for the candidate biomarker among cancer (normal) samples.</p>
+</div>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Question for Debate
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>They approach you, a well endowed angel investor, about a business model based on using the biomarker for early detection of cancer. What do you ask them?</p>
+</div>
+</div>
+<p>Below are some ideas to think about as you prepare to discuss this example in class. This list is not at all exhaustive. In fact that are at least a couple of very important additional questions for the investor to ask are not included.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Longitudinal vs Cross-Sectional Data
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Longitudinal studies follow people over time; data on health and illness can be available for the <em>same</em> individual. Cross sectional and case-control study compare healthy and ill individuals.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Lead Time
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <em>lead time</em> of an early detection strategy refers to the gap between the time when a cancer is discovered using a biomarker, and the time it would have been discovered in the absence of biomarker screening.</p>
+<p>Are case control studies more or less likely than cross-sectional studies to discover biomarkers that become detectable early enough to generate a large lead time?</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Reverse Causation
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Discovering that a marker’s level is higher in cancer compared to normal samples is not ground to conclude that the high level is indicative of a cause of the cancer. This is because the cancer could be caused by the expression of gene A, and then produce large quantities of gene B. Gene B might still become detectable before symptoms occur and serve as a marker while being an effect and not a cause of the tumor.</p>
+<p>As an angel investor, should you be worried or not about whether the biomarker is genuinely causative of cancer?</p>
+</div>
+</div>
+<!--# Additional Topics: Prevalence PPV; Repeatability  -->
+<div style="page-break-after: always;"></div>
+</section>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<div id="refs" role="list">
+
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

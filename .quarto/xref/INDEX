@@ -1,0 +1,53 @@
+{
+  "index.qmd": {
+    "index.html": "92363a6d"
+  },
+  "about.qmd": {
+    "about.html": "3070cb50"
+  },
+  "L12-shrinkage.qmd": {
+    "L12-shrinkage.html": "02b46d87"
+  },
+  "L4-metrics.qmd": {
+    "L4-metrics.html": "cc11b7be"
+  },
+  "L11-regmean.qmd": {
+    "L11-regmean.html": "961bf171"
+  },
+  "L3-data.qmd": {
+    "L3-data.html": "65324587"
+  },
+  "L14-shrinkage2.qmd": {
+    "L14-shrinkage2.html": "214902ee"
+  },
+  "L7-mcmc.qmd": {
+    "L7-mcmc.html": "cda23435"
+  },
+  "L1-intro.qmd": {
+    "L1-intro.html": "cb77c4b4"
+  },
+  "L6-bayes.qmd": {
+    "L6-bayes.html": "3865061e"
+  },
+  "L15-metaanalysis2.qmd": {
+    "L15-metaanalysis2.html": "cfb15830"
+  },
+  "L17-twomarkers.qmd": {
+    "L17-twomarkers.html": "4f5cb8ec"
+  },
+  "L5-decision.qmd": {
+    "L5-decision.html": "6e6faabe"
+  },
+  "L10-fdr.qmd": {
+    "L10-fdr.html": "59d20805"
+  },
+  "L9-comparing.qmd": {
+    "L9-comparing.html": "607fbb4f"
+  },
+  "L8-timetoevent.qmd": {
+    "L8-timetoevent.html": "eb303997"
+  },
+  "L2-biomarkers.qmd": {
+    "L2-biomarkers.html": "c7ce0caf"
+  }
+}

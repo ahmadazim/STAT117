@@ -1,0 +1,550 @@
+---
+date: March 7, 2023
+---
+
+\newpage
+
+# Lecture 12: Shrinkage
+
+## Recap
+
+So far, we have studied the following concepts:
+
+```{=tex}
+\begin{itemize}
+\item Metrics for assessing whether a biomarker is potentially useful
+\item Discovery Rates for biomarker lists obtained by selecting a subset based on these metrics
+\item Regression to the mean of performance metrics
+\end{itemize}
+```
+## Multilevel Models
+
+### Motivation
+
+In this chapter we are going to start thinking about what about multi-level models. These specify a joint statistical model, not just for an individual biomarker in an individual study, but either multiple biomarkers or multiple studies at the same time. And if we get adventurous before the end of the course we will write models where encompassing both multiple biomarkers and multiple studies. The idea for this chapter is to do one of these at the time.
+
+Some of the main concepts will be:
+
+```{=tex}
+\begin{itemize}
+\item Heterogeneity
+\item Random Effects
+\item Multi-level Models
+\end{itemize}
+```
+The methods we will utilize will be Monte Carlo Markov Chains (MCMC).
+
+Analyses of individual biomarkers are seemingly separate problems, which in reality share important statistical features. Importantly they share common sources of noise from the technology.
+
+Analyses of the same gene in different studies are seemingly identical problems, which in reality present important differences. Importantly they inherit differences in study inclusion criteria, design and populations.
+
+\newpage
+
+### Data Structure
+
+Let's begin by reminding ourselves of the data structure that we're going to be using. It is essentially the data structure of our curated ovarian data, where you have a set of studies, each of which includes a matrix of biomarkers and a vector of labels.
+
+```{=html}
+<!---
+\begin{figure}[h]
+\centerline{\includegraphics[width=.8\textwidth]{figures/multilevel.pdf}}
+\caption{\label{podlaha2}}
+\end{figure}
+\newpage
+-->
+```
+Let's focus on a single biomarker, say CXCL12, in a single study. There you have a row of $X$ that represents the levels of CXCL12 and you have a role a corresponding row of labels. That's the structure on which we have looked at all our statistics so far, when we did when we did discovery. We did a battery of these, but we always did them one at a time.
+
+Here we are going to think about extending this paradigm in two directions. One is to look at variability across biomarkers within a study (this lecture), and the other is to look at variability of biomarker behavior across studies (next lecture).
+
+\newpage
+
+## Multilevel Modeling of Genes
+
+### Reasons for modeling genes as if coming from a higher level population
+
+```{=tex}
+\begin{itemize}
+\item
+Genome features share sources of variation, both biological and technological.
+They are not independent.  
+\item
+Multilevel models consider the gene to gene variability explicitly.
+\item
+Simultaneous estimation of many related quantities is an old
+  problem in statistics.
+\item
+Keywords: Stein (50's), Empirical Bayes, Hierarchical Bayes.
+\item
+Multilevel models have been explored for microarrays since the earliest
+days. 
+\end{itemize}
+```
+\newpage
+
+Since the "MCMC revolution" multilevel models have been the backbone of Bayesian data analysis
+
+In genomic data sets they can be used to implement:
+
+```{=tex}
+\begin{itemize} 
+\item Shrinkage
+\item Sparsity / Built-in Hypothesis Testing
+\item Modular Structures
+\item Flexible "not-so-parametric" models via mixtures
+\item Useful Latent Classes
+\item Small Samples Uncertainty Assessment
+\end{itemize}
+```
+This is a useful introduction. [Laredo](http://research.iac.es/winterschool/2014/media/loredo/iac14-3-IntroMLMs.pdf) provides a very useful introduction (pages 1-28) and a cool application in astronomy. I recommend you go over pages 1-28 before going forward with our lecture notes.
+
+For those who want to dig a bit deeper [Morris and Lysy](https://arxiv.org/pdf/1203.5610.pdf) offer a great review.
+
+Most textbooks on Bayesian statistics have chapters on multi-level models.
+
+\newpage
+
+### Differential Expression Analysis of TCGA
+
+Gene-level Summaries:
+
+```{=tex}
+\begin{center} 
+\begin{tabular}{ll}
+\hline
+ Overall Average (Abundance) & $a_g$ \\ \hline
+ Difference Between Group Averages & $d_g$ \\ \hline
+ Within-class Standard deviation & $s_g$ \\ \hline
+ Their ratio & $d_g / s_g$ \\ \hline
+\end{tabular}
+\end{center}
+```
+continuous genomic feature: gene expression microarray readout in the TCGA study
+
+binary phenotype (optimal surgical debulking)
+
+\newpage
+
+```{r, cache=TRUE, message=F, warnings = F}
+library(curatedOvarianData)
+data("TCGA_eset")
+XX = as.matrix(cbind(exprs(TCGA_eset)))
+YY = 1 * as.vector(pData(TCGA_eset)[,"debulking"]=="optimal")
+XX = XX[,!is.na(YY)];
+YY = YY[!is.na(YY)]
+```
+
+\newpage
+
+Compute Gene-Level Summaries
+
+<!-- redo with class-conditional variance -->
+
+```{r, cache=TRUE}
+CompSummaries = function(XX,YY){
+NGenes = nrow(XX)
+SSS = data.frame(matrix(NA,NGenes,4))
+colnames(SSS) = 
+  c("abundance","difference","variance","SNratio")
+for (gg in 1:NGenes){
+  SSS[gg,"abundance"] = mean(XX[gg,])
+  m1 = mean( XX[gg,YY==1] ); m0 = mean( XX[gg,YY==0] ); 
+  n1 = sum(YY==1); n0 = sum(YY==0); 
+  SSS[gg,"difference"] = m1 - m0
+  SSS[gg,"variance"] = ( sum( ( XX[gg,YY==1] - m1 )^2 ) + sum( ( XX[gg,YY==0] - m0 )^2 ) ) / (n0+n1-2)
+  SSS[gg,"SNratio"] = 
+    SSS[gg,"difference"] / sqrt( SSS[gg,"variance"] )
+}
+return(SSS)
+}
+GeneSummaries = CompSummaries(XX,YY)
+```
+
+\newpage
+
+### Exploring marginal distributions
+
+```{r, cache=TRUE, fig.height=10, fig.width=10}
+hist(GeneSummaries[,"abundance"],nclass=100)
+```
+
+\newpage
+
+```{r, cache=TRUE, fig.height=10, fig.width=10}
+hist(GeneSummaries[,"difference"],nclass=100)
+```
+
+\newpage
+
+```{r, cache=TRUE, fig.height=10, fig.width=10}
+qqnorm(GeneSummaries[,"difference"])
+```
+
+\newpage
+
+```{r, cache=TRUE, fig.height=10, fig.width=10}
+hist(sqrt(GeneSummaries[,"variance"]),nclass=100)
+```
+
+\newpage
+
+```{r, cache=TRUE, fig.height=10, fig.width=10}
+hist(GeneSummaries[,"SNratio"],nclass=100)
+```
+
+### Exploring joint distributions
+
+\newpage
+
+```{r, cache=TRUE, fig.height=10, fig.width=10}
+plot(GeneSummaries[,"abundance"],GeneSummaries[,"difference"],pch=".")
+```
+
+\newpage
+
+```{r, cache=TRUE, fig.height=10, fig.width=10}
+plot(GeneSummaries[,"abundance"],sqrt(GeneSummaries[,"variance"]),pch=".")
+```
+
+\newpage
+
+```{r, cache=TRUE, fig.height=10, fig.width=10}
+plot(sqrt(GeneSummaries[,"variance"]),GeneSummaries[,"difference"],pch=".")
+```
+
+\newpage
+
+```{r, cache=TRUE, fig.height=10, fig.width=10}
+plot(GeneSummaries[,"abundance"],GeneSummaries[,"SNratio"],pch=".")
+```
+
+\newpage
+
+### Gene-specific Distribution
+
+We begin with a relatively simple setting where the class-conditional distributions are gaussian.
+
+```{=tex}
+\begin{tabular}{p{6in}} 
+      \begin{eqnarray*} 
+        X_{0gi} | \alpha_{g}, \sigma_g^2 , \delta_g &\sim& 
+        N \left( \alpha_{g} - \pi \delta_g, \sigma_g^2 \right)  \\
+        X_{1gi} | \alpha_{g} , \sigma_g^2, \delta_g &\sim& 
+        N \left( \alpha_{g} + (1-\pi) \delta_g,   \sigma_g^2 \right)
+      \end{eqnarray*}
+    \end{tabular}
+```
+Each gene distribution is characterized by three parameters:
+
+$\delta_g$: true mean difference across classes
+
+$\sigma_g$: true noise, common to both classes
+
+$\alpha_g$: true abundance (average overeall expression marginally)
+
+In addition we have $\pi$: proportion of label 1's, assumed known.
+
+Genes are assumed to be conditionally independent.
+
+::: callout-note
+In this model, does the data on genes 2 through G give you information you did not have before about gene 1?
+
+Why or why not?
+:::
+
+\newpage
+
+### Distribution of gene specific parameters across the genome
+
+Ou next step is to model the distribution of the gene specific parameters, to describe how these parameters vary across the genome. We have three of them and we can make all sorts of assumptions about how they are jointly distributed. Here are some options
+
+```{=tex}
+\begin{tabular}{|p{4in}|p{4in}|}
+  \hline
+  \multicolumn{1}{|c|}{II. Independence}  &
+  \multicolumn{1}{c|}{CI. S\&N Independence} \\ 
+  \begin{eqnarray*}
+    \alpha_g | \tau^2  &\sim&  N ( 0, \tau^2 ) \\
+    \delta_g | \lambda^2 &\sim& N(0,\lambda^2) \\
+    \sigma_g^{-2}| \nu, \beta &\sim& Ga (\nu, \beta)
+  \end{eqnarray*}
+  & 
+  \begin{eqnarray*}
+    \alpha_g | \tau^2, \sigma^{2}_g  & \sim & 
+    N ( 0, {\sigma^{2}_g} \tau^2 ) \\
+    \delta_g | \lambda^2
+    & \sim & N ( 0, \lambda^2 ) \\
+    \sigma^{-2}_g | \nu, \beta & \sim & Ga (\nu, \beta) 
+  \end{eqnarray*} \\
+  \hline
+  \multicolumn{1}{|c|}{IC. A\&N Independence}  &
+  \multicolumn{1}{c|}{CC. Complete Conjugacy} \\
+  \begin{eqnarray*}
+    \alpha_g | \tau^2 & \sim & 
+    N ( 0, \tau^2 ) \\
+    \delta _g | \lambda^2, \sigma^{2}_g  
+    & \sim & N ( 0, {\sigma^{2}_g} \lambda^2 ) \\
+    \sigma^{-2}_g | \nu, \beta & \sim & Ga (\nu, \beta) 
+  \end{eqnarray*}& 
+  \begin{eqnarray*}
+    \alpha_g | \tau^2, \sigma^{2}_g  & \sim & 
+    N ( 0, {\sigma^{2}_g} \tau^2 ) \\
+    \delta _g | \lambda^2, \sigma^{2}_g  
+    & \sim & N ( 0, {\sigma^{2}_g} \lambda^2 ) \\
+    \sigma^{-2}_g | \nu, \beta & \sim & Ga (\nu, \beta) 
+  \end{eqnarray*} \\
+  \hline
+\end{tabular}
+```
+\newpage
+
+### Estimation Methods: 1. Empirical Bayes
+
+Gene-level Parameters: $\theta_g = (\alpha_g,\delta_g,\sigma_g)$
+
+Genome-level Parameters: $\gamma = \tau, \lambda, \nu, \beta$
+
+Data: $D$
+
+Likelihood: $p( D | \gamma, \theta_1, \ldots, \theta_G)$
+
+```{=tex}
+\begin{itemize} 
+\item Derive or approximate marginal Likelihood $p( D | \gamma)$
+\item Find $\hat \gamma$ maximizing marginal likelihood.
+\item Estimate $\theta_g$ one gene at the time using $p( D | \hat \gamma, \theta_g)$ (other genes can be left out because of conditional independence)
+\end{itemize}
+```
+This bypasses specification of a prior at the top level, and still gives a shrinkage estimate of the gene-level parameters.
+
+For example in the conjugate model written earlier:
+
+$$ E ( \delta_g | D, \gamma) = d_g  \left( \frac {1}{ 1 + \frac {2}{\lambda n}} \right)$$
+
+This provides a shrinkage estimate of $\delta_g$. The amount of shrinkage is controlled by the estimate of $\lambda$, the genome-wide variance of the $\delta$'s
+
+\newpage
+
+### Estimation Methods: 2. MCMC
+
+Draw samples of parameters to get a sense for their location and spread.
+
+```{=tex}
+\begin{itemize} 
+\item Derive or approximate "full conditional distributions" 
+
+$p( \gamma | D, \theta_1, \ldots, \theta_G))$
+
+$p( \theta_1 | D, \gamma, \theta_2, \ldots, \theta_G))$
+
+....
+
+$p( \theta_G | D, \gamma, \theta_1, \ldots, \theta_{G-1}))$
+
+\item Iteratively simulate samples of parameters looping through these.
+\item Summarize the simulation to derive parameter estimates.
+
+\end{itemize}
+```
+\newpage
+
+### MCMC Illustration
+
+We select genes with an abundance of at least 5, and then take a random sample of the rest.
+
+```{r, cache=TRUE}
+highAbundance = GeneSummaries[,"abundance"] > 5
+XXX = XX[highAbundance,]
+Nha = sum(highAbundance)
+set.seed(117)
+Ninclude = 900
+include = sample(1:Nha,Ninclude)
+XXX = XXX[include,]
+YYY = YY
+GeneSummInclude = CompSummaries(XXX,YYY)
+```
+
+\newpage
+
+```{r, cache=TRUE, fig.height=10, fig.width=10}
+pairs(GeneSummInclude,pch=".")
+```
+
+\newpage
+
+### Conjugate Model
+
+```{r}
+diffexpModel ="model
+{
+  precision.s ~ dnorm( 0.0, 0.01 ) T(0,);
+  precision.a ~ dnorm( 0.0, 0.01 ) T(0,);
+  precision.d ~ dnorm( 0.0, 0.01 ) T(0,);
+  for ( g in 1:G ){
+    sigma2inv[g] ~ dnorm( 0.0, precision.s ) T(0,);
+    alpha[g] ~ dnorm(cut, precision.a) T(cut,);
+    delta[g] ~ dnorm(0.0, sigma2inv[g] * precision.d);
+  }
+  for ( g in 1:G ) {
+    for ( i in 1:N ) {
+            XX[g,i] ~ dnorm( alpha[g] + 
+            ( YY[i] * (1-pi) - 
+            (1-YY[i]) * pi ) * delta[g], sigma2inv[g]);
+      } 
+    }
+}
+"
+```
+
+\newpage
+
+```{r, cache=TRUE, message=F}
+library(rjags)
+library(R2jags)
+library(coda)
+diffexp = jags.model(textConnection(diffexpModel),
+                   data = list( XX = XXX, YY=YYY, N=length(YYY), G=nrow(XXX), pi=mean(YYY),cut=5),
+                   n.chains = 1,
+                   n.adapt = 100)
+
+mcmc.out = coda.samples(diffexp,c("alpha","delta","sigma2inv",
+                                  "precision.a","precision.d","precision.s"),
+                        n.iter = 1000,thin=10)
+alpha = mcmc.out[[1]][,grep("alpha",colnames(mcmc.out[[1]]))]
+delta = mcmc.out[[1]][,grep("delta",colnames(mcmc.out[[1]]))]
+sigma = 1 / sqrt( mcmc.out[[1]][,grep("sigma2inv",colnames(mcmc.out[[1]]))] )
+alpha.hat = apply(alpha,2,mean)
+delta.hat = apply(delta,2,mean)
+```
+
+\newpage
+
+One way to look at shrinkage is to compare the posterior estimates to the corresponding gene-specific MLEs.
+
+Let's look at the $\alpha$'s
+
+```{r, cache=TRUE, fig.height=10, fig.width=10}
+plot(GeneSummInclude[,"abundance"],alpha.hat)
+```
+
+\newpage
+
+Let's now look at the $\delta$'s
+
+```{r, cache=TRUE, fig.height=10, fig.width=10}
+plot(GeneSummInclude[,"difference"],delta.hat)
+abline(0,1)
+```
+
+\newpage
+
+::: callout-note
+why is the shrinkage of the alpha's so much less pronounced than the shrinkage of the delta's?
+:::
+
+\newpage
+
+### Point and slab Model
+
+To contrast, this code implements a point and slab model which assumes that some unknown proportion of genes have a $\delta$ that is superclose to zero.
+
+::: callout-note
+Can you tell how I did that?
+
+How do we interpert the hh variable?
+
+Why is hh a good letter in this case?
+:::
+
+```{r, cache=TRUE}
+diffexpModel.01 ="model
+{
+  precision.s ~ dnorm( 0.0, 0.01 ) T(0,);
+  precision.a ~ dnorm( 0.0, 0.01 ) T(0,);
+  precision.d ~ dnorm( 0.0, 0.01 ) T(0,);
+  ph0 ~ dunif(0,1);
+  for ( g in 1:G ){
+    hh[g] ~ dbern(1-ph0);
+    sigma2inv[g] ~ dnorm( 0.0, precision.s ) T(0,);
+    alpha[g] ~ dnorm(cut, precision.a) T(cut,);
+     delta[g] ~ dnorm(0.0, (1-hh[g]) * 10000 + hh[g] * sigma2inv[g] * (precision.d)  );
+  }
+  for ( g in 1:G ) {
+    for ( i in 1:N ) {
+            XX[g,i] ~ dnorm( alpha[g] + 
+            ( YY[i] * (1-pi) - 
+            (1-YY[i]) * pi ) * delta[g], sigma2inv[g] );
+      } 
+    }
+}
+"
+```
+
+\newpage
+
+```{r, cache=TRUE}
+library(rjags)
+library(R2jags)
+library(coda)
+diffexp = jags.model(textConnection(diffexpModel.01),
+                   data = list( XX = XXX, YY=YYY, N=length(YYY), G=nrow(XXX), pi=mean(YYY),cut=5 ),
+                   n.chains = 1,
+                   n.adapt = 100)
+
+mcmc.out = coda.samples(diffexp,c("alpha","delta","sigma2inv","hh","ph0",
+                                  "precision.a","precision.d","precision.s"),
+                        n.iter = 1000,thin=10)
+alpha = mcmc.out[[1]][,grep("alpha",colnames(mcmc.out[[1]]))]
+delta = mcmc.out[[1]][,grep("delta",colnames(mcmc.out[[1]]))]
+sigma = 1 / sqrt( mcmc.out[[1]][,grep("sigma2inv",colnames(mcmc.out[[1]]))] )
+hh = mcmc.out[[1]][,grep("hh",colnames(mcmc.out[[1]]))]
+alpha.hat = apply(alpha,2,mean)
+delta.hat = apply(delta,2,mean)
+delta.med = apply(delta,2,median)
+hh.hat = apply(hh,2,mean)
+```
+
+\newpage
+
+```{r}
+summary(mcmc.out[[1]][,c("ph0","precision.a","precision.d","precision.s")])
+```
+
+\newpage
+
+```{r, fig.height=10, fig.width=10}
+plot(GeneSummInclude[,"abundance"],alpha.hat,pch=".")
+abline(0,1)
+```
+
+\newpage
+
+```{r, fig.height=10, fig.width=10}
+plot(GeneSummInclude[,"difference"],delta.hat,pch=".")
+abline(0,1)
+```
+
+```{r, fig.height=10, fig.width=10}
+plot(GeneSummInclude[,"difference"],delta.med,pch=".")
+abline(0,1)
+```
+
+::: callout-note
+contrast this shrinkage pattern to the fully conjugate
+:::
+
+\newpage
+
+```{r, fig.height=10, fig.width=10}
+pairs(cbind(GeneSummInclude,hh.hat),pch=".")
+```
+
+\newpage
+
+```{r, fig.height=10, fig.width=10}
+plot(delta.hat,hh.hat,pch=".")
+```
+
+::: callout-note
+think about how to construct an estimate of FDR if all hou have is hh.hat
+:::

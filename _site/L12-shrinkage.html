@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.545">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2023-03-07">
+
+<title>STAT 117: Data Analysis in Modern Biostatistics</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">STAT 117: Data Analysis in Modern Biostatistics</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html"> 
+<span class="menu-text">Syllabus</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-lectures" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Lectures</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-lectures">    
+        <li>
+    <a class="dropdown-item" href="./L1-intro.html">
+ <span class="dropdown-text">Lecture 1 (January 24, 2023) Introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L2-biomarkers.html">
+ <span class="dropdown-text">Lecture 2: Cancer Biomarkers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L3-data.html">
+ <span class="dropdown-text">Lecture 3: Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L4-metrics.html">
+ <span class="dropdown-text">Lecture 4: Basics of Biomarker Evaluation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L5-decision.html">
+ <span class="dropdown-text">Lecture 5 (February 7, 2023) Decision Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L6-bayes.html">
+ <span class="dropdown-text">Lecture 6 (February 9, 2023) Bayesian Modeling</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L7-mcmc.html">
+ <span class="dropdown-text">Lecture 7 (February 14, 2023) Monte Carlo Markov Chains</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L8-timetoevent.html">
+ <span class="dropdown-text">Lecture 8 (February 16, 2023) Time to Event Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L9-comparing.html">
+ <span class="dropdown-text">Lecture 9 (February 21, 2023) Comparing Criteria for Biomarker Discovery</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L10-fdr.html">
+ <span class="dropdown-text">Lecture 10 (February 28, 2023) False Discovery Rates</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L11-regmean.html">
+ <span class="dropdown-text">Lecture 11: Regression to the Mean</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L12-shrinkage.html">
+ <span class="dropdown-text">Lecture 12: Shrinkage</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L14-shrinkage2.html">
+ <span class="dropdown-text">Lecture 14 (March 21, 2023) Shrinkage part 2</span></a>
+  </li>  
+        <li class="dropdown-header">L15-metaanlysis2.qmd</li>
+        <li>
+    <a class="dropdown-item" href="./L17-twomarkers.html">
+ <span class="dropdown-text">Lecture 17 (March 29, 2023)</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#lecture-12-shrinkage" id="toc-lecture-12-shrinkage" class="nav-link active" data-scroll-target="#lecture-12-shrinkage">Lecture 12: Shrinkage</a>
+  <ul class="collapse">
+  <li><a href="#recap" id="toc-recap" class="nav-link" data-scroll-target="#recap">Recap</a></li>
+  <li><a href="#multilevel-models" id="toc-multilevel-models" class="nav-link" data-scroll-target="#multilevel-models">Multilevel Models</a>
+  <ul class="collapse">
+  <li><a href="#motivation" id="toc-motivation" class="nav-link" data-scroll-target="#motivation">Motivation</a></li>
+  <li><a href="#data-structure" id="toc-data-structure" class="nav-link" data-scroll-target="#data-structure">Data Structure</a></li>
+  </ul></li>
+  <li><a href="#multilevel-modeling-of-genes" id="toc-multilevel-modeling-of-genes" class="nav-link" data-scroll-target="#multilevel-modeling-of-genes">Multilevel Modeling of Genes</a>
+  <ul class="collapse">
+  <li><a href="#reasons-for-modeling-genes-as-if-coming-from-a-higher-level-population" id="toc-reasons-for-modeling-genes-as-if-coming-from-a-higher-level-population" class="nav-link" data-scroll-target="#reasons-for-modeling-genes-as-if-coming-from-a-higher-level-population">Reasons for modeling genes as if coming from a higher level population</a></li>
+  <li><a href="#differential-expression-analysis-of-tcga" id="toc-differential-expression-analysis-of-tcga" class="nav-link" data-scroll-target="#differential-expression-analysis-of-tcga">Differential Expression Analysis of TCGA</a></li>
+  <li><a href="#exploring-marginal-distributions" id="toc-exploring-marginal-distributions" class="nav-link" data-scroll-target="#exploring-marginal-distributions">Exploring marginal distributions</a></li>
+  <li><a href="#exploring-joint-distributions" id="toc-exploring-joint-distributions" class="nav-link" data-scroll-target="#exploring-joint-distributions">Exploring joint distributions</a></li>
+  <li><a href="#gene-specific-distribution" id="toc-gene-specific-distribution" class="nav-link" data-scroll-target="#gene-specific-distribution">Gene-specific Distribution</a></li>
+  <li><a href="#distribution-of-gene-specific-parameters-across-the-genome" id="toc-distribution-of-gene-specific-parameters-across-the-genome" class="nav-link" data-scroll-target="#distribution-of-gene-specific-parameters-across-the-genome">Distribution of gene specific parameters across the genome</a></li>
+  <li><a href="#estimation-methods-1.-empirical-bayes" id="toc-estimation-methods-1.-empirical-bayes" class="nav-link" data-scroll-target="#estimation-methods-1.-empirical-bayes">Estimation Methods: 1. Empirical Bayes</a></li>
+  <li><a href="#estimation-methods-2.-mcmc" id="toc-estimation-methods-2.-mcmc" class="nav-link" data-scroll-target="#estimation-methods-2.-mcmc">Estimation Methods: 2. MCMC</a></li>
+  <li><a href="#mcmc-illustration" id="toc-mcmc-illustration" class="nav-link" data-scroll-target="#mcmc-illustration">MCMC Illustration</a></li>
+  <li><a href="#conjugate-model" id="toc-conjugate-model" class="nav-link" data-scroll-target="#conjugate-model">Conjugate Model</a></li>
+  <li><a href="#point-and-slab-model" id="toc-point-and-slab-model" class="nav-link" data-scroll-target="#point-and-slab-model">Point and slab Model</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">March 7, 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div style="page-break-after: always;"></div>
+<section id="lecture-12-shrinkage" class="level1">
+<h1>Lecture 12: Shrinkage</h1>
+<section id="recap" class="level2">
+<h2 class="anchored" data-anchor-id="recap">Recap</h2>
+<p>So far, we have studied the following concepts:</p>
+</section>
+<section id="multilevel-models" class="level2">
+<h2 class="anchored" data-anchor-id="multilevel-models">Multilevel Models</h2>
+<section id="motivation" class="level3">
+<h3 class="anchored" data-anchor-id="motivation">Motivation</h3>
+<p>In this chapter we are going to start thinking about what about multi-level models. These specify a joint statistical model, not just for an individual biomarker in an individual study, but either multiple biomarkers or multiple studies at the same time. And if we get adventurous before the end of the course we will write models where encompassing both multiple biomarkers and multiple studies. The idea for this chapter is to do one of these at the time.</p>
+<p>Some of the main concepts will be:</p>
+<p>The methods we will utilize will be Monte Carlo Markov Chains (MCMC).</p>
+<p>Analyses of individual biomarkers are seemingly separate problems, which in reality share important statistical features. Importantly they share common sources of noise from the technology.</p>
+<p>Analyses of the same gene in different studies are seemingly identical problems, which in reality present important differences. Importantly they inherit differences in study inclusion criteria, design and populations.</p>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="data-structure" class="level3">
+<h3 class="anchored" data-anchor-id="data-structure">Data Structure</h3>
+<p>Let’s begin by reminding ourselves of the data structure that we’re going to be using. It is essentially the data structure of our curated ovarian data, where you have a set of studies, each of which includes a matrix of biomarkers and a vector of labels.</p>
+<!---
+\begin{figure}[h]
+\centerline{\includegraphics[width=.8\textwidth]{figures/multilevel.pdf}}
+\caption{\label{podlaha2}}
+\end{figure}
+\newpage
+-->
+<p>Let’s focus on a single biomarker, say CXCL12, in a single study. There you have a row of <span class="math inline">\(X\)</span> that represents the levels of CXCL12 and you have a role a corresponding row of labels. That’s the structure on which we have looked at all our statistics so far, when we did when we did discovery. We did a battery of these, but we always did them one at a time.</p>
+<p>Here we are going to think about extending this paradigm in two directions. One is to look at variability across biomarkers within a study (this lecture), and the other is to look at variability of biomarker behavior across studies (next lecture).</p>
+<div style="page-break-after: always;"></div>
+</section>
+</section>
+<section id="multilevel-modeling-of-genes" class="level2">
+<h2 class="anchored" data-anchor-id="multilevel-modeling-of-genes">Multilevel Modeling of Genes</h2>
+<section id="reasons-for-modeling-genes-as-if-coming-from-a-higher-level-population" class="level3">
+<h3 class="anchored" data-anchor-id="reasons-for-modeling-genes-as-if-coming-from-a-higher-level-population">Reasons for modeling genes as if coming from a higher level population</h3>
+<div style="page-break-after: always;"></div>
+<p>Since the “MCMC revolution” multilevel models have been the backbone of Bayesian data analysis</p>
+<p>In genomic data sets they can be used to implement:</p>
+<p>This is a useful introduction. <a href="http://research.iac.es/winterschool/2014/media/loredo/iac14-3-IntroMLMs.pdf">Laredo</a> provides a very useful introduction (pages 1-28) and a cool application in astronomy. I recommend you go over pages 1-28 before going forward with our lecture notes.</p>
+<p>For those who want to dig a bit deeper <a href="https://arxiv.org/pdf/1203.5610.pdf">Morris and Lysy</a> offer a great review.</p>
+<p>Most textbooks on Bayesian statistics have chapters on multi-level models.</p>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="differential-expression-analysis-of-tcga" class="level3">
+<h3 class="anchored" data-anchor-id="differential-expression-analysis-of-tcga">Differential Expression Analysis of TCGA</h3>
+<p>Gene-level Summaries:</p>
+<p>continuous genomic feature: gene expression microarray readout in the TCGA study</p>
+<p>binary phenotype (optimal surgical debulking)</p>
+<div style="page-break-after: always;"></div>
+<div class="cell" data-warnings="false">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(curatedOvarianData)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"TCGA_eset"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>XX <span class="ot">=</span> <span class="fu">as.matrix</span>(<span class="fu">cbind</span>(<span class="fu">exprs</span>(TCGA_eset)))</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>YY <span class="ot">=</span> <span class="dv">1</span> <span class="sc">*</span> <span class="fu">as.vector</span>(<span class="fu">pData</span>(TCGA_eset)[,<span class="st">"debulking"</span>]<span class="sc">==</span><span class="st">"optimal"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>XX <span class="ot">=</span> XX[,<span class="sc">!</span><span class="fu">is.na</span>(YY)];</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>YY <span class="ot">=</span> YY[<span class="sc">!</span><span class="fu">is.na</span>(YY)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div style="page-break-after: always;"></div>
+<p>Compute Gene-Level Summaries</p>
+<!-- redo with class-conditional variance -->
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>CompSummaries <span class="ot">=</span> <span class="cf">function</span>(XX,YY){</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>NGenes <span class="ot">=</span> <span class="fu">nrow</span>(XX)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>SSS <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="fu">matrix</span>(<span class="cn">NA</span>,NGenes,<span class="dv">4</span>))</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(SSS) <span class="ot">=</span> </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"abundance"</span>,<span class="st">"difference"</span>,<span class="st">"variance"</span>,<span class="st">"SNratio"</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (gg <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>NGenes){</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  SSS[gg,<span class="st">"abundance"</span>] <span class="ot">=</span> <span class="fu">mean</span>(XX[gg,])</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  m1 <span class="ot">=</span> <span class="fu">mean</span>( XX[gg,YY<span class="sc">==</span><span class="dv">1</span>] ); m0 <span class="ot">=</span> <span class="fu">mean</span>( XX[gg,YY<span class="sc">==</span><span class="dv">0</span>] ); </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  n1 <span class="ot">=</span> <span class="fu">sum</span>(YY<span class="sc">==</span><span class="dv">1</span>); n0 <span class="ot">=</span> <span class="fu">sum</span>(YY<span class="sc">==</span><span class="dv">0</span>); </span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  SSS[gg,<span class="st">"difference"</span>] <span class="ot">=</span> m1 <span class="sc">-</span> m0</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  SSS[gg,<span class="st">"variance"</span>] <span class="ot">=</span> ( <span class="fu">sum</span>( ( XX[gg,YY<span class="sc">==</span><span class="dv">1</span>] <span class="sc">-</span> m1 )<span class="sc">^</span><span class="dv">2</span> ) <span class="sc">+</span> <span class="fu">sum</span>( ( XX[gg,YY<span class="sc">==</span><span class="dv">0</span>] <span class="sc">-</span> m0 )<span class="sc">^</span><span class="dv">2</span> ) ) <span class="sc">/</span> (n0<span class="sc">+</span>n1<span class="dv">-2</span>)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  SSS[gg,<span class="st">"SNratio"</span>] <span class="ot">=</span> </span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    SSS[gg,<span class="st">"difference"</span>] <span class="sc">/</span> <span class="fu">sqrt</span>( SSS[gg,<span class="st">"variance"</span>] )</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="fu">return</span>(SSS)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>GeneSummaries <span class="ot">=</span> <span class="fu">CompSummaries</span>(XX,YY)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="exploring-marginal-distributions" class="level3">
+<h3 class="anchored" data-anchor-id="exploring-marginal-distributions">Exploring marginal distributions</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(GeneSummaries[,<span class="st">"abundance"</span>],<span class="at">nclass=</span><span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L12-shrinkage_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(GeneSummaries[,<span class="st">"difference"</span>],<span class="at">nclass=</span><span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L12-shrinkage_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(GeneSummaries[,<span class="st">"difference"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L12-shrinkage_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">sqrt</span>(GeneSummaries[,<span class="st">"variance"</span>]),<span class="at">nclass=</span><span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L12-shrinkage_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(GeneSummaries[,<span class="st">"SNratio"</span>],<span class="at">nclass=</span><span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L12-shrinkage_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="exploring-joint-distributions" class="level3">
+<h3 class="anchored" data-anchor-id="exploring-joint-distributions">Exploring joint distributions</h3>
+<div style="page-break-after: always;"></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(GeneSummaries[,<span class="st">"abundance"</span>],GeneSummaries[,<span class="st">"difference"</span>],<span class="at">pch=</span><span class="st">"."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L12-shrinkage_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(GeneSummaries[,<span class="st">"abundance"</span>],<span class="fu">sqrt</span>(GeneSummaries[,<span class="st">"variance"</span>]),<span class="at">pch=</span><span class="st">"."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L12-shrinkage_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">sqrt</span>(GeneSummaries[,<span class="st">"variance"</span>]),GeneSummaries[,<span class="st">"difference"</span>],<span class="at">pch=</span><span class="st">"."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L12-shrinkage_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(GeneSummaries[,<span class="st">"abundance"</span>],GeneSummaries[,<span class="st">"SNratio"</span>],<span class="at">pch=</span><span class="st">"."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L12-shrinkage_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="gene-specific-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="gene-specific-distribution">Gene-specific Distribution</h3>
+<p>We begin with a relatively simple setting where the class-conditional distributions are gaussian.</p>
+<p>Each gene distribution is characterized by three parameters:</p>
+<p><span class="math inline">\(\delta_g\)</span>: true mean difference across classes</p>
+<p><span class="math inline">\(\sigma_g\)</span>: true noise, common to both classes</p>
+<p><span class="math inline">\(\alpha_g\)</span>: true abundance (average overeall expression marginally)</p>
+<p>In addition we have <span class="math inline">\(\pi\)</span>: proportion of label 1’s, assumed known.</p>
+<p>Genes are assumed to be conditionally independent.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In this model, does the data on genes 2 through G give you information you did not have before about gene 1?</p>
+<p>Why or why not?</p>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="distribution-of-gene-specific-parameters-across-the-genome" class="level3">
+<h3 class="anchored" data-anchor-id="distribution-of-gene-specific-parameters-across-the-genome">Distribution of gene specific parameters across the genome</h3>
+<p>Ou next step is to model the distribution of the gene specific parameters, to describe how these parameters vary across the genome. We have three of them and we can make all sorts of assumptions about how they are jointly distributed. Here are some options</p>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="estimation-methods-1.-empirical-bayes" class="level3">
+<h3 class="anchored" data-anchor-id="estimation-methods-1.-empirical-bayes">Estimation Methods: 1. Empirical Bayes</h3>
+<p>Gene-level Parameters: <span class="math inline">\(\theta_g = (\alpha_g,\delta_g,\sigma_g)\)</span></p>
+<p>Genome-level Parameters: <span class="math inline">\(\gamma = \tau, \lambda, \nu, \beta\)</span></p>
+<p>Data: <span class="math inline">\(D\)</span></p>
+<p>Likelihood: <span class="math inline">\(p( D | \gamma, \theta_1, \ldots, \theta_G)\)</span></p>
+<p>This bypasses specification of a prior at the top level, and still gives a shrinkage estimate of the gene-level parameters.</p>
+<p>For example in the conjugate model written earlier:</p>
+<p><span class="math display">\[ E ( \delta_g | D, \gamma) = d_g  \left( \frac {1}{ 1 + \frac {2}{\lambda n}} \right)\]</span></p>
+<p>This provides a shrinkage estimate of <span class="math inline">\(\delta_g\)</span>. The amount of shrinkage is controlled by the estimate of <span class="math inline">\(\lambda\)</span>, the genome-wide variance of the <span class="math inline">\(\delta\)</span>’s</p>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="estimation-methods-2.-mcmc" class="level3">
+<h3 class="anchored" data-anchor-id="estimation-methods-2.-mcmc">Estimation Methods: 2. MCMC</h3>
+<p>Draw samples of parameters to get a sense for their location and spread.</p>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="mcmc-illustration" class="level3">
+<h3 class="anchored" data-anchor-id="mcmc-illustration">MCMC Illustration</h3>
+<p>We select genes with an abundance of at least 5, and then take a random sample of the rest.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>highAbundance <span class="ot">=</span> GeneSummaries[,<span class="st">"abundance"</span>] <span class="sc">&gt;</span> <span class="dv">5</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>XXX <span class="ot">=</span> XX[highAbundance,]</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>Nha <span class="ot">=</span> <span class="fu">sum</span>(highAbundance)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">117</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>Ninclude <span class="ot">=</span> <span class="dv">900</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>include <span class="ot">=</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>Nha,Ninclude)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>XXX <span class="ot">=</span> XXX[include,]</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>YYY <span class="ot">=</span> YY</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>GeneSummInclude <span class="ot">=</span> <span class="fu">CompSummaries</span>(XXX,YYY)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(GeneSummInclude,<span class="at">pch=</span><span class="st">"."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L12-shrinkage_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="conjugate-model" class="level3">
+<h3 class="anchored" data-anchor-id="conjugate-model">Conjugate Model</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>diffexpModel <span class="ot">=</span><span class="st">"model</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="st">{</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="st">  precision.s ~ dnorm( 0.0, 0.01 ) T(0,);</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="st">  precision.a ~ dnorm( 0.0, 0.01 ) T(0,);</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="st">  precision.d ~ dnorm( 0.0, 0.01 ) T(0,);</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="st">  for ( g in 1:G ){</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="st">    sigma2inv[g] ~ dnorm( 0.0, precision.s ) T(0,);</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="st">    alpha[g] ~ dnorm(cut, precision.a) T(cut,);</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="st">    delta[g] ~ dnorm(0.0, sigma2inv[g] * precision.d);</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="st">  for ( g in 1:G ) {</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="st">    for ( i in 1:N ) {</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="st">            XX[g,i] ~ dnorm( alpha[g] + </span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="st">            ( YY[i] * (1-pi) - </span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="st">            (1-YY[i]) * pi ) * delta[g], sigma2inv[g]);</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="st">      } </span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="st">    }</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="st">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rjags)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(R2jags)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(coda)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>diffexp <span class="ot">=</span> <span class="fu">jags.model</span>(<span class="fu">textConnection</span>(diffexpModel),</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">data =</span> <span class="fu">list</span>( <span class="at">XX =</span> XXX, <span class="at">YY=</span>YYY, <span class="at">N=</span><span class="fu">length</span>(YYY), <span class="at">G=</span><span class="fu">nrow</span>(XXX), <span class="at">pi=</span><span class="fu">mean</span>(YYY),<span class="at">cut=</span><span class="dv">5</span>),</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">n.chains =</span> <span class="dv">1</span>,</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">n.adapt =</span> <span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Compiling model graph
+   Resolving undeclared variables
+   Allocating nodes
+Graph information:
+   Observed stochastic nodes: 456300
+   Unobserved stochastic nodes: 2703
+   Total graph size: 464026
+
+Initializing model</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>mcmc.out <span class="ot">=</span> <span class="fu">coda.samples</span>(diffexp,<span class="fu">c</span>(<span class="st">"alpha"</span>,<span class="st">"delta"</span>,<span class="st">"sigma2inv"</span>,</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">"precision.a"</span>,<span class="st">"precision.d"</span>,<span class="st">"precision.s"</span>),</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">n.iter =</span> <span class="dv">1000</span>,<span class="at">thin=</span><span class="dv">10</span>)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">=</span> mcmc.out[[<span class="dv">1</span>]][,<span class="fu">grep</span>(<span class="st">"alpha"</span>,<span class="fu">colnames</span>(mcmc.out[[<span class="dv">1</span>]]))]</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>delta <span class="ot">=</span> mcmc.out[[<span class="dv">1</span>]][,<span class="fu">grep</span>(<span class="st">"delta"</span>,<span class="fu">colnames</span>(mcmc.out[[<span class="dv">1</span>]]))]</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">=</span> <span class="dv">1</span> <span class="sc">/</span> <span class="fu">sqrt</span>( mcmc.out[[<span class="dv">1</span>]][,<span class="fu">grep</span>(<span class="st">"sigma2inv"</span>,<span class="fu">colnames</span>(mcmc.out[[<span class="dv">1</span>]]))] )</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>alpha.hat <span class="ot">=</span> <span class="fu">apply</span>(alpha,<span class="dv">2</span>,mean)</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>delta.hat <span class="ot">=</span> <span class="fu">apply</span>(delta,<span class="dv">2</span>,mean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div style="page-break-after: always;"></div>
+<p>One way to look at shrinkage is to compare the posterior estimates to the corresponding gene-specific MLEs.</p>
+<p>Let’s look at the <span class="math inline">\(\alpha\)</span>’s</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(GeneSummInclude[,<span class="st">"abundance"</span>],alpha.hat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L12-shrinkage_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<p>Let’s now look at the <span class="math inline">\(\delta\)</span>’s</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(GeneSummInclude[,<span class="st">"difference"</span>],delta.hat)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L12-shrinkage_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>why is the shrinkage of the alpha’s so much less pronounced than the shrinkage of the delta’s?</p>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="point-and-slab-model" class="level3">
+<h3 class="anchored" data-anchor-id="point-and-slab-model">Point and slab Model</h3>
+<p>To contrast, this code implements a point and slab model which assumes that some unknown proportion of genes have a <span class="math inline">\(\delta\)</span> that is superclose to zero.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Can you tell how I did that?</p>
+<p>How do we interpert the hh variable?</p>
+<p>Why is hh a good letter in this case?</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>diffexpModel<span class="fl">.01</span> <span class="ot">=</span><span class="st">"model</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="st">{</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="st">  precision.s ~ dnorm( 0.0, 0.01 ) T(0,);</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="st">  precision.a ~ dnorm( 0.0, 0.01 ) T(0,);</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="st">  precision.d ~ dnorm( 0.0, 0.01 ) T(0,);</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="st">  ph0 ~ dunif(0,1);</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="st">  for ( g in 1:G ){</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="st">    hh[g] ~ dbern(1-ph0);</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="st">    sigma2inv[g] ~ dnorm( 0.0, precision.s ) T(0,);</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="st">    alpha[g] ~ dnorm(cut, precision.a) T(cut,);</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="st">     delta[g] ~ dnorm(0.0, (1-hh[g]) * 10000 + hh[g] * sigma2inv[g] * (precision.d)  );</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="st">  for ( g in 1:G ) {</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="st">    for ( i in 1:N ) {</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="st">            XX[g,i] ~ dnorm( alpha[g] + </span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a><span class="st">            ( YY[i] * (1-pi) - </span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a><span class="st">            (1-YY[i]) * pi ) * delta[g], sigma2inv[g] );</span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a><span class="st">      } </span></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a><span class="st">    }</span></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a><span class="st">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rjags)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(R2jags)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(coda)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>diffexp <span class="ot">=</span> <span class="fu">jags.model</span>(<span class="fu">textConnection</span>(diffexpModel<span class="fl">.01</span>),</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">data =</span> <span class="fu">list</span>( <span class="at">XX =</span> XXX, <span class="at">YY=</span>YYY, <span class="at">N=</span><span class="fu">length</span>(YYY), <span class="at">G=</span><span class="fu">nrow</span>(XXX), <span class="at">pi=</span><span class="fu">mean</span>(YYY),<span class="at">cut=</span><span class="dv">5</span> ),</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">n.chains =</span> <span class="dv">1</span>,</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">n.adapt =</span> <span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Compiling model graph
+   Resolving undeclared variables
+   Allocating nodes
+Graph information:
+   Observed stochastic nodes: 456300
+   Unobserved stochastic nodes: 3604
+   Total graph size: 467629
+
+Initializing model</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>mcmc.out <span class="ot">=</span> <span class="fu">coda.samples</span>(diffexp,<span class="fu">c</span>(<span class="st">"alpha"</span>,<span class="st">"delta"</span>,<span class="st">"sigma2inv"</span>,<span class="st">"hh"</span>,<span class="st">"ph0"</span>,</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">"precision.a"</span>,<span class="st">"precision.d"</span>,<span class="st">"precision.s"</span>),</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">n.iter =</span> <span class="dv">1000</span>,<span class="at">thin=</span><span class="dv">10</span>)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">=</span> mcmc.out[[<span class="dv">1</span>]][,<span class="fu">grep</span>(<span class="st">"alpha"</span>,<span class="fu">colnames</span>(mcmc.out[[<span class="dv">1</span>]]))]</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>delta <span class="ot">=</span> mcmc.out[[<span class="dv">1</span>]][,<span class="fu">grep</span>(<span class="st">"delta"</span>,<span class="fu">colnames</span>(mcmc.out[[<span class="dv">1</span>]]))]</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">=</span> <span class="dv">1</span> <span class="sc">/</span> <span class="fu">sqrt</span>( mcmc.out[[<span class="dv">1</span>]][,<span class="fu">grep</span>(<span class="st">"sigma2inv"</span>,<span class="fu">colnames</span>(mcmc.out[[<span class="dv">1</span>]]))] )</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>hh <span class="ot">=</span> mcmc.out[[<span class="dv">1</span>]][,<span class="fu">grep</span>(<span class="st">"hh"</span>,<span class="fu">colnames</span>(mcmc.out[[<span class="dv">1</span>]]))]</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>alpha.hat <span class="ot">=</span> <span class="fu">apply</span>(alpha,<span class="dv">2</span>,mean)</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>delta.hat <span class="ot">=</span> <span class="fu">apply</span>(delta,<span class="dv">2</span>,mean)</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>delta.med <span class="ot">=</span> <span class="fu">apply</span>(delta,<span class="dv">2</span>,median)</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>hh.hat <span class="ot">=</span> <span class="fu">apply</span>(hh,<span class="dv">2</span>,mean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mcmc.out[[<span class="dv">1</span>]][,<span class="fu">c</span>(<span class="st">"ph0"</span>,<span class="st">"precision.a"</span>,<span class="st">"precision.d"</span>,<span class="st">"precision.s"</span>)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      ph0          precision.a      precision.d       precision.s     
+ Min.   :0.8270   Min.   :0.1197   Min.   : 0.6013   Min.   :0.09878  
+ 1st Qu.:0.9509   1st Qu.:0.1267   1st Qu.:13.6651   1st Qu.:0.10778  
+ Median :0.9704   Median :0.1313   Median :20.5607   Median :0.11110  
+ Mean   :0.9610   Mean   :0.1311   Mean   :19.9455   Mean   :0.11165  
+ 3rd Qu.:0.9878   3rd Qu.:0.1352   3rd Qu.:26.9825   3rd Qu.:0.11441  
+ Max.   :0.9998   Max.   :0.1457   Max.   :42.1556   Max.   :0.12827  </code></pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(GeneSummInclude[,<span class="st">"abundance"</span>],alpha.hat,<span class="at">pch=</span><span class="st">"."</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L12-shrinkage_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(GeneSummInclude[,<span class="st">"difference"</span>],delta.hat,<span class="at">pch=</span><span class="st">"."</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L12-shrinkage_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(GeneSummInclude[,<span class="st">"difference"</span>],delta.med,<span class="at">pch=</span><span class="st">"."</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L12-shrinkage_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>contrast this shrinkage pattern to the fully conjugate</p>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(<span class="fu">cbind</span>(GeneSummInclude,hh.hat),<span class="at">pch=</span><span class="st">"."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L12-shrinkage_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(delta.hat,hh.hat,<span class="at">pch=</span><span class="st">"."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L12-shrinkage_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>think about how to construct an estimate of FDR if all hou have is hh.hat</p>
+</div>
+</div>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

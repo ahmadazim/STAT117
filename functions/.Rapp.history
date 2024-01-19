@@ -1,0 +1,614 @@
+probeset = "CXCL12"#
+esets_probeset = esets_bin[sapply(esets_bin, function(x) probeset %in% featureNames(x))]#
+XX = sapply(1:length(esets_probeset), function(i) { exprs(esets_probeset[[i]])[probeset,]})#
+YY = sapply(1:length(esets_probeset), function(i) { pData(esets_probeset[[i]])[,"debulking"] == "optimal" })#
+#
+ffx = density(XX[YY==FALSE],from=-4,to=0)$x#
+ff0 = density(XX[YY==FALSE],from=-4,to=0)$y#
+ff1 = density(XX[YY==TRUE],from=-4,to=0)$y#
+plot(ffx,ff0,xlab=c("Log Expression",GeneName),ylab="Density",#
+     main = "",ylim=c(0,1), col = "blue",type="l",lwd=2)#
+lines(ffx,ff1, col = "green",lwd=2)#
+rug(XX[YY==FALSE],ticksize = .05,lwd=2, col = "blue")#
+rug(XX[YY==TRUE],ticksize = .05,lwd=2, col = "green")
+load('data/esets_bin_STAT117.RData')
+probeset = "CXCL12"#
+esets_probeset = esets_bin[sapply(esets_bin, function(x) probeset %in% featureNames(x))]#
+XX = sapply(1:length(esets_probeset), function(i) { exprs(esets_probeset[[i]])[probeset,]})#
+YY = sapply(1:length(esets_probeset), function(i) { pData(esets_probeset[[i]])[,"debulking"] == "optimal" })#
+#
+ffx = density(XX[YY==FALSE],from=-4,to=0)$x#
+ff0 = density(XX[YY==FALSE],from=-4,to=0)$y#
+ff1 = density(XX[YY==TRUE],from=-4,to=0)$y#
+plot(ffx,ff0,xlab=c("Log Expression",GeneName),ylab="Density",#
+     main = "",ylim=c(0,1), col = "blue",type="l",lwd=2)#
+lines(ffx,ff1, col = "green",lwd=2)#
+rug(XX[YY==FALSE],ticksize = .05,lwd=2, col = "blue")#
+rug(XX[YY==TRUE],ticksize = .05,lwd=2, col = "green")
+load('data/esets_bin_STAT117.RData')
+getwd()
+load('/Users/albert/Dropbox/GP_Teaching/STA117/Textbook117/data/esets_bin_STAT117.RData')
+probeset = "CXCL12"#
+esets_probeset = esets_bin[sapply(esets_bin, function(x) probeset %in% featureNames(x))]#
+XX = sapply(1:length(esets_probeset), function(i) { exprs(esets_probeset[[i]])[probeset,]})#
+YY = sapply(1:length(esets_probeset), function(i) { pData(esets_probeset[[i]])[,"debulking"] == "optimal" })#
+#
+ffx = density(XX[YY==FALSE],from=-4,to=0)$x#
+ff0 = density(XX[YY==FALSE],from=-4,to=0)$y#
+ff1 = density(XX[YY==TRUE],from=-4,to=0)$y#
+plot(ffx,ff0,xlab=c("Log Expression",GeneName),ylab="Density",#
+     main = "",ylim=c(0,1), col = "blue",type="l",lwd=2)#
+lines(ffx,ff1, col = "green",lwd=2)#
+rug(XX[YY==FALSE],ticksize = .05,lwd=2, col = "blue")#
+rug(XX[YY==TRUE],ticksize = .05,lwd=2, col = "green")
+library(curatedOvarianData)
+probeset = "CXCL12"#
+esets_probeset = esets_bin[sapply(esets_bin, function(x) probeset %in% featureNames(x))]#
+XX = sapply(1:length(esets_probeset), function(i) { exprs(esets_probeset[[i]])[probeset,]})#
+YY = sapply(1:length(esets_probeset), function(i) { pData(esets_probeset[[i]])[,"debulking"] == "optimal" })#
+#
+ffx = density(XX[YY==FALSE],from=-4,to=0)$x#
+ff0 = density(XX[YY==FALSE],from=-4,to=0)$y#
+ff1 = density(XX[YY==TRUE],from=-4,to=0)$y#
+plot(ffx,ff0,xlab=c("Log Expression",GeneName),ylab="Density",#
+     main = "",ylim=c(0,1), col = "blue",type="l",lwd=2)#
+lines(ffx,ff1, col = "green",lwd=2)#
+rug(XX[YY==FALSE],ticksize = .05,lwd=2, col = "blue")#
+rug(XX[YY==TRUE],ticksize = .05,lwd=2, col = "green")
+XX
+load('/Users/albert/Dropbox/GP_Teaching/STA117/Textbook117/data/esets_bin_STAT117.RData')#
+probesets = c("POSTN", "CXCL12", "CXCL14", "BRCA1")#
+library(curatedOvarianData)#
+probeset = "CXCL12"#
+esets_probeset = esets_bin[sapply(esets_bin, function(x) probeset %in% featureNames(x))]#
+ind.rm <- which(names(esets_probeset) %in% c("GSE17260_eset","GSE32062.GPL6480_eset","GSE32063_eset","GSE49997_eset","GSE51088_eset","GSE8842_eset"))#
+esets_probeset <- esets_probeset[-ind.rm]#
+ind.rm.debulk <- which(names(esets_probeset) %in% c("GSE13876_eset","GSE14764_eset","GSE19829.GPL570_eset","GSE19829.GPL8300_eset","GSE26193_eset"))#
+esets_probeset <- esets_probeset[-ind.rm.debulk]#
+esets_probeset <- esets_probeset[-which(names(esets_probeset) == "GSE30161_eset")]#
+XX = sapply(1:length(esets_probeset), function(i) { exprs(esets_probeset[[i]])[probeset,]})#
+YY = sapply(1:length(esets_probeset), function(i) { pData(esets_probeset[[i]])[,"debulking"] == "optimal" })
+XX
+length(XX)
+par(mfrow = c(3,3))
+for(i in 1:length(XX)){#
+	ffx = density(XX[[i]][YY[[i]]==FALSE],from=0,to=15)$x#
+	ff0 = density(XX[[i]][YY[[i]]==FALSE],from=0,to=15)$y#
+	ff1 = density(XX[[i]][YY[[i]]==TRUE],from=0,to=15)$y#
+	plot(ffx,ff0,xlab=c("Log Expression",GeneName),ylab="Density",#
+	     main = "",ylim=c(0,1), col = "blue",type="l",lwd=2)#
+	lines(ffx,ff1, col = "green",lwd=2)#
+	rug(XX[[i]][YY[[i]]==FALSE],ticksize = .05,lwd=2, col = "blue")#
+	rug(XX[[i]][YY[[i]]==TRUE],ticksize = .05,lwd=2, col = "green")#
+}
+XX[[1]][YY[[1]]==FALSE]
+XX[[1]]
+YY[[1]]==FALSE
+for (i in 1:length(esets_probeset)) {#
+  if (sum (is.na(YY[[i]])) > 0) {#
+    XX[[i]] <- XX[[i]][!is.na(YY[[i]])]#
+    YY[[i]] <- YY[[i]][!is.na(YY[[i]])]#
+  }#
+}#
+#
+par(mfrow = c(3,3))#
+for(i in 1:length(XX)){#
+	ffx = density(XX[[i]][YY[[i]]==FALSE],from=0,to=15)$x#
+	ff0 = density(XX[[i]][YY[[i]]==FALSE],from=0,to=15)$y#
+	ff1 = density(XX[[i]][YY[[i]]==TRUE],from=0,to=15)$y#
+	plot(ffx,ff0,xlab=c("Log Expression",GeneName),ylab="Density",#
+	     main = "",ylim=c(0,1), col = "blue",type="l",lwd=2)#
+	lines(ffx,ff1, col = "green",lwd=2)#
+	rug(XX[[i]][YY[[i]]==FALSE],ticksize = .05,lwd=2, col = "blue")#
+	rug(XX[[i]][YY[[i]]==TRUE],ticksize = .05,lwd=2, col = "green")#
+}
+par(mfrow = c(3,3))#
+for(i in 1:length(XX)){#
+	ffx = density(XX[[i]][YY[[i]]==FALSE],from=0,to=15)$x#
+	ff0 = density(XX[[i]][YY[[i]]==FALSE],from=0,to=15)$y#
+	ff1 = density(XX[[i]][YY[[i]]==TRUE],from=0,to=15)$y#
+	plot(ffx,ff0,xlab=c("Log Expression",probeset),ylab="Density",#
+	     main = "",ylim=c(0,1), col = "blue",type="l",lwd=2)#
+	lines(ffx,ff1, col = "green",lwd=2)#
+	rug(XX[[i]][YY[[i]]==FALSE],ticksize = .05,lwd=2, col = "blue")#
+	rug(XX[[i]][YY[[i]]==TRUE],ticksize = .05,lwd=2, col = "green")#
+}
+for(i in 1:length(XX)){#
+	ffx = density(XX[[i]][YY[[i]]==FALSE],from=0,to=15)$x#
+	ff0 = density(XX[[i]][YY[[i]]==FALSE],from=0,to=15)$y#
+	ff1 = density(XX[[i]][YY[[i]]==TRUE],from=0,to=15)$y#
+	plot(ffx,ff0,xlab=c("Log Expression",probeset),ylab="Density",#
+	     main = names(esets_probeset)[i],ylim=c(0,1), col = "blue",type="l",lwd=2)#
+	lines(ffx,ff1, col = "green",lwd=2)#
+	rug(XX[[i]][YY[[i]]==FALSE],ticksize = .05,lwd=2, col = "blue")#
+	rug(XX[[i]][YY[[i]]==TRUE],ticksize = .05,lwd=2, col = "green")#
+}
+par(mfrow = c(3,3))#
+for(i in 1:length(XX)){#
+	ffx = density(XX[[i]][YY[[i]]==FALSE],from=0,to=15)$x#
+	ff0 = density(XX[[i]][YY[[i]]==FALSE],from=0,to=15)$y#
+	ff1 = density(XX[[i]][YY[[i]]==TRUE],from=0,to=15)$y#
+	plot(ffx,ff0,xlab=c("Log Expression",probeset),ylab="Density",#
+	     main = names(esets_probeset)[i],ylim=c(0,1), col = "blue",type="l",lwd=2)#
+	lines(ffx,ff1, col = "green",lwd=2)#
+	rug(XX[[i]][YY[[i]]==FALSE],ticksize = .05,lwd=2, col = "blue")#
+	rug(XX[[i]][YY[[i]]==TRUE],ticksize = .05,lwd=2, col = "green")#
+}
+par(mfrow = c(3,3))#
+for(i in 1:length(XX)){#
+	ffx = density(XX[[i]][YY[[i]]==FALSE],from=0,to=15)$x#
+	ff0 = density(XX[[i]][YY[[i]]==FALSE],from=0,to=15)$y#
+	ff1 = density(XX[[i]][YY[[i]]==TRUE],from=0,to=15)$y#
+	plot(ffx,ff0,xlab=c("Log Expression",probeset),ylab="Density",#
+	     main = c(names(esets_probeset)[i], " N = ", length(YY[[i]])),ylim=c(0,1), col = "blue",type="l",lwd=2)#
+	lines(ffx,ff1, col = "green",lwd=2)#
+	rug(XX[[i]][YY[[i]]==FALSE],ticksize = .05,lwd=2, col = "blue")#
+	rug(XX[[i]][YY[[i]]==TRUE],ticksize = .05,lwd=2, col = "green")#
+}
+par(mfrow = c(3,3))#
+for(i in 1:length(XX)){#
+	ffx = density(XX[[i]][YY[[i]]==FALSE],from=0,to=15)$x#
+	ff0 = density(XX[[i]][YY[[i]]==FALSE],from=0,to=15)$y#
+	ff1 = density(XX[[i]][YY[[i]]==TRUE],from=0,to=15)$y#
+	plot(ffx,ff0,xlab=c("Log Expression",probeset),ylab="Density",#
+	     main = paste(names(esets_probeset)[i], " N = ", length(YY[[i]])),ylim=c(0,1), col = "blue",type="l",lwd=2)#
+	lines(ffx,ff1, col = "green",lwd=2)#
+	rug(XX[[i]][YY[[i]]==FALSE],ticksize = .05,lwd=2, col = "blue")#
+	rug(XX[[i]][YY[[i]]==TRUE],ticksize = .05,lwd=2, col = "green")#
+}
+par(mfrow = c(3,3))#
+for(i in 1:length(XX)){#
+	ffx = density(XX[[i]][YY[[i]]==FALSE],from=0,to=15)$x#
+	ff0 = density(XX[[i]][YY[[i]]==FALSE],from=0,to=15)$y#
+	ff1 = density(XX[[i]][YY[[i]]==TRUE],from=0,to=15)$y#
+	plot(ffx,ff0,xlab=c("Log Expression",probeset),ylab="Density",#
+	     main = paste(names(esets_probeset)[i], " N=", length(YY[[i]])),ylim=c(0,1), col = "blue",type="l",lwd=2)#
+	lines(ffx,ff1, col = "green",lwd=2)#
+	rug(XX[[i]][YY[[i]]==FALSE],ticksize = .05,lwd=2, col = "blue")#
+	rug(XX[[i]][YY[[i]]==TRUE],ticksize = .05,lwd=2, col = "green")#
+}
+probeset = "POSTN"#
+esets_probeset = esets_bin[sapply(esets_bin, function(x) probeset %in% featureNames(x))]#
+ind.rm <- which(names(esets_probeset) %in% c("GSE17260_eset","GSE32062.GPL6480_eset","GSE32063_eset","GSE49997_eset","GSE51088_eset","GSE8842_eset"))#
+esets_probeset <- esets_probeset[-ind.rm]#
+ind.rm.debulk <- which(names(esets_probeset) %in% c("GSE13876_eset","GSE14764_eset","GSE19829.GPL570_eset","GSE19829.GPL8300_eset","GSE26193_eset"))#
+esets_probeset <- esets_probeset[-ind.rm.debulk]#
+esets_probeset <- esets_probeset[-which(names(esets_probeset) == "GSE30161_eset")]#
+XX = sapply(1:length(esets_probeset), function(i) { exprs(esets_probeset[[i]])[probeset,]})#
+YY = sapply(1:length(esets_probeset), function(i) { pData(esets_probeset[[i]])[,"debulking"] == "optimal" })#
+#
+for (i in 1:length(esets_probeset)) {#
+  if (sum (is.na(YY[[i]])) > 0) {#
+    XX[[i]] <- XX[[i]][!is.na(YY[[i]])]#
+    YY[[i]] <- YY[[i]][!is.na(YY[[i]])]#
+  }#
+}#
+#
+par(mfrow = c(3,3))#
+for(i in 1:length(XX)){#
+	ffx = density(XX[[i]][YY[[i]]==FALSE],from=0,to=15)$x#
+	ff0 = density(XX[[i]][YY[[i]]==FALSE],from=0,to=15)$y#
+	ff1 = density(XX[[i]][YY[[i]]==TRUE],from=0,to=15)$y#
+	plot(ffx,ff0,xlab=c("Log Expression",probeset),ylab="Density",#
+	     main = paste(names(esets_probeset)[i], " N=", length(YY[[i]])),ylim=c(0,1), col = "blue",type="l",lwd=2)#
+	lines(ffx,ff1, col = "green",lwd=2)#
+	rug(XX[[i]][YY[[i]]==FALSE],ticksize = .05,lwd=2, col = "blue")#
+	rug(XX[[i]][YY[[i]]==TRUE],ticksize = .05,lwd=2, col = "green")#
+}
+probeset = "CXCL14"#
+esets_probeset = esets_bin[sapply(esets_bin, function(x) probeset %in% featureNames(x))]#
+ind.rm <- which(names(esets_probeset) %in% c("GSE17260_eset","GSE32062.GPL6480_eset","GSE32063_eset","GSE49997_eset","GSE51088_eset","GSE8842_eset"))#
+esets_probeset <- esets_probeset[-ind.rm]#
+ind.rm.debulk <- which(names(esets_probeset) %in% c("GSE13876_eset","GSE14764_eset","GSE19829.GPL570_eset","GSE19829.GPL8300_eset","GSE26193_eset"))#
+esets_probeset <- esets_probeset[-ind.rm.debulk]#
+esets_probeset <- esets_probeset[-which(names(esets_probeset) == "GSE30161_eset")]#
+XX = sapply(1:length(esets_probeset), function(i) { exprs(esets_probeset[[i]])[probeset,]})#
+YY = sapply(1:length(esets_probeset), function(i) { pData(esets_probeset[[i]])[,"debulking"] == "optimal" })#
+#
+for (i in 1:length(esets_probeset)) {#
+  if (sum (is.na(YY[[i]])) > 0) {#
+    XX[[i]] <- XX[[i]][!is.na(YY[[i]])]#
+    YY[[i]] <- YY[[i]][!is.na(YY[[i]])]#
+  }#
+}#
+#
+par(mfrow = c(3,3))#
+for(i in 1:length(XX)){#
+	ffx = density(XX[[i]][YY[[i]]==FALSE],from=0,to=15)$x#
+	ff0 = density(XX[[i]][YY[[i]]==FALSE],from=0,to=15)$y#
+	ff1 = density(XX[[i]][YY[[i]]==TRUE],from=0,to=15)$y#
+	plot(ffx,ff0,xlab=c("Log Expression",probeset),ylab="Density",#
+	     main = paste(names(esets_probeset)[i], " N=", length(YY[[i]])),ylim=c(0,1), col = "blue",type="l",lwd=2)#
+	lines(ffx,ff1, col = "green",lwd=2)#
+	rug(XX[[i]][YY[[i]]==FALSE],ticksize = .05,lwd=2, col = "blue")#
+	rug(XX[[i]][YY[[i]]==TRUE],ticksize = .05,lwd=2, col = "green")#
+}
+probeset = "BRCA1"#
+esets_probeset = esets_bin[sapply(esets_bin, function(x) probeset %in% featureNames(x))]#
+ind.rm <- which(names(esets_probeset) %in% c("GSE17260_eset","GSE32062.GPL6480_eset","GSE32063_eset","GSE49997_eset","GSE51088_eset","GSE8842_eset"))#
+esets_probeset <- esets_probeset[-ind.rm]#
+ind.rm.debulk <- which(names(esets_probeset) %in% c("GSE13876_eset","GSE14764_eset","GSE19829.GPL570_eset","GSE19829.GPL8300_eset","GSE26193_eset"))#
+esets_probeset <- esets_probeset[-ind.rm.debulk]#
+esets_probeset <- esets_probeset[-which(names(esets_probeset) == "GSE30161_eset")]#
+XX = sapply(1:length(esets_probeset), function(i) { exprs(esets_probeset[[i]])[probeset,]})#
+YY = sapply(1:length(esets_probeset), function(i) { pData(esets_probeset[[i]])[,"debulking"] == "optimal" })#
+#
+for (i in 1:length(esets_probeset)) {#
+  if (sum (is.na(YY[[i]])) > 0) {#
+    XX[[i]] <- XX[[i]][!is.na(YY[[i]])]#
+    YY[[i]] <- YY[[i]][!is.na(YY[[i]])]#
+  }#
+}#
+#
+par(mfrow = c(3,3))#
+for(i in 1:length(XX)){#
+	ffx = density(XX[[i]][YY[[i]]==FALSE],from=0,to=15)$x#
+	ff0 = density(XX[[i]][YY[[i]]==FALSE],from=0,to=15)$y#
+	ff1 = density(XX[[i]][YY[[i]]==TRUE],from=0,to=15)$y#
+	plot(ffx,ff0,xlab=c("Log Expression",probeset),ylab="Density",#
+	     main = paste(names(esets_probeset)[i], " N=", length(YY[[i]])),ylim=c(0,1), col = "blue",type="l",lwd=2)#
+	lines(ffx,ff1, col = "green",lwd=2)#
+	rug(XX[[i]][YY[[i]]==FALSE],ticksize = .05,lwd=2, col = "blue")#
+	rug(XX[[i]][YY[[i]]==TRUE],ticksize = .05,lwd=2, col = "green")#
+}
+par(mfrow = c(3,3))#
+for(i in 1:length(XX)){#
+	if(i == 8){#
+		ffx = density(XX[[i]][YY[[i]]==FALSE],from=2,to=14)$x#
+		ff0 = density(XX[[i]][YY[[i]]==FALSE],from=2,to=14)$y#
+		ff1 = density(XX[[i]][YY[[i]]==TRUE],from=2,to=14)$y#
+	} else {#
+		ffx = density(XX[[i]][YY[[i]]==FALSE],from=0,to=15)$x#
+		ff0 = density(XX[[i]][YY[[i]]==FALSE],from=0,to=15)$y#
+		ff1 = density(XX[[i]][YY[[i]]==TRUE],from=0,to=15)$y#
+	}#
+	plot(ffx,ff0,xlab=c("Log Expression",probeset),ylab="Density", main = paste(names(esets_probeset)[i], " N=", length(YY[[i]])),ylim=c(0,1), col = "blue",type="l",lwd=2)#
+	lines(ffx,ff1, col = "green",lwd=2)#
+	rug(XX[[i]][YY[[i]]==FALSE],ticksize = .05,lwd=2, col = "blue")#
+	rug(XX[[i]][YY[[i]]==TRUE],ticksize = .05,lwd=2, col = "green")#
+}
+load('/Users/albert/Dropbox/GP_Teaching/STA117/Textbook117/data/esets_bin_STAT117.RData')#
+probesets = c("POSTN", "CXCL12", "CXCL14", "BRCA1")#
+library(curatedOvarianData)#
+#
+# POSTN#
+probeset = "POSTN"#
+esets_probeset = esets_bin[sapply(esets_bin, function(x) probeset %in% featureNames(x))]#
+ind.rm <- which(names(esets_probeset) %in% c("GSE17260_eset","GSE32062.GPL6480_eset","GSE32063_eset","GSE49997_eset","GSE51088_eset","GSE8842_eset"))#
+esets_probeset <- esets_probeset[-ind.rm]#
+ind.rm.debulk <- which(names(esets_probeset) %in% c("GSE13876_eset","GSE14764_eset","GSE19829.GPL570_eset","GSE19829.GPL8300_eset","GSE26193_eset"))#
+esets_probeset <- esets_probeset[-ind.rm.debulk]#
+esets_probeset <- esets_probeset[-which(names(esets_probeset) == "GSE30161_eset")]#
+esets_probeset <- esets_probeset[-which(names(esets_probeset) == "GSE30009_eset")]#
+#
+XX = sapply(1:length(esets_probeset), function(i) { exprs(esets_probeset[[i]])[probeset,]})#
+YY = sapply(1:length(esets_probeset), function(i) { pData(esets_probeset[[i]])[,"debulking"] == "optimal" })#
+#
+for (i in 1:length(esets_probeset)) {#
+  if (sum (is.na(YY[[i]])) > 0) {#
+    XX[[i]] <- XX[[i]][!is.na(YY[[i]])]#
+    YY[[i]] <- YY[[i]][!is.na(YY[[i]])]#
+  }#
+}#
+#
+par(mfrow = c(3,3))#
+for(i in 1:length(XX)){#
+	if(i == 8){#
+		ffx = density(XX[[i]][YY[[i]]==FALSE],from=2,to=14)$x#
+		ff0 = density(XX[[i]][YY[[i]]==FALSE],from=2,to=14)$y#
+		ff1 = density(XX[[i]][YY[[i]]==TRUE],from=2,to=14)$y#
+	} else {#
+		ffx = density(XX[[i]][YY[[i]]==FALSE],from=0,to=15)$x#
+		ff0 = density(XX[[i]][YY[[i]]==FALSE],from=0,to=15)$y#
+		ff1 = density(XX[[i]][YY[[i]]==TRUE],from=0,to=15)$y#
+	}#
+	plot(ffx,ff0,xlab=c("Log Expression",probeset),ylab="Density", main = paste(names(esets_probeset)[i], " N=", length(YY[[i]])),ylim=c(0,1), col = "blue",type="l",lwd=2)#
+	lines(ffx,ff1, col = "green",lwd=2)#
+	rug(XX[[i]][YY[[i]]==FALSE],ticksize = .05,lwd=2, col = "blue")#
+	rug(XX[[i]][YY[[i]]==TRUE],ticksize = .05,lwd=2, col = "green")#
+}
+load('/Users/albert/Dropbox/GP_Teaching/STA117/Textbook117/data/esets_bin_STAT117.RData')#
+probesets = c("POSTN", "CXCL12", "CXCL14", "BRCA1")#
+library(curatedOvarianData)#
+#
+# POSTN#
+probeset = "POSTN"#
+esets_probeset = esets_bin[sapply(esets_bin, function(x) probeset %in% featureNames(x))]#
+ind.rm <- which(names(esets_probeset) %in% c("GSE17260_eset","GSE32062.GPL6480_eset","GSE32063_eset","GSE49997_eset","GSE51088_eset","GSE8842_eset"))#
+esets_probeset <- esets_probeset[-ind.rm]#
+ind.rm.debulk <- which(names(esets_probeset) %in% c("GSE13876_eset","GSE14764_eset","GSE19829.GPL570_eset","GSE19829.GPL8300_eset","GSE26193_eset"))#
+esets_probeset <- esets_probeset[-ind.rm.debulk]#
+#esets_probeset <- esets_probeset[-which(names(esets_probeset) == "GSE30161_eset")]#
+esets_probeset <- esets_probeset[-which(names(esets_probeset) == "GSE30009_eset")]#
+#
+XX = sapply(1:length(esets_probeset), function(i) { exprs(esets_probeset[[i]])[probeset,]})#
+YY = sapply(1:length(esets_probeset), function(i) { pData(esets_probeset[[i]])[,"debulking"] == "optimal" })#
+#
+for (i in 1:length(esets_probeset)) {#
+  if (sum (is.na(YY[[i]])) > 0) {#
+    XX[[i]] <- XX[[i]][!is.na(YY[[i]])]#
+    YY[[i]] <- YY[[i]][!is.na(YY[[i]])]#
+  }#
+}
+esets_probeset
+load('/Users/albert/Dropbox/GP_Teaching/STA117/Textbook117/data/esets_bin_STAT117.RData')#
+probesets = c("POSTN", "CXCL12", "CXCL14", "BRCA1")#
+library(curatedOvarianData)#
+#
+# POSTN#
+probeset = "POSTN"#
+esets_probeset = esets_bin[sapply(esets_bin, function(x) probeset %in% featureNames(x))]
+esets_probeset
+ind.rm <- which(names(esets_probeset) %in% c("GSE17260_eset","GSE32062.GPL6480_eset","GSE32063_eset","GSE49997_eset","GSE51088_eset","GSE8842_eset"))
+esets_probeset <- esets_probeset[-ind.rm]
+ind.rm.debulk <- which(names(esets_probeset) %in% c("GSE13876_eset","GSE14764_eset","GSE19829.GPL570_eset","GSE19829.GPL8300_eset","GSE26193_eset"))
+esets_probeset <- esets_probeset[-ind.rm.debulk]
+esets_probeset
+esets_probeset[-which(names(esets_probeset) == "GSE30009_eset")]
+load('/Users/albert/Dropbox/GP_Teaching/STA117/Textbook117/data/esets_bin_STAT117.RData')#
+probesets = c("POSTN", "CXCL12", "CXCL14", "BRCA1")#
+library(curatedOvarianData)#
+#
+# POSTN#
+probeset = "POSTN"#
+esets_probeset = esets_bin[sapply(esets_bin, function(x) probeset %in% featureNames(x))]#
+ind.rm <- which(names(esets_probeset) %in% c("GSE17260_eset","GSE32062.GPL6480_eset","GSE32063_eset","GSE49997_eset","GSE51088_eset","GSE8842_eset"))#
+esets_probeset <- esets_probeset[-ind.rm]#
+ind.rm.debulk <- which(names(esets_probeset) %in% c("GSE13876_eset","GSE14764_eset","GSE19829.GPL570_eset","GSE19829.GPL8300_eset","GSE26193_eset"))#
+esets_probeset <- esets_probeset[-ind.rm.debulk]#
+#esets_probeset <- esets_probeset[-which(names(esets_probeset) == "GSE30161_eset")]#
+if(probeset == "BRCA1"){#
+	esets_probeset <- esets_probeset[-which(names(esets_probeset) == "GSE30009_eset")]#
+}#
+#
+XX = sapply(1:length(esets_probeset), function(i) { exprs(esets_probeset[[i]])[probeset,]})#
+YY = sapply(1:length(esets_probeset), function(i) { pData(esets_probeset[[i]])[,"debulking"] == "optimal" })
+for (i in 1:length(esets_probeset)) {#
+  if (sum (is.na(YY[[i]])) > 0) {#
+    XX[[i]] <- XX[[i]][!is.na(YY[[i]])]#
+    YY[[i]] <- YY[[i]][!is.na(YY[[i]])]#
+  }#
+}
+length(XX)
+names(esets_probeset)
+par(mfrow = c(3,3))#
+for(i in 1:length(XX)){#
+	if(i == 8){#
+		ffx = density(XX[[i]][YY[[i]]==FALSE],from=2,to=14)$x#
+		ff0 = density(XX[[i]][YY[[i]]==FALSE],from=2,to=14)$y#
+		ff1 = density(XX[[i]][YY[[i]]==TRUE],from=2,to=14)$y#
+	} else {#
+		ffx = density(XX[[i]][YY[[i]]==FALSE],from=0,to=15)$x#
+		ff0 = density(XX[[i]][YY[[i]]==FALSE],from=0,to=15)$y#
+		ff1 = density(XX[[i]][YY[[i]]==TRUE],from=0,to=15)$y#
+	}#
+	plot(ffx,ff0,xlab=c("Log Expression",probeset),ylab="Density", main = paste(names(esets_probeset)[i], " N=", length(YY[[i]])),ylim=c(0,1), col = "blue",type="l",lwd=2)#
+	lines(ffx,ff1, col = "green",lwd=2)#
+	rug(XX[[i]][YY[[i]]==FALSE],ticksize = .05,lwd=2, col = "blue")#
+	rug(XX[[i]][YY[[i]]==TRUE],ticksize = .05,lwd=2, col = "green")#
+}
+probeset = "CXCL12"#
+esets_probeset = esets_bin[sapply(esets_bin, function(x) probeset %in% featureNames(x))]#
+ind.rm <- which(names(esets_probeset) %in% c("GSE17260_eset","GSE32062.GPL6480_eset","GSE32063_eset","GSE49997_eset","GSE51088_eset","GSE8842_eset"))#
+esets_probeset <- esets_probeset[-ind.rm]#
+ind.rm.debulk <- which(names(esets_probeset) %in% c("GSE13876_eset","GSE14764_eset","GSE19829.GPL570_eset","GSE19829.GPL8300_eset","GSE26193_eset"))#
+esets_probeset <- esets_probeset[-ind.rm.debulk]#
+#esets_probeset <- esets_probeset[-which(names(esets_probeset) == "GSE30161_eset")]#
+if(probeset == "BRCA1"){#
+	esets_probeset <- esets_probeset[-which(names(esets_probeset) == "GSE30009_eset")]#
+}#
+XX = sapply(1:length(esets_probeset), function(i) { exprs(esets_probeset[[i]])[probeset,]})#
+YY = sapply(1:length(esets_probeset), function(i) { pData(esets_probeset[[i]])[,"debulking"] == "optimal" })#
+for (i in 1:length(esets_probeset)) {#
+  if (sum (is.na(YY[[i]])) > 0) {#
+    XX[[i]] <- XX[[i]][!is.na(YY[[i]])]#
+    YY[[i]] <- YY[[i]][!is.na(YY[[i]])]#
+  }#
+}#
+par(mfrow = c(3,3))#
+for(i in 1:length(XX)){#
+	if(i == 8){#
+		ffx = density(XX[[i]][YY[[i]]==FALSE],from=3,to=15)$x#
+		ff0 = density(XX[[i]][YY[[i]]==FALSE],from=3,to=15)$y#
+		ff1 = density(XX[[i]][YY[[i]]==TRUE],from=3,to=15)$y#
+	} else {#
+		ffx = density(XX[[i]][YY[[i]]==FALSE],from=3,to=15)$x#
+		ff0 = density(XX[[i]][YY[[i]]==FALSE],from=3,to=15)$y#
+		ff1 = density(XX[[i]][YY[[i]]==TRUE],from=3,to=15)$y#
+	}#
+	plot(ffx,ff0,xlab=c("Log Expression",probeset),ylab="Density", main = paste(names(esets_probeset)[i], " N=", length(YY[[i]])),ylim=c(0,1), col = "blue",type="l",lwd=2)#
+	lines(ffx,ff1, col = "green",lwd=2)#
+	rug(XX[[i]][YY[[i]]==FALSE],ticksize = .05,lwd=2, col = "blue")#
+	rug(XX[[i]][YY[[i]]==TRUE],ticksize = .05,lwd=2, col = "green")#
+}
+probeset = "CXCL14"#
+esets_probeset = esets_bin[sapply(esets_bin, function(x) probeset %in% featureNames(x))]#
+ind.rm <- which(names(esets_probeset) %in% c("GSE17260_eset","GSE32062.GPL6480_eset","GSE32063_eset","GSE49997_eset","GSE51088_eset","GSE8842_eset"))#
+esets_probeset <- esets_probeset[-ind.rm]#
+ind.rm.debulk <- which(names(esets_probeset) %in% c("GSE13876_eset","GSE14764_eset","GSE19829.GPL570_eset","GSE19829.GPL8300_eset","GSE26193_eset"))#
+esets_probeset <- esets_probeset[-ind.rm.debulk]#
+#esets_probeset <- esets_probeset[-which(names(esets_probeset) == "GSE30161_eset")]#
+if(probeset == "BRCA1"){#
+	esets_probeset <- esets_probeset[-which(names(esets_probeset) == "GSE30009_eset")]#
+}#
+XX = sapply(1:length(esets_probeset), function(i) { exprs(esets_probeset[[i]])[probeset,]})#
+YY = sapply(1:length(esets_probeset), function(i) { pData(esets_probeset[[i]])[,"debulking"] == "optimal" })#
+for (i in 1:length(esets_probeset)) {#
+  if (sum (is.na(YY[[i]])) > 0) {#
+    XX[[i]] <- XX[[i]][!is.na(YY[[i]])]#
+    YY[[i]] <- YY[[i]][!is.na(YY[[i]])]#
+  }#
+}#
+par(mfrow = c(3,3))#
+for(i in 1:length(XX)){#
+	if(i == 8){#
+		ffx = density(XX[[i]][YY[[i]]==FALSE],from=2,to=15)$x#
+		ff0 = density(XX[[i]][YY[[i]]==FALSE],from=2,to=15)$y#
+		ff1 = density(XX[[i]][YY[[i]]==TRUE],from=2,to=15)$y#
+	} else {#
+		ffx = density(XX[[i]][YY[[i]]==FALSE],from=0,to=15)$x#
+		ff0 = density(XX[[i]][YY[[i]]==FALSE],from=0,to=15)$y#
+		ff1 = density(XX[[i]][YY[[i]]==TRUE],from=0,to=15)$y#
+	}#
+	plot(ffx,ff0,xlab=c("Log Expression",probeset),ylab="Density", main = paste(names(esets_probeset)[i], " N=", length(YY[[i]])),ylim=c(0,1), col = "blue",type="l",lwd=2)#
+	lines(ffx,ff1, col = "green",lwd=2)#
+	rug(XX[[i]][YY[[i]]==FALSE],ticksize = .05,lwd=2, col = "blue")#
+	rug(XX[[i]][YY[[i]]==TRUE],ticksize = .05,lwd=2, col = "green")#
+}
+par(mfrow = c(3,3))#
+for(i in 1:length(XX)){#
+	hist(XX[[i]])#
+}
+# BRCA1#
+probeset = "BRCA1"#
+esets_probeset = esets_bin[sapply(esets_bin, function(x) probeset %in% featureNames(x))]#
+ind.rm <- which(names(esets_probeset) %in% c("GSE17260_eset","GSE32062.GPL6480_eset","GSE32063_eset","GSE49997_eset","GSE51088_eset","GSE8842_eset"))#
+esets_probeset <- esets_probeset[-ind.rm]#
+ind.rm.debulk <- which(names(esets_probeset) %in% c("GSE13876_eset","GSE14764_eset","GSE19829.GPL570_eset","GSE19829.GPL8300_eset","GSE26193_eset"))#
+esets_probeset <- esets_probeset[-ind.rm.debulk]#
+#esets_probeset <- esets_probeset[-which(names(esets_probeset) == "GSE30161_eset")]#
+if(probeset == "BRCA1"){#
+	esets_probeset <- esets_probeset[-which(names(esets_probeset) == "GSE30009_eset")]#
+}#
+XX = sapply(1:length(esets_probeset), function(i) { exprs(esets_probeset[[i]])[probeset,]})#
+YY = sapply(1:length(esets_probeset), function(i) { pData(esets_probeset[[i]])[,"debulking"] == "optimal" })#
+for (i in 1:length(esets_probeset)) {#
+  if (sum (is.na(YY[[i]])) > 0) {#
+    XX[[i]] <- XX[[i]][!is.na(YY[[i]])]#
+    YY[[i]] <- YY[[i]][!is.na(YY[[i]])]#
+  }#
+}#
+par(mfrow = c(3,3))#
+for(i in 1:length(XX)){#
+	if(i == 8){#
+		ffx = density(XX[[i]][YY[[i]]==FALSE],from=2,to=12)$x#
+		ff0 = density(XX[[i]][YY[[i]]==FALSE],from=2,to=12)$y#
+		ff1 = density(XX[[i]][YY[[i]]==TRUE],from=2,to=12)$y#
+	} else {#
+		ffx = density(XX[[i]][YY[[i]]==FALSE],from=2,to=12)$x#
+		ff0 = density(XX[[i]][YY[[i]]==FALSE],from=2,to=12)$y#
+		ff1 = density(XX[[i]][YY[[i]]==TRUE],from=2,to=12)$y#
+	}#
+	plot(ffx,ff0,xlab=c("Log Expression",probeset),ylab="Density", main = paste(names(esets_probeset)[i], " N=", length(YY[[i]])),ylim=c(0,1), col = "blue",type="l",lwd=2)#
+	lines(ffx,ff1, col = "green",lwd=2)#
+	rug(XX[[i]][YY[[i]]==FALSE],ticksize = .05,lwd=2, col = "blue")#
+	rug(XX[[i]][YY[[i]]==TRUE],ticksize = .05,lwd=2, col = "green")#
+}
+c(2,3,4,6)
+2 %in% c(2,3,4,6)
+5 %in% c(2,3,4,6)
+probeset = "BRCA1"#
+esets_probeset = esets_bin[sapply(esets_bin, function(x) probeset %in% featureNames(x))]#
+ind.rm <- which(names(esets_probeset) %in% c("GSE17260_eset","GSE32062.GPL6480_eset","GSE32063_eset","GSE49997_eset","GSE51088_eset","GSE8842_eset"))#
+esets_probeset <- esets_probeset[-ind.rm]#
+ind.rm.debulk <- which(names(esets_probeset) %in% c("GSE13876_eset","GSE14764_eset","GSE19829.GPL570_eset","GSE19829.GPL8300_eset","GSE26193_eset"))#
+esets_probeset <- esets_probeset[-ind.rm.debulk]#
+#esets_probeset <- esets_probeset[-which(names(esets_probeset) == "GSE30161_eset")]#
+if(probeset == "BRCA1"){#
+	esets_probeset <- esets_probeset[-which(names(esets_probeset) == "GSE30009_eset")]#
+}#
+XX = sapply(1:length(esets_probeset), function(i) { exprs(esets_probeset[[i]])[probeset,]})#
+YY = sapply(1:length(esets_probeset), function(i) { pData(esets_probeset[[i]])[,"debulking"] == "optimal" })#
+for (i in 1:length(esets_probeset)) {#
+  if (sum (is.na(YY[[i]])) > 0) {#
+    XX[[i]] <- XX[[i]][!is.na(YY[[i]])]#
+    YY[[i]] <- YY[[i]][!is.na(YY[[i]])]#
+  }#
+}#
+par(mfrow = c(3,3))#
+for(i in 1:length(XX)){#
+	if(i == 8){#
+		ffx = density(XX[[i]][YY[[i]]==FALSE],from=2,to=12)$x#
+		ff0 = density(XX[[i]][YY[[i]]==FALSE],from=2,to=12)$y#
+		ff1 = density(XX[[i]][YY[[i]]==TRUE],from=2,to=12)$y#
+	} else {#
+		ffx = density(XX[[i]][YY[[i]]==FALSE],from=2,to=12)$x#
+		ff0 = density(XX[[i]][YY[[i]]==FALSE],from=2,to=12)$y#
+		ff1 = density(XX[[i]][YY[[i]]==TRUE],from=2,to=12)$y#
+	}#
+	if(i %in% c(2,3,4,6)){#
+		plot(ffx,ff0,xlab=c("Log Expression",probeset),ylab="Density", main = paste(names(esets_probeset)[i], " N=", length(YY[[i]])),ylim=c(0,3), col = "blue",type="l",lwd=2)#
+	} else{#
+		plot(ffx,ff0,xlab=c("Log Expression",probeset),ylab="Density", main = paste(names(esets_probeset)[i], " N=", length(YY[[i]])),ylim=c(0,1), col = "blue",type="l",lwd=2)#
+	}#
+	lines(ffx,ff1, col = "green",lwd=2)#
+	rug(XX[[i]][YY[[i]]==FALSE],ticksize = .05,lwd=2, col = "blue")#
+	rug(XX[[i]][YY[[i]]==TRUE],ticksize = .05,lwd=2, col = "green")#
+}
+probeset = "BRCA1"#
+esets_probeset = esets_bin[sapply(esets_bin, function(x) probeset %in% featureNames(x))]#
+ind.rm <- which(names(esets_probeset) %in% c("GSE17260_eset","GSE32062.GPL6480_eset","GSE32063_eset","GSE49997_eset","GSE51088_eset","GSE8842_eset"))#
+esets_probeset <- esets_probeset[-ind.rm]#
+ind.rm.debulk <- which(names(esets_probeset) %in% c("GSE13876_eset","GSE14764_eset","GSE19829.GPL570_eset","GSE19829.GPL8300_eset","GSE26193_eset"))#
+esets_probeset <- esets_probeset[-ind.rm.debulk]#
+#esets_probeset <- esets_probeset[-which(names(esets_probeset) == "GSE30161_eset")]#
+if(probeset == "BRCA1"){#
+	esets_probeset <- esets_probeset[-which(names(esets_probeset) == "GSE30009_eset")]#
+}#
+XX = sapply(1:length(esets_probeset), function(i) { exprs(esets_probeset[[i]])[probeset,]})#
+YY = sapply(1:length(esets_probeset), function(i) { pData(esets_probeset[[i]])[,"debulking"] == "optimal" })#
+for (i in 1:length(esets_probeset)) {#
+  if (sum (is.na(YY[[i]])) > 0) {#
+    XX[[i]] <- XX[[i]][!is.na(YY[[i]])]#
+    YY[[i]] <- YY[[i]][!is.na(YY[[i]])]#
+  }#
+}#
+par(mfrow = c(3,3))#
+for(i in 1:length(XX)){#
+	if(i == 8){#
+		ffx = density(XX[[i]][YY[[i]]==FALSE],from=2,to=12)$x#
+		ff0 = density(XX[[i]][YY[[i]]==FALSE],from=2,to=12)$y#
+		ff1 = density(XX[[i]][YY[[i]]==TRUE],from=2,to=12)$y#
+	} else {#
+		ffx = density(XX[[i]][YY[[i]]==FALSE],from=2,to=12)$x#
+		ff0 = density(XX[[i]][YY[[i]]==FALSE],from=2,to=12)$y#
+		ff1 = density(XX[[i]][YY[[i]]==TRUE],from=2,to=12)$y#
+	}#
+	if(i %in% c(2,3,4,6)){#
+		plot(ffx,ff0,xlab=c("Log Expression",probeset),ylab="Density", main = paste(names(esets_probeset)[i], " N=", length(YY[[i]])),ylim=c(0,4), col = "blue",type="l",lwd=2)#
+	} else{#
+		plot(ffx,ff0,xlab=c("Log Expression",probeset),ylab="Density", main = paste(names(esets_probeset)[i], " N=", length(YY[[i]])),ylim=c(0,1), col = "blue",type="l",lwd=2)#
+	}#
+	lines(ffx,ff1, col = "green",lwd=2)#
+	rug(XX[[i]][YY[[i]]==FALSE],ticksize = .05,lwd=2, col = "blue")#
+	rug(XX[[i]][YY[[i]]==TRUE],ticksize = .05,lwd=2, col = "green")#
+}
+# BRCA1#
+probeset = "BRCA1"#
+esets_probeset = esets_bin[sapply(esets_bin, function(x) probeset %in% featureNames(x))]#
+ind.rm <- which(names(esets_probeset) %in% c("GSE17260_eset","GSE32062.GPL6480_eset","GSE32063_eset","GSE49997_eset","GSE51088_eset","GSE8842_eset"))#
+esets_probeset <- esets_probeset[-ind.rm]#
+ind.rm.debulk <- which(names(esets_probeset) %in% c("GSE13876_eset","GSE14764_eset","GSE19829.GPL570_eset","GSE19829.GPL8300_eset","GSE26193_eset"))#
+esets_probeset <- esets_probeset[-ind.rm.debulk]#
+#esets_probeset <- esets_probeset[-which(names(esets_probeset) == "GSE30161_eset")]#
+if(probeset == "BRCA1"){#
+	esets_probeset <- esets_probeset[-which(names(esets_probeset) == "GSE30009_eset")]#
+}#
+XX = sapply(1:length(esets_probeset), function(i) { exprs(esets_probeset[[i]])[probeset,]})#
+YY = sapply(1:length(esets_probeset), function(i) { pData(esets_probeset[[i]])[,"debulking"] == "optimal" })#
+for (i in 1:length(esets_probeset)) {#
+  if (sum (is.na(YY[[i]])) > 0) {#
+    XX[[i]] <- XX[[i]][!is.na(YY[[i]])]#
+    YY[[i]] <- YY[[i]][!is.na(YY[[i]])]#
+  }#
+}#
+par(mfrow = c(3,3))#
+for(i in 1:length(XX)){#
+	if(i %in% c(7,8)){#
+		ffx = density(XX[[i]][YY[[i]]==FALSE],from=2,to=12)$x#
+		ff0 = density(XX[[i]][YY[[i]]==FALSE],from=2,to=12)$y#
+		ff1 = density(XX[[i]][YY[[i]]==TRUE],from=2,to=12)$y#
+	} else {#
+		ffx = density(XX[[i]][YY[[i]]==FALSE],from=4,to=10)$x#
+		ff0 = density(XX[[i]][YY[[i]]==FALSE],from=4,to=10)$y#
+		ff1 = density(XX[[i]][YY[[i]]==TRUE],from=4,to=10)$y#
+	}#
+	if(i %in% c(2,3,4,6)){#
+		plot(ffx,ff0,xlab=c("Log Expression",probeset),ylab="Density", main = paste(names(esets_probeset)[i], " N=", length(YY[[i]])),ylim=c(0,4), col = "blue",type="l",lwd=2)#
+	} else{#
+		plot(ffx,ff0,xlab=c("Log Expression",probeset),ylab="Density", main = paste(names(esets_probeset)[i], " N=", length(YY[[i]])),ylim=c(0,1), col = "blue",type="l",lwd=2)#
+	}#
+	lines(ffx,ff1, col = "green",lwd=2)#
+	rug(XX[[i]][YY[[i]]==FALSE],ticksize = .05,lwd=2, col = "blue")#
+	rug(XX[[i]][YY[[i]]==TRUE],ticksize = .05,lwd=2, col = "green")#
+}

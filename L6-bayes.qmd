@@ -1,0 +1,433 @@
+\newpage
+
+# Lecture 6 (February 9, 2023) Bayesian Modeling
+
+## Bayesian Models
+
+So far we focused on statistical summaries, but have paid little attention to uncertainty about them. When we say that the PPV at a level of -1 for ZNF487 expression is .2, how sure are we? When we look at the comparison between the PR curves or benefit curves of two biomarkers, how reliably can we say that one is above the other? We are going to approach these questions using Bayesian models. Both "Bayesian" and "model" are very loaded words. We could go w/out models at all and rely on resampling techniques like the bootstrap to generate uncertainty statements. Or we could specify models, but use non-Bayesian methods, such as maximum likelihood, for our uncertainty. There are pros and cons of each of these choices. Models are powerful and can amplify the value of your data if you get them approximately right (a nontrivial task). Bayes is powerful, general and simple in concept, but a bit high maintenance compared to its frequentist counterparts. There are cool model-free or model-robust Bayesian techniques, but we will only scratch the surface there.
+
+If you are completely new to Bayesian learning, here is [a gentle introduction with a cute animation](https://willhipson.netlify.app/post/bayesian_intro/binomial_gold/) and here is [the Bayesrulesbook chapter on the Beta-Binomial case](https://www.bayesrulesbook.com/chapter-3.html). You will not find it hard to scout material at the right level for you online. "Modeling in Medical Decision Making" has relevant chapters. I posted a copy on the canvas files. A great reference is [@Hoff2009]() A fun book, though perhaps way more than you signed up for, is [@mcelreath2020]. [@sarma2020chi](http://dx.doi.org/10.1145/3313831.3376377) offers a brief review on how to think about, and specify, prior distributions, often a sticky points for Bayesian analysis.
+
+Bayesian learning uses probability to represent both variation / randomness in the real world, and incomplete knowledge. As a result, probabilities provide a selef contained system that formally represents knowledge in the face of uncertainty and can be used to update knowledge when new information is introduced. In general, we typically wish to understand characteristics that govern a population, from which we normally have a subset of data representing it. Population quantities capturing these characteristics are usually represented in terms of a parameter $\theta$. The subset of data is represented through variables $x,y$.
+
+\newpage
+
+### Bayes Rule
+
+The following equation represents the basis of Bayesian modeling.
+
+```{=tex}
+\begin{equation}
+\begin{split}
+P(\theta | x,y) &= \frac{P(x,y | \theta) P(\theta)}{\int_\theta P(x,y | \theta) P(\theta)d\theta} = \frac{P(x,y | \theta) P(\theta)}{P(x,y)}\propto P(x,y | \theta) P(\theta)
+\end{split}
+\end{equation}
+```
+\vspace{1mm}
+
+Likelihood: $P(x,y | \theta)$
+
+```{=tex}
+\begin{itemize} \small
+\item Generating model for data $x,y$
+\item Depends on unknown parameters $\theta$'s
+\end{itemize}
+```
+Prior: $P(\theta)$
+
+```{=tex}
+\begin{itemize} \small
+\item Degree of plausibility of $\theta$'s
+\item What is known prior to observing the data
+\end{itemize}
+\vspace{1mm}
+```
+Posterior: $P(\theta | x,y)$
+
+```{=tex}
+\begin{itemize} \small
+\item Updated degree of plausibility of $\theta$'s
+\item What is known after observing the data
+\end{itemize}
+```
+\newpage
+
+## Inference on Sensitivity and Specificity
+
+### Likelihood Case Control Design
+
+We now focus, to begin, on a case-control example to evaluate a dichotomous biomarker. In this example, we assume that we know whether patients have a disease or not, which we represent with $y=1$ for a disease case, and $y=0$ for a non-disease case. Furthermore, we know the biomarker level of each patient, which is represented as $x=1$ if they have, say, a high level of expression, and a $x=0$ for a low level of expression. The following $2 \times 2$ table represents such a scenario.
+
+```{=tex}
+\begin{table}[ht]
+\Large
+\begin{tabular}{lccc}
+& \multicolumn{2}{c}{Biomarker} &\\ 
+\cline{2-3}
+\multicolumn{1}{l|}{} & \multicolumn{1}{c|}{$x=1$} & \multicolumn{1}{c|}{$x=0$} & \\ 
+\cline{2-3}
+\multicolumn{1}{l|}{} & \multicolumn{1}{c|}{"high"} & \multicolumn{1}{c|}{"low"} & \\ 
+\hline
+\multicolumn{1}{|l|}{$y=0$ (No Disease)} & \multicolumn{1}{c|}{$m_0$} & \multicolumn{1}{c|}{$n_0-m_0$} & \multicolumn{1}{c|}{$n_0$} \\ 
+\hline
+\multicolumn{1}{|l|}{$y=1$ (Disease)} & \multicolumn{1}{c|}{$m_1$} & \multicolumn{1}{c|}{$n_1-m_1$} & \multicolumn{1}{c|}{$n_1$} \\ \hline
+\end{tabular}
+\end{table}
+```
+Here $m_0$ and $m_1$ represent the number of patients with no disease and a high biomarker, and the number of patients with disease and a high biomarker, respectively. The total counts for the margins for $y$ ($n_0$ and $n_1$) are fixed.
+
+In such a set-up, the parameters of interest would usually then be the \textit{sensitivity}, denoted as
+
+$$
+\beta = p(x=1\mid y=1)
+$$
+
+and \textit{specificity},
+
+$$
+\alpha = p(x=0|y=0)
+$$
+
+The likelihood for learning about sensitivity and specificity from the observed data would then be,
+
+$$
+L_{CC} = \binom{n_1}{m_1} \beta^{m_1}\left(1-\beta\right)^{n_1-m_1}\binom{n_0}{m_0}\left(1-\alpha\right)^{m_0}\alpha^{n_0-m_0}
+$$ \newpage
+
+### Likelihood for Population-Based Design
+
+We note that such a construct assumes ahead of time that the total number of disease and disease-free individuals are fixed. This may be too restrictive in some settings. Therefore, we may alternatively fix the \textbf{total} sample size instead, so that $n_0$ and $n_1$ may vary as long as their sum is equal to a fixed $n = n_0 + n_1$. Such a model, which we refer to as "population based", would allow more flexibility and implies the following table.
+
+```{=tex}
+\begin{table}[ht]
+\Large
+\begin{tabular}{lccc}
+& \multicolumn{2}{c}{Biomarker} &\\ 
+\cline{2-3}
+\multicolumn{1}{l|}{} & \multicolumn{1}{c|}{$x=1$} & \multicolumn{1}{c|}{$x=0$} & \\ 
+\cline{2-3}
+\multicolumn{1}{l|}{} & \multicolumn{1}{c|}{"high"} & \multicolumn{1}{c|}{"low"} & \\ 
+\hline
+\multicolumn{1}{|l|}{$y=0$ (Disease)} & \multicolumn{1}{c|}{$m_0$} & \multicolumn{1}{c|}{$n_0-m_0$} & \multicolumn{1}{c|}{$n_0$} \\ 
+\hline
+\multicolumn{1}{|l|}{$y=1$ (No Disease)} & \multicolumn{1}{c|}{$m_1$} & \multicolumn{1}{c|}{$n_1-m_1$} & \multicolumn{1}{c|}{$n_1$} \\ \hline
+& \multicolumn{1}{l}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{$n$} \\
+\cline{4-4}
+\end{tabular}
+\end{table}
+```
+The parameters associated with this table include the sensitivity and prevalence, $\alpha, \beta$ from before, in addition to the \textit{prevalence}, represented as,
+
+$$
+\pi = p(y=1)
+$$
+
+The table may be rewritten in terms of these three parameters as a table of proportions, given by
+
+```{=tex}
+\begin{table}[ht]
+\Large
+\begin{tabular}{lccc}
+& \multicolumn{2}{c}{Biomarker} &\\ 
+\cline{2-3}
+\multicolumn{1}{l|}{} & \multicolumn{1}{c|}{$x=1$} & \multicolumn{1}{c|}{$x=0$} & \\ 
+\cline{2-3}
+\multicolumn{1}{l|}{} & \multicolumn{1}{c|}{"high"} & \multicolumn{1}{c|}{"low"} & \\ 
+\hline
+\multicolumn{1}{|l|}{$y=0$ (No Disease)} & \multicolumn{1}{c|}{$(1-\pi)(1-\alpha)$} & \multicolumn{1}{c|}{$(1-\pi)\alpha$} & \multicolumn{1}{c|}{$1-\pi$} \\ 
+\hline
+\multicolumn{1}{|l|}{$y=1$ (Disease)} & \multicolumn{1}{c|}{$\pi\beta$} & \multicolumn{1}{c|}{$\pi(1-\beta)$} & \multicolumn{1}{c|}{$\pi$} \\ \hline
+& \multicolumn{1}{l}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{c|}{$1$} \\
+\cline{4-4}
+\end{tabular}
+\end{table}
+```
+Then the associated likelihood function can be represented in terms of the case control likelihood as,
+
+$$
+L_{PB} = \binom{n_0+n_1}{n_1}\pi^{n_1}\left(1-\pi\right)^{n_0}\cdot L_{CC}
+$$
+
+This model allows for the observation of a different number of disease and no disease cases conditional on a fixed total sample size. The prevalence can then be estimated under such a model, which we note takes a binomial mass function form through the likelihood above.
+
+### Posterior Inference
+
+The likelihood function we have specified under both models can then be incorporated into a Bayesian model. Specifically, we may conduct Bayesian inference on the parameters of interest. Under the case control example, one idea may be to specify a uniform prior on both the parameters for specificity and sensitivity, $\alpha, \beta$. The prior is given as,
+
+$$
+P(\alpha,\beta) = 1, \ \ \text{for} \ \ \alpha \in [0,1], \beta \in [0,1]
+$$
+
+which when combined with the likelihood $L_{CC}$ yields the posterior of the form,
+
+$$
+P(\alpha,\beta|m_0,m_1) \propto
+1 \times \binom{n_1}{m_1} \beta^{m_1} ( 1-\beta) ^{n_1-m_1} 
+\binom{n_0}{m_0} (1-\alpha)^{m_0} \alpha ^{n_0-m_0}
+$$ \newpage The uniform prior places equal mass on the possible support for $\alpha,\beta$. One can recognize that the kernel of the posterior is consistent with that of a Beta distribution and therefore the normalizing constants can be easily derived. If instead we had prior information regarding $\alpha,\beta$, we may instead model them each as a Beta distribution. Such a prior will jointly be,
+
+$$
+P(\alpha,\beta) =\frac{\Gamma(b_0+b_1)}{\Gamma(b_1)\Gamma(b_0)}\beta^{b_1-1}(1-\beta)^{b_0-1}\frac{\Gamma(a_0+a_1)}{\Gamma(a_1)\Gamma(a_0)}(1-\alpha)^{a_1-1}\alpha^{a_0-1}
+$$
+
+which when combined with the likelihood $L_{CC}$ will result in the posterior form,
+
+$$
+P(\alpha,\beta|m_0,m_1) \propto \beta^{m_1+b_1-1} ( 1-\beta) ^{n_1-m_1 + b_0-1}(1-\alpha)^{m_0 + a_1-1} \alpha ^{n_0-m_0+a_0-1}
+$$
+
+For the population based set-up, where we only fixed the total number of sample cases, we may put Beta priors on each of the three parameters of interest, $\alpha, \beta, \pi$. The prior will then be \textbf{conjugate} with the form,
+
+\begin{equation}
+\begin{split}
+P(\alpha,\beta,\pi) & = \frac{\Gamma(p_0+p_1)}{\Gamma(p_1)\Gamma(p_0)}\pi^{p_1-1}(1-\pi)^{p_0-1}\
+\times \\
+&  \frac{\Gamma(b_0+b_1)}{\Gamma(b_1)\Gamma(b_0)}\beta^{b_1-1}(1-\beta)^{b_0-1}\frac{\Gamma(a_0+a_1)}{\Gamma(a_1)\Gamma(a_0)}(1-\alpha)^{a_1-1}\alpha^{a_0-1}
+\end{split}
+\end{equation}\\end{equation}\\end{equation}\\end{equation}
+
+which leads to a posterior of the form,
+
+```{=tex}
+\begin{equation}
+\begin{split}
+P(\alpha,\beta, \pi|m_0,m_1) & \propto \pi^{n_1+p_1-1} ( 1-\pi) ^{n_0+p_0-1} \\
+& \beta^{m_1+b_1-1} ( 1-\beta) ^{n_1-m_1 + b_0-1}(1-\alpha)^{m_0 + a_1-1} \alpha ^{n_0-m_0+a_0-1}
+\end{split}
+\end{equation}
+```
+\newpage
+
+### Prediction of Future Observations
+
+Now suppose that we wanted to predict a future outcome $y^*$ for a subject with a biomarker level of $x^*$. Then, the \textit{prior predictive distribution} is given by,
+
+```{=tex}
+\begin{equation}
+\begin{split}
+P(y^*|x^*) &= \int_{\theta} P(y^* | x^*, \theta) P(\theta)d\theta \\
+= \int_{\theta} \dfrac{P(y^*,x^*| \theta)}{P(x^*| \theta)} P(\theta)d\theta
+\end{split}
+\end{equation}
+```
+The prior predictive may be thought of as the data marginalized over the prior distribution, or the predictied value of a new data point before observing the actual sample itself. Related to this is the \textit{posterior predictive distribution}, which is interpreted as the predicted value of a new data point after observing the sample data. The posterior predictive is given by,
+
+$$
+P(y^*|x^*, y, x) =\int_{\theta} P(y^* | x^*, \theta) P(\theta|y, x)d\theta
+$$
+
+## Likelihood Principle
+
+Related to the above is the \textbf{Likelihood Principle}.
+
+```{=tex}
+\begin{itemize}
+\item Statement: The strength of evidence favoring a parameter value $\theta_a$ against $\theta_b$ (and vice versa) is captured
+$\frac{P(y|\theta_a)}{P(y|\theta_b)}$
+\item Maintained in Bayesian framework but not in Frequentist
+\item Only what was observed is relevant
+\item If two likelihoods have the same kernel, their inference should be identical
+\end{itemize}
+```
+\newpage
+
+For example, two experiments to assess a proportion $\theta$
+
+```{=tex}
+\begin{itemize} \small
+\item A coin is flipped 12 times, and three of the tosses were heads $P(y|\theta) = \binom{12}{3}\theta^3(1-\theta)^9$
+\item A coin is flipped until the third heads, and it took 12 tosses $P(y|\theta) = \binom{11}{2}\theta^3(1-\theta)^9$
+\item The Likelihood Principle says inference on $\theta$ should be the same in both cases
+\end{itemize}
+```
+We can illustrate the above principle using an example. Using the two experiments on the previous page, we would like to evaluate
+
+```{=tex}
+\begin{itemize}
+\item $H_0$: $\theta \geq 0.5$
+\item $H_A$: $\theta < 0.5$
+\item The Likelihood Principle says results should be the same
+\end{itemize}
+\vspace{3mm}
+```
+Different sampling models may result in different p-values:
+
+```{=tex}
+\begin{itemize}
+\item Binomial p-value $$P(y \leq 3 | \theta = 0.5) = \sum_{i=0}^3 \binom{12}{i} \theta^i(1-\theta)^{12-i}$$
+\item Negative-binomial p-value $$P(y \leq 3 | \theta = 0.5) = \sum_{i=11}^\infty \binom{i}{2} \theta^3(1-\theta)^{12-i}$$
+
+\end{itemize}
+```
+```{r}
+pbinom(3, 12, 0.5)
+1-pnbinom(8, 3, 0.5)
+```
+
+[@lavine2020nams](https://doi.org/10.1090/noti2114) Has important insight about this if you are interested. His brief and enlightening paper begins by saying: "A fundamental idea in statistics and data science is that statistical procedures are judged by criteria such as misclassification rates, p-values, or convergence that measure how the procedure performs when applied to many possible data sets. But such measures gloss over quantifying the evidence in a particular data set. We show that assessing a procedure and assessing evidence are distinct. The main distinction is that procedures are assessed unconditionally, i.e., by averaging over many data sets, while evidence must be assessed conditionally by considering only the data at hand."
+
+\newpage
+
+## Monte Carlo Explorations of Posterior Distributions
+
+We now re-examine the case control scenario with a uniform prior and how it can be implemented in R. We first assume that $m_0 = 1, n_0 = 10, m_1 = 7$ and $n_1 = 10$.
+
+```{r}
+x1 = 7
+n1 = 10
+x0 = 1
+n0 = 10
+```
+
+Then we conduct $100,000$ draws from the posterior distributions of $\alpha, \beta$ and $\pi$, under a uniform prior.
+
+```{r}
+MM = 100000 # monte carlo draws
+a0 = b0 = a1 = b1 = p0 = p1 = 1 # prior hyperparameters (uniform)
+beta = rbeta(MM,x1+b1,n1-x1+b0)
+alpha = rbeta(MM,n0-x0+b0,x0+b1)
+```
+
+In this case the posterior distribution is available in closed form, so many of the quantities we are interested in are available analytically, or via well-worn and accurate numerical approximations such as the Incomplete Beta function. Even here it is far more straightforward to explore properties of the posteior distribution by generating a sample. For example, it is trivial to derive distributions of arbitrary functions of multiple parameters, which would otherwise normally require some gymnastic around tansformations of variables.
+
+\newpage
+
+```{r, fig.cap="Monte Carlo Approximations of the Posterior Distributions of Parameters Alpha and Beta"}
+par(mfrow = c(1,2))
+hist(beta,nclass=100,xlim=c(0,1), xlab = expression(beta))
+hist(alpha,nclass=100,xlim=c(0,1), xlab = expression(alpha))
+```
+
+The above figures are the histograms approximating the posterior densities for each of the parameters of interest.
+
+\newpage
+
+We can also obtain summary statistics by directly looking at the mean and standard deviation of the obtained samples.
+
+```{r}
+mean(alpha)
+sd(alpha)
+mean(beta)
+sd(beta)
+```
+
+We may also examine the positive distribution of the positive predictive value. This illustrate how easy it is to derive posterior distribution of transformations of the variables. To begin, we fix the prevalence of the population at $0.25$.
+
+```{r, fig.cap="Posterior Distribution of the Positive Predictive Value"}
+pi = 0.25
+pi.x = (pi*beta)/(pi*beta + (1-pi)*(1-alpha))
+hist(pi.x, nclass = 100, xlim = c(0,1))
+```
+
+We can then obtain a point estimate of the mean of the posterior predictive at a prevalence rate of $0.25$ and the proportion of samples above $0.5$.
+
+```{r}
+mean(pi.x)
+mean(pi.x > 0.5)
+```
+
+The posterior predictive value can be analyzed further. Specifically, we can plot the joint distribution of the posterior predictive value against $\alpha$ and $\beta$, made using `ggplot2`.
+
+```{r, fig.cap = "Appoximate Joint Distribution of the Positive Predictive Value and Alpha or Beta"}
+par(mfrow = c(1,2), pty = "s")
+smoothScatter(alpha,pi.x)
+smoothScatter(beta,pi.x)
+```
+
+\newpage
+
+We may also analyze the sensitivity to a conjugate prior.
+
+```{r, fig.cap = "Posterior Visualizations with hyperparameters b0 = 10, b1 = 40"}
+b0 = 10; b1 = 40
+beta.pre = rbeta(MM,b1,b0)
+beta.post = rbeta(MM,x1+b1,n1-x1+b0) 
+plot(density(beta.post),lwd=2,xlab="BETA",main="") 
+lines(density(beta.pre),lwd=2,col=3)
+```
+
+```{r, fig.cap = "Posterior Visualizations under b0 = 2, b1 = 2"}
+b0 = 2; b1 = 2
+beta.pre = rbeta(MM,b1,b0)
+beta.post = rbeta(MM,x1+b1,n1-x1+b0) 
+plot(density(beta.post),lwd=2,xlab="BETA",main="") 
+lines(density(beta.pre),lwd=2,col=3)
+```
+
+\newpage
+
+We will now focus on the population-based example, whereas previously we saw the case-control study.
+
+```{r}
+x1 = 7
+n1 = 10
+x0 = 2
+n0 = 27
+```
+
+Then we conduct $100,000$ draws from the posterior distributions of $\alpha, \beta$ and $\pi$, under a uniform prior.
+
+```{r}
+MM = 100000 # monte carlo draws
+a0 = b0 = a1 = b1 = p0 = p1 = 1 # prior hyperparameters (uniform) 
+beta = rbeta(MM,x1+b1,n1-x1+b0)
+alpha = rbeta(MM,n0-x0+b0,x0+b1)
+pi = rbeta(MM,n1+p1,n0+p1)
+```
+
+```{r, fig.cap="Posterior Distribution of for Alpha, Beta, and Pi Parameters"}
+hist(alpha,nclass=100,xlim=c(0,1), xlab = expression(alpha))
+hist(beta,nclass=100,xlim=c(0,1), xlab = expression(beta))
+hist(pi,nclass=100,xlim=c(0,1), xlab = expression(pi))
+```
+
+\newpage
+
+We can now analyze the distribution associated with the positive predictive value under an unknown prevalence rate, in the population based model. We can obtain summary statistics as before,
+
+```{r}
+pi.x = (pi*beta)/(pi*beta+(1-pi)*(1-alpha))
+mean(pi.x)
+mean(pi.x>.5)
+```
+
+The histogram is as follows.
+
+```{r, fig.cap="Distribution of the Posterior Predictive Value"}
+hist(pi.x,nclass=100,xlim=c(0,1), xlab = expression(pi))
+```
+
+We can then look at the alternate visualization of the joint distribution under an unknown prevalence rate.
+
+```{r, fig.cap="Alternative Joint Distribution of the Positive Predictive Value and Alpha/Beta/Pi"}
+par(mfrow = c(1,3), pty = "s")
+smoothScatter(alpha, pi.x, xlab = expression(alpha))
+smoothScatter(beta, pi.x, xlab = expression(beta))
+smoothScatter(pi, pi.x, xlab = expression(pi))
+```
+
+\newpage
+
+```{r, fig.cap = "Joint Density of PPV versus Log Ratio of Beta/(1-Alpha)"}
+par(pty="s")
+smoothScatter(log(beta/(1-alpha)),pi.x)
+```
+
+\newpage
+
+::: callout-note
+## Discussion
+
+Consider this scenario: a patient you know well is asking for advice on how to process the risk information they are gathering online.
+
+-   how do you describe to them in simple words what the PPV probability represents?
+
+-   they also found a Bayesian statement of uncertainty about the relevant PPV (say a posterior IQR). How do you describe the role of the prior in generating this IQR? What questions should they be asking about that prior?
+:::
+
+\newpage
+
+## References
+
+::: {#refs}
+:::

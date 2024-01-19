@@ -1,0 +1,779 @@
+\newpage
+
+# Lecture 13 (March 9, 2023)
+
+## Multi-level Modeling of Studies, Meta-Analysis
+
+### Motivation: CXCL12 and survival
+
+\centerline{\includegraphics[width=.8\textwidth]{figures/GanzfriedF3nocomb.pdf}}
+
+Forest plot of the effect of CXCL12 on survival. Here each row is a study. The location of the square represents the hazard ration, or the exponentiated coefficient of CXCL12 expression as a predictor of overall survival in a Cox model. The vertical line at 1 indicates no effect. The size of the square reflects the sample size of the corresponding study.
+
+A meta-analysis is an analysis aimed at getting a single "consensus" answer out of these studies.
+
+Meta-analyses can proceed from the raw data or from sufficient statistics taken from publications. This is an example of the latter, which is more common in clinical trials and epidemiology, where access to raw data can be restricted.
+
+\newpage
+
+::: callout-note
+Consider these two perspective
+
+-   "most of these studies fail to reject the null, I don't thin there is much going on with CSCL12"
+
+-   "most of these studies ha a hazard ratio above 1, probably high CXCL12 is bad news"
+
+Reflect over the pros and cons of these perspectives before moving forward.
+:::
+
+\newpage
+
+### Ten years later
+
+\centerline{\includegraphics[width=.8\textwidth]{figures/cxcl12.png}}
+
+CXCL12 turned out to be an important gene, and there is strong support for an effect on survival.
+
+\newpage
+
+In this lecture we will look at ways to get a combined estimate from multiple studies addressing a similar enough question.
+
+We will work with dichotomized biomarkers. The reason is mostly to help you get familiar with meta-analysis of two-by-to tables, which is important, common, and somewhat unique with regard to challenges of parameterization. There are pros and cons of dichotomizing markers, as we discuss earlier in the course.
+
+Some of the concepts you will encounter:
+
+-   Two by Two Tables: Effect Sizes
+-   Choosing an effect size
+-   Random Effects vs Fixed Effects \*Meta-analysis of effect sizes \\end{itemize}
+
+this will be facilitated by usage of the following methods:
+
+-   Inverse Variance
+-   Mantel-Haenszel
+-   DerSimonian-Laird
+-   Bayesian Hierarchical Model
+
+A good reference for these would be "Meta-Analysis with R" by @schwarzer2015meta. An associated R package named `meta` allows one to easily compute many of the above methods.
+
+\newpage
+
+### Likelihood
+
+The data structure is a series of $S$ two-by-two tables, where $S$ is the number of studies. The tables are cross-tabulations of debulking status (optimal = 1) and a binary indicator of whether a biomarker of interest is above a threshold.
+
+$x_{0s}$ is the number of optimally debulked patients in the "biomarker low" group, while $x_{1s}$ is the corresponding number in the "biomarker high" group.
+
+The numbers of patients in each biomarker group are $n_{0s}$ and $n_{1s}$ respectively. $N_s$ is the sample size in study $s$ and so $n_{0s}+n_{1s}=N_s$
+
+The two-by-two table is
+
+$$
+\begin{array}{lcc}
+& \mbox{Suboptimal} & \mbox{Optimal} \\
+\mbox{Biomarker Low} &  n_{0s} - x_{0s} & x_{0s} \\
+\mbox{Biomarker High} &  n_{1s} - x_{1s} & x_{1s} \\
+\end{array}
+$$
+
+The random quantities in this table are $n_0^s$, $x_{0s}$ and $x_{0s}$ if we take $N^S$ as fixed.
+
+The subject level sampling distribution is
+
+$$
+\begin{array}{ccc} 
+    n_{0s} | \gamma_s  &\sim& \mbox{Bin} ( \gamma_{s}, N_s ) \\
+    n_{1s} &=& N_s - n_{0s} \\
+    x_{0s} | \theta_{0s}, n_{0s} &\sim& \mbox{Bin} ( \theta_{0s}, n_{0s} ) \\
+    x_{1s} | \theta_{1s}, n_{1s} &\sim& \mbox{Bin} ( \theta_{1s}, n_{1s} ) \end{array}
+$$
+
+Parameters $\theta_{1s} (\theta_{0s})$ represent the population probability, in study $s$, of an optimal debulking in the biomarker "high" ("low") group.
+
+$\gamma_s$ is the probability of being in the biomarker "low" group.
+
+Check. How do you write the prevalence of optimal debulking in study $s$ in this parameterization?
+
+\newpage
+
+### Effect Size
+
+A key step in modeling these $S$ tables and their parameters is to define an effect, that is a way of capturing differences between the $\theta$ parameters in the two biomarker groups.
+
+There are various ways of doing this and the final consensus estimate will depend on this choice.
+
+Then the **Relative Risk** or the **Risk Ratio** is defined as the ratio of these proportions,
+
+$$
+\theta_{1s} / \theta_{0s} 
+$$
+
+It is common to take the log transform of this ratio for what follows to take advantage of asymptotic niceties.
+
+A second effect size measure is referred to as the **Odds Ratio**. It is defined as,
+
+$$
+\dfrac{\theta_{1s}/(1-\theta_{1s})}{\theta_{0s}/(1-\theta_{0s})}
+$$
+
+It is also common to take the log transform of this ratio for asymptotic reasons.
+
+The third effect size measure of consideration will be referred to as the **Risk Difference**, which is defined as:
+
+$$
+\theta_{1s} - \theta_{0s}
+$$
+
+\newpage
+
+## Meta-analysis Estimators
+
+This is a quick overview of common estimators. Here $ES$ is any of the effect sizes types just described.
+
+### Inverse Variance Estimators
+
+We will first look at Inverse Variance Estimators. We let $\text{ES}_s$ be the estimated effect size in study $s$ and the variance of $\text{ES}_s$ be defined as
+
+$$
+w_s = \left( \widehat{ \mbox{Var} } ( \text{ES}_s ) \right) ^{-1}
+$$
+
+Then the inverse variance combined estimate of the effect size is given as,
+
+$$ 
+\text{ES}_{IV} = \frac{ \sum_{s=1}^S w_s \text{ES}_s } { \sum_{s=1}^S w_s }
+$$
+
+with the associated variance being
+
+$$ 
+\mbox{Var} ( \text{ES}_{IV} ) = \left[ \sum_{s=1}^S w_s \right] ^{-1} 
+$$
+
+### Mantel-Haenszel
+
+A similar estimator is known as the Mantel-Haenszel Estimator. Here, the combined effect size is defined as:
+
+$$ 
+\text{ES}_{MH} = \frac{ \sum_{s=1}^S w_s \text{ES}_s } { \sum_{s=1}^S w_s } 
+$$
+
+The weights for this estimator are:
+
+$$
+\begin{tabular}{lcl}
+Type of Effect & Weight $w_s$\\ \hline
+Odds ratios & $x_{0s}(n_{1s} - x_{1s}) / (n_{0s} + n_{1s})$ & \small inverse variance \\
+& & assuming no effect\\
+Relative Risk & $x_{0s}n_{1s}/ (n_{0s} + n_{1s})$ & \\
+Risk Difference &  $n_{0s} n_{1s}/ (n_{0s} + n_{1s})$ & \\\hline
+\end{tabular}
+$$
+
+\newpage
+
+## Heterogeneity
+
+### Study-to-study Variation
+
+All these estimators weigh the study specific effect sizes as though witin-study sampling variation was the only source of variation. When only the effect sizes and their variance are available (as is commonly the case in meta-analysis that abstract the literature) this is a way to imitate what would happen if one could collate all studies and analyze them together as one.
+
+In many applications studies are different enought to make this too much of an oversimplification. A quick way to understand whether this is the case in a meta-analysis of effect sizes is to examine the study-to-study variation of effect sizes (also known as heterogeneity). These is variation *in addition* to sampling variation (the binomial variation from sampling patients into the study).
+
+::: callout-note
+What could be the sources of heterogeneity in effect sizes?
+:::
+
+We now introduce what is known as the $Q$ Measure of Heterogeneity. It attempts to quantify how similar the effect sizes are within a collection of studies. As before, the inverse variance combined estimate of the effect size is:
+
+$$ 
+\text{ES}_{IV} = \frac{ \sum_{s=1}^S w_s \text{ES}_s } { \sum_{s=1}^S w_s } 
+$$
+
+with variance weighting of
+
+$$
+w_s = \left( \widehat{ \mbox{Var} } ( \text{ES}_s ) \right) ^{-1}
+$$
+
+then the $Q$ Measure of Heterogeneity is,
+
+$$
+Q = \sum_{s=1}^S w_s ( \text{ES}_s - \text{ES}_{IV} )^2
+$$
+
+### DerSimonian-Laird
+
+The DerSimonian-Laird estimator leverages $Q$ to provide a variance estimate for the consensus effect, that accounts for heterogeneity. If $\text{ES}_s$ is the estimated effect size in study $s$, in this approach the the associated inverse variance is $w^*_s = \left( \hat{ \mbox{Var} } ( \text{ES}_s ) + \hat \tau^2 \right) ^{-1}$ which includes the additional component $\tau^2$ to account for heterogeneity. $\tau^2$ is defined as
+
+$$ 
+\hat \tau^2 = max \left\{ 0, \frac 
+{ \sum_{s=1}^S w_s ( \text{ES}_s - \text{ES}_{IV} )^2- (S-1) }
+{ \sum_{s=1}^S w_s - \sum_{s=1}^S w^2_s / \sum_{s=1}^S w_s }
+\right\}
+= max \left\{ 0, \frac 
+{ Q - (S-1) }
+{ \sum_{s=1}^S w_s - \sum_{s=1}^S w^2_s / \sum_{s=1}^S w_s }
+\right\}
+$$
+
+and so
+
+$$ 
+\text{ES}_{DL} = \frac{ \sum_{s=1}^S w^*_s \text{ES}_s } { \sum_{s=1}^S w^*_s } 
+$$ \newpage
+
+## Models
+
+We now revisit the likelihood to a) express it in terms of effect sizes and b) model the heterogenity.
+
+### Fixed effect (no heterogeneity)
+
+We first look at the likelihood assuming a shared effect size. If we consider the relative risk parameterization, the fixed effect is
+
+$$
+\rho_s = \theta_{1s} / \theta_{0s} = \rho
+$$ which is independent of $s$. The likelihood can then be re-written as
+
+$$
+L = \prod_{s=1}^S 
+  \theta_{0s}^{x_{0s}} (1-\theta_{0s})^{n_{0s} - x_{0s}} 
+    ( \theta_{0s} \rho )^{x_{1s}} (1- \theta_{0s} \rho)^{n_{1s} - x_{1s}} \gamma_s^{n_{0s}} (1-\gamma_s)^{n_{1s}}
+$$
+
+::: callout-note why assume a common $\rho$ but different $\theta_0$'s and $gamma$'s?
+
+think of scenarios where you would and would not do this. :::
+
+\newpage
+
+### Random Effects
+
+An approach that acknowledges heterogeneity in the ransom effects while still allowing to combine studies into a consnsus estimate of a shared effect is to set up a multilevel model where study-specific effects sizes are different but drawn from a common distribution.
+
+Even though we are just dealing with two-by-two tables, there are endless options for parameterizations and study-to-study distributions, and not a lot of data to go with, wich makes this a challenging problem. What I put forth here is just an example ---all modeling choices are up for discussion and critique.
+
+We now specify the model by starting with the parametrization of
+
+$$
+\lambda_s = \log \rho_s = \log ( \theta_{1s} / \theta_{0s} )
+$$
+
+and specify a Gaussian study-to-study variation for $\lambda_s$, and independent uniforms for $\theta_0$'s. We then have the study and patient levels of the model as
+
+STUDIES $$
+\begin{array}{ccc} 
+  \theta_{0s} &\sim \mbox{U}(0,1)  \\
+  \gamma_s | a,b &\sim \mbox{Be} ( a,b ) \\ 
+  \lambda_s | \mu,\tau^2 &\sim \mbox{N} ( \mu,\tau^2 )  
+\end{array}
+$$ for $s=1, \ldots, S$ SUBJECTS $$
+\begin{array}{ccc} 
+    n_{0s} | \gamma_s  &\sim \mbox{Bin} ( \gamma_{s}, N_s ) \\
+    n_{1s} &= N_s - n_{0s} \\
+    x_{0s} | \theta_{0s}, n_{0s} &\sim \mbox{Bin} ( \theta_{0s}, n_{0s} )  \\
+    x_{1s} | \theta_{1s}, n_{1s} &\sim \mbox{Bin} ( \theta_{1s}, n_{1s} )          \end{array}
+$$
+
+The overall mean of the effect sizes is $\mu$, which is the parameter representing the consensus estimate from the meta-analysis. The parameter $\tau$ quantifies heterogeneity.
+
+The likelihood from above (dropping the portion with $gamma$'s as we condition on the $n$'s) is then given as \$L(\theta\_0,\lambda,\mu,\tau) = \$
+
+$$
+\prod_{s=1}^S \theta_{0s}^{x_{0s}} (1-\theta_{0s})^{n_{0s} - x_{0s}} ( \theta_{0s} e^{\lambda_s} )^{x_{1s}} (1- \theta_{0s} e^{\lambda_s})^{n_{1s} - x_{1s}} \times \frac 1 {\tau \sqrt{2 \pi}} \exp\left\{ - \frac 1{2 \tau} ( \lambda_s - \mu )^2 \right\}
+$$
+
+where
+
+$$
+\lambda_s = \log \rho_s = \log ( \theta_{1s} / \theta_{0s} )
+$$
+
+### Priors
+
+Priors here matter a lot. A possible Bayesian model specification would look like this:
+
+PRIOR $$
+\begin{array}{ccc} 
+  \mu &\sim \mbox{N}(0,100)  \\
+  a &\sim \mbox{N}^+(0,100) \\
+  b &\sim \mbox{N}^+(0,100) \\
+  \tau^2 &\sim \mbox{Categorical} 
+\end{array}
+$$ STUDIES $$
+\begin{array}{ccc} 
+  \theta_{0s} &\sim \mbox{U}(0,1)  \\
+  \gamma_s | a,b &\sim \mbox{Be} ( a,b ) \\ 
+  \lambda_s | \mu,\tau^2 &\sim \mbox{N} ( \mu,\tau^2 )  
+\end{array}
+$$ for $s=1, \ldots, S$ SUBJECTS $$
+ \begin{array}{ccc} 
+ n_{0s} | \gamma_s  &\sim \mbox{Bin} ( \gamma_{s}, N_s ) \\
+    n_{1s} &= N_s - n_{0s} \\
+    x_{0s} | \theta_{0s}, n_{0s} &\sim \mbox{Bin} ( \theta_{0s}, n_{0s} )  \\
+    x_{1s} | \theta_{1s}, n_{1s} &\sim \mbox{Bin} ( \theta_{1s}, n_{1s} )          \end{array}
+$$
+
+The prior on $\mu$ is a very dispersed normal, carrying little information, trying to reach a somewhat neutral consensus estimate.
+
+The prior on $\tau$ is categorical over a finite range. I do this to a) bound it away from 0 and very large values and b) facilitate an analysis of the model conditional on $\tau$ (a bit like a sensitivity analysis). More on this after the rjags part.
+
+\newpage
+
+## Data Reformatting
+
+The next several pages deal with extracting a biomarker, dichotomizing the expression and reformatting the data as a collection of two-by-two tables. You can jump to the data analysis section.
+
+<!-- @ GP - I have two ways to to load the files below. One is without caching from the source code and the other is to load the esets RData file. If I set the caching to be True and to obtain from source code, it takes an extremely long time to compile, upwards of 4 hours for me. -->
+
+```{r}
+load('data/esets_bin_STAT117.RData')
+library(Biobase)
+```
+
+We then create two lists of gene expressions in each study. We focus on the gene `TGFBR2` as an example, which is represented in 18 studies below.
+
+```{r, message = F, cache = T}
+#probeset = "TGFBR2"
+probeset = "POSTN"
+esets_probeset = esets_bin[sapply(esets_bin, function(x) probeset %in% featureNames(x))]
+# Removes GSE30009_eset and TCGA.mirna.8x15kv2_eset
+# CXCL12, BRCA1 have 19, POSTN has 17
+
+# NA inside GSE51088_eset:GSM1238223, doesn't matter since we remove it later
+# Studies which are close to mean centering are
+# GSE17260_eset, GSE32062.GPL6480_eset, GSE32063_eset, GSE49997_eset, GSE51088_eset, GSE8842_eset
+# Remove these
+
+# Indices of probesets to remove with mean centering
+ind.rm <- which(names(esets_probeset) %in% c("GSE17260_eset","GSE32062.GPL6480_eset","GSE32063_eset","GSE49997_eset","GSE51088_eset","GSE8842_eset"))
+esets_probeset <- esets_probeset[-ind.rm]
+
+# Indices of probesets without debulking status to remove
+ind.rm.debulk <- which(names(esets_probeset) %in% c("GSE13876_eset","GSE14764_eset","GSE19829.GPL570_eset","GSE19829.GPL8300_eset","GSE26193_eset"))
+esets_probeset <- esets_probeset[-ind.rm.debulk]
+
+# Remove GSE30161_eset because its range is outside the other studies' range
+#esets_probeset <- esets_probeset[-which(names(esets_probeset) == "GSE30161_eset")]
+if(probeset == "BRCA1"){
+	esets_probeset <- esets_probeset[-which(names(esets_probeset) == "GSE30009_eset")]
+}
+
+
+names(esets_probeset)
+names(esets_bin)
+length(names(esets_probeset))
+length(names(esets_bin))
+
+XX = sapply(1:length(esets_probeset), function(i) { exprs(esets_probeset[[i]])[probeset,]})
+YY = sapply(1:length(esets_probeset), function(i) { pData(esets_probeset[[i]])[,"debulking"] == "optimal" })
+
+XX_old <- XX
+YY_old <- YY
+lengths(YY_old)
+lengths(XX_old)
+
+gene_range <- as.data.frame(cbind(GeneName=names(esets_probeset), Min=as.numeric(sapply(1:length(esets_probeset), function(i) { min(XX[[i]], na.rm=T)})), Mean=as.numeric(sapply(1:length(esets_probeset), function(i) { mean(XX[[i]], na.rm=T)})), Max=as.numeric(sapply(1:length(esets_probeset), function(i) { max(XX[[i]], na.rm=T)}))))
+
+gene_range[,2] <- as.numeric(as.character(gene_range[,2]))
+gene_range[,3] <- as.numeric(as.character(gene_range[,3]))
+gene_range[,4] <- as.numeric(as.character(gene_range[,4]))
+
+format(gene_range, digits = 2)
+
+for (i in 1:length(esets_probeset)) {
+  if (sum (is.na(YY[[i]])) > 0) {
+    XX[[i]] <- XX[[i]][!is.na(YY[[i]])]
+    YY[[i]] <- YY[[i]][!is.na(YY[[i]])]
+  }
+}
+
+lengths(YY)
+lengths(XX)
+
+```
+
+```{r}
+XXX = YYY = ZZZ = NULL
+SS = length(YY)
+NS = sapply (1:SS, function(i) { length(YY[[i]]) } )
+for (s in 1:SS) {
+      XXX = c(XXX,XX[[s]])
+      YYY = c(YYY,YY[[s]])
+      ZZZ = c(ZZZ,rep(s,NS[s]))
+    }
+TAB_long <- list(XX=XXX,YY=as.vector(YYY),ZZ=ZZZ,SS=SS,NN=NS)
+TABB <- as.data.frame(cbind(TAB_long[[1]], TAB_long[[2]], TAB_long[[3]]))
+colnames(TABB) <- c("XX", "YY", "ZZ")
+rownames(TABB) <- c(1:nrow(TABB))
+head(TABB)
+XXd_vec <- ifelse(TABB$XX > 7, 1, 0)
+TABB$XX <- XXd_vec
+head(TABB, 10)
+
+
+# Checks
+TABB4 <- TABB[TABB$ZZ == 4,]
+#0
+nrow(TABB4[TABB4$YY == 1 & TABB4$XX == 0,])
+#26
+nrow(TABB4[TABB4$XX == 0,])
+#55
+nrow(TABB4[TABB4$XX == 1,])
+#1
+
+# Write it to txt
+write.table(TABB, file = "TABB-S9.txt")
+```
+
+We then dichotomize the biomarker at a cutoff of $7$ and create a data frame from it.
+
+```{r, message = F, cache = T}
+XXd = sapply(1:length(esets_probeset), function(i) { 1 * ( XX[[i]] > 7 ) })
+TAB = as.data.frame(matrix(nrow=length(esets_probeset),ncol=4))
+colnames(TAB) = c("x1","n1","x0","n0")
+for (i in 1:length(esets_probeset)) {
+  if (sum (!is.na(YY[[i]])) > 0) {
+  TAB[i,"x1"] = sum( XXd[[i]] == 1 & YY[[i]] == 1 )
+  TAB[i,"x0"] = sum( XXd[[i]] == 0 & YY[[i]] == 1 )
+  TAB[i,"n1"] = sum( XXd[[i]] == 1 )
+  TAB[i,"n0"] = sum( XXd[[i]] == 0 )
+  }
+}
+TAB = TAB[rowSums(is.na(TAB)) != ncol(TAB), ]
+# AW added in April 7 2020
+TAB <- TAB[-4,]
+rownames(TAB) <- c(1:nrow(TAB))
+TAB
+```
+
+We then load the `meta` package, mentioned before.
+
+```{r}
+library(meta)
+```
+
+\newpage
+
+## Data Analysis
+
+We start with a quick comparison of the distributions of relative risk and risk difference. This type of plot can help determin which parameterization is more likely to be amenable to two-level modeling, though with seven studies, it can be a tough call.
+
+Smooth densities are just for decoration....
+
+```{r}
+RRs = (TAB$x1/TAB$n1) / (TAB$x0/TAB$n0)
+RDs = (TAB$x1/TAB$n1) - (TAB$x0/TAB$n0)
+```
+
+```{r, fig.cap="Distribution of Relative Risk"}
+plot(density(RRs),xlab="Relative Risk (Lambda_s)",col=4,lwd=2,main="")
+lines(density(RRs,kernel="gaussian",adjust=2),col=3,lwd=2)
+rug(RRs,ticksize = .1,lwd=2)
+```
+
+```{r, fig.cap="Distribution of Risk Difference"}
+plot(density(RDs),xlab="Risk Difference",col=4,lwd=2,main="")
+lines(density(RDs,kernel="gaussian",adjust=2),col=3,lwd=2)
+rug(RDs,ticksize = .1,lwd=2)
+```
+
+\newpage
+
+This is a "L'abbé" plot: event rate in control (low biomarker) versus experimental (high biomarker). The dashed line represent constant relative risk. If the points line up on the line, the graph supports a fixed effect analysis.
+
+```{r, fig.cap = "L'Abbe Plots for Risk Ratio Metric"}
+metaRR = metabin(x1,n1,x0,n0,sm="RR",data=TAB)
+labbe(metaRR)
+```
+
+\newpage
+
+The forest plot for the risk ratio is:
+
+```{r, fig.cap = "Forest Plot for Risk Ratio Metric", fig.width=12}
+forest(metaRR)
+```
+
+\newpage
+
+The funnel plot helps us visually identify selection biases. [Sterne and colleagues](https://journals.sagepub.com/doi/10.1177/1536867X0400400204) explain interpretation in detail.
+
+Here i produced it for completenss but we are unlikely to suffer publication bias in our dataset.
+
+```{r, fig.cap = "Funnel Plot for Risk Ratio Metric"}
+funnel(metaRR)
+```
+
+\newpage
+
+## Bayesian Multilevel Models
+
+### Fixed n's
+
+We now wish to use `RJags` to model the previous sections with the Bayesian models. We first specify a model conditional on $n_{0s}$ and $n_{1s}$ so we can ignore the part involving the $gamma$'s. One situation where this is literally the case occurs if we dichotomize the biomarker based on quantiles.
+
+We'll return to $\gamma$'s later.
+
+The posterior distribution is this:
+
+$$
+p( \theta_0,\lambda,\mu,\tau | x_{0}, x_{1}) \propto L(\theta_0,\lambda,\mu,\tau)p(\theta_0,\mu,\tau) \\
+= \prod_{s=1}^S \theta_{0s}^{x_{0s}} (1-\theta_{0s})^{n_{0s} - x_{0s}} ( \theta_{0s} e^{\lambda_s} )^{x_{1s}} (1- \theta_{0s} e^{\lambda_s})^{n_{1s} - x_{1s}} \frac 1 {\tau \sqrt{2 \pi}} \exp\left\{ - \frac 1{2 \tau} ( \lambda_s - \mu )^2 \right\} \\
+ \times \frac 1 {100 \sqrt{2 \pi}} \exp\left\{ - \frac 1{2 \cdot 100} ( \mu - 0 )^2 \right\} \times .05 \times 1^{S} \\
+$$
+
+it looks a bit ugly, but rjags will help.
+
+```{r, results = "asis", message=FALSE}
+library(rjags)
+RRmodel ="model {
+for( i in 1 : Num ){
+  x0[i] ~ dbin(theta0[i],n0[i]);
+  x1[i] ~ dbin(theta1[i],n1[i]);
+  theta0[i] ~ dunif(0,1);
+  log(theta1[i]) <- log(theta0[i])+lambda[i];
+  lambda[i] ~ dnorm(mu,precision.tau);
+}
+mu ~ dnorm(0.0, 0.01);
+# tau ~ dunif(0,2);
+tau.int.prior <- rep(.03,25)
+tau.int ~ dcat(tau.int.prior)
+tau <- tau.int * .01
+maxrelrisk <- exp(max(lambda))
+relrisk <- exp(mu);
+precision.tau <- 1/(tau*tau);
+}
+"
+```
+
+The simulations are then run through these commands,
+
+```{r, message=FALSE}
+tamBayesRR = jags.model(textConnection(RRmodel),
+                   data = list( x1 = TAB$x1, n1 = TAB$n1, x0 = TAB$x0, n0 = TAB$n0, Num=nrow(TAB)),
+                   n.chains = 2,
+                   n.adapt = 100)
+ 
+mcmc.out = coda.samples(tamBayesRR,c("relrisk","maxrelrisk","tau"),n.iter = 9000,thin=10)
+dic.out = dic.samples(tamBayesRR,n.iter = 9000)
+Srelrisk = as.vector(mcmc.out[[1]][,"relrisk"])
+Smaxrelrisk = as.vector(mcmc.out[[1]][,"maxrelrisk"])
+Stau = as.vector(mcmc.out[[1]][,"tau"])
+```
+
+\newpage
+
+```{r, fig.cap = "MCMC Plots for Relative Risk Metric"}
+summary(Srelrisk)
+summary(Stau)
+```
+
+\newpage
+
+```{r, fig.cap = "MCMC Plots for Relative Risk"}
+cex <- 0.6
+par(cex.lab=cex, cex.axis=cex, cex.main=0.55)
+par(mgp=c(1.5, 0.4, 0))
+par(oma=c(0,0,0,0))
+par(mar=rep(1.2, 4))
+plot(mcmc.out,smooth=FALSE,auto.layout = T)
+```
+
+\newpage
+
+```{r, fig.cap = "Plot for Relative Risk and Max Relative Risk", fig.width=10, fig.height=10}
+par(mfrow = c(1,1))
+par(mgp=c(3, 1, 0))
+par(mar=rep(.2, 4))
+plot(Srelrisk,Smaxrelrisk,pch=".")
+```
+
+\newpage
+
+```{r, fig.cap = "Plot for Relative Risk and Tau", fig.width=10, fig.height=10}
+par(mfrow = c(1,1))
+plot(Srelrisk,Stau,pch=".")
+```
+
+\newpage
+
+```{r, fig.cap = "Plot for Max Relative Risk and Tau", fig.height=10, fig.width=10}
+par(mfrow = c(1,1))
+plot(Smaxrelrisk,Stau,pch=".")
+```
+
+\newpage
+
+The summary of the MCMC chains and the Gelman convergence diagnostic are given as
+
+```{r}
+cex <- 0.6
+par(cex.lab=cex, cex.axis=cex, cex.main=0.55)
+par(mgp=c(1.5, 0.4, 0))
+par(oma=c(0,0,0,0))
+par(mar=rep(1.2, 4))
+summary(mcmc.out)
+gelman.diag(mcmc.out)
+```
+
+### Random n's
+
+We now wish to use `RJags` to model the previous sections with the Bayesian models. We first specify a relative risk model,
+
+```{r, results = "asis"}
+library(rjags)
+RRmodelMultinomial ="model {
+for( i in 1 : Num ){
+  n0[i] ~ dbin(gamma[i],NN[i]);
+  x0[i] ~ dbin(theta0[i],n0[i]);
+  x1[i] ~ dbin(theta1[i],NN[i] - n0[i]);
+  theta0[i] ~ dunif(0,1);
+  log(theta1[i]) <- log(theta0[i])+lambda[i];
+  lambda[i] ~ dnorm(mu,precision.tau);
+  gamma[i] ~ dbeta(aa,bb);
+}
+mu ~ dnorm(0.0, 0.01);
+tau.int.prior <- rep(.03,25);
+tau.int ~ dcat(tau.int.prior);
+tau <- tau.int * .01;
+aa ~ dnorm(0,.01) T(0,);
+bb ~ dnorm(0,.01) T(0,);
+relrisk <- exp(mu);
+precision.tau <- 1/(tau*tau);
+}
+"
+```
+
+The simulations are then run through these commands,
+
+```{r}
+BayesRRMultinomial = jags.model(textConnection(RRmodelMultinomial),
+                   data = list( x1 = TAB$x1, NN = TAB$n1+TAB$n0, x0 = TAB$x0, n0 = TAB$n0, Num=nrow(TAB)),
+                   n.chains = 2,
+                   n.adapt = 100)
+ 
+mcmc.out.M = coda.samples(BayesRRMultinomial,c("relrisk","tau","aa","bb","theta0","theta1"),n.iter = 9000,thin=10)
+dic.out = dic.samples(BayesRRMultinomial,n.iter = 9000)
+Mtheta0 = mcmc.out.M[[1]][,grep("theta0",colnames(mcmc.out.M[[1]]))]
+Mtheta1 = mcmc.out.M[[1]][,grep("theta1",colnames(mcmc.out.M[[1]]))]
+Mrelrisk = as.vector(mcmc.out.M[[1]][,"relrisk"])
+Mtau = as.vector(mcmc.out.M[[1]][,"tau"])
+Maa = as.vector(mcmc.out.M[[1]][,"aa"])
+Mbb = as.vector(mcmc.out.M[[1]][,"bb"])
+```
+
+\newpage
+
+```{r, fig.cap="Trace Plots for Variables"}
+#cumuplot(mcmc.out.M)
+```
+
+\newpage
+
+```{r, fig.cap = "MCMC Plots for Relative Risk Metric"}
+#summary(Mtau)
+```
+
+\newpage
+
+## Prediction of Future Patients Studies
+
+### Case-control, product binomial, known baseline success rate.
+
+This is code to generate predictions for a future study, using the MCMC results. The design of the study is to select 100 patients in each biomarker group.
+
+What is a famous theorem in probability being used here?
+
+What is the utility of this exercise?
+
+```{r}
+mu.post = log ( mcmc.out[[1]][,"relrisk"] )
+tau.post = mcmc.out[[1]][,"tau"]
+M.chain = length(tau.post)
+lambda.pred = rnorm(M.chain,mu.post,tau.post)
+theta0.pred = rep(.4,M.chain)
+theta1.pred = theta0.pred * exp(lambda.pred)
+x0.pred = rbinom(M.chain,100,theta0.pred)
+x1.pred = rbinom(M.chain,100,theta1.pred)
+```
+
+\newpage
+
+```{r, fig.cap = "Predictions for x0 and x1"}
+plot(x0.pred,x1.pred)
+abline(0,1)
+```
+
+\newpage
+
+### Multinomial, baseline success rate known to be as in proir study 2.
+
+```{r}
+mu.post = log ( mcmc.out[[1]][,"relrisk"] )
+tau.post = mcmc.out[[1]][,"tau"]
+theta02.post = Mtheta0[,2]
+aa.post = as.vector(mcmc.out.M[[1]][,"aa"])
+bb.post = as.vector(mcmc.out.M[[1]][,"bb"])
+M.chain = length(tau.post)
+lambda.pred = rnorm(M.chain,mu.post,tau.post)
+theta0.pred = rep(theta02.post,M.chain)
+theta1.pred = theta0.pred * exp(lambda.pred)
+pi.pred = rbeta(M.chain,aa.post,bb.post)
+NN = 200
+n0 = rbinom(M.chain,NN,pi.pred)
+x0.pred = rbinom(M.chain,n0,theta0.pred)
+x1.pred = rbinom(M.chain,NN-n0,theta1.pred)
+```
+
+\newpage
+
+```{r, fig.cap = "Predictions for x0 and x1"}
+plot(x0.pred,x1.pred)
+abline(0,1)
+abline(200,-1)
+```
+
+\newpage
+
+```{r, fig.cap = "Predictions for x0 and x1"}
+plot(x0.pred/n0,x1.pred/(NN-n0))
+abline(0,1)
+abline(200,-1)
+```
+
+\newpage
+
+```{r, fig.cap = "Posterior versus Predictions for RR"}
+plot(as.vector(mu.post),lambda.pred)
+abline(h=0)
+abline(v=0)
+```
+
+\newpage
+
+## Risk Difference
+
+In a similar fashion, it is possible to run the meta-analysis above for the risk difference instead. It is given by the `meta` function and its associated L'Abbe plot is,
+
+```{r, fig.cap = "L'Abbe Plot for Risk Difference Metric"}
+metaRD = metabin(x1,n1,x0,n0,sm="RD",data=TAB)
+labbe(metaRD)
+```
+
+\newpage
+
+The forest plot for the risk difference is then given as:
+
+```{r, fig.cap = "Forest Plot for Risk Difference Metric", fig.width=12}
+forest(metaRD)
+```
+
+\newpage
+
+The funnel plot is given as:
+
+```{r, fig.cap = "Funnel Plot for Risk Difference Metric"}
+funnel(metaRD)
+```
+
+## References

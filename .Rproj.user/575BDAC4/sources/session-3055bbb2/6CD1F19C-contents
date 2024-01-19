@@ -1,0 +1,39 @@
+project:
+  type: website
+
+website:
+  title: "STAT 117: Data Analysis in Modern Biostatistics"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - about.qmd
+      - text: "Lectures"
+        menu:
+          - L1-intro.qmd
+          - L2-biomarkers.qmd
+          - L3-data.qmd
+          - L4-metrics.qmd
+          - L5-decision.qmd
+          - L6-bayes.qmd
+          - L7-mcmc.qmd
+          - L8-timetoevent.qmd
+          - L9-comparing.qmd
+          - L10-fdr.qmd
+          - L11-regmean.qmd
+          - L12-shrinkage.qmd
+          - L14-shrinkage2.qmd
+          - L15-metaanlysis2.qmd
+          - L17-twomarkers.qmd
+          # - L16-metrics.qmd
+          #- L13-metrics.qmd
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+editor: visual
+execute:
+  freeze: auto
