@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.545">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>STAT 117: Data Analysis in Modern Biostatistics</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">STAT 117: Data Analysis in Modern Biostatistics</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html"> 
+<span class="menu-text">Syllabus</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-lectures" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Lectures</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-lectures">    
+        <li>
+    <a class="dropdown-item" href="./L1-intro.html">
+ <span class="dropdown-text">Lecture 1 (January 24, 2023) Introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L2-biomarkers.html">
+ <span class="dropdown-text">Lecture 2: Cancer Biomarkers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L3-data.html">
+ <span class="dropdown-text">Lecture 3: Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L4-metrics.html">
+ <span class="dropdown-text">Lecture 4: Basics of Biomarker Evaluation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L5-decision.html">
+ <span class="dropdown-text">Lecture 5 (February 7, 2023) Decision Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L6-bayes.html">
+ <span class="dropdown-text">Lecture 6 (February 9, 2023) Bayesian Modeling</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L7-mcmc.html">
+ <span class="dropdown-text">Lecture 7 (February 14, 2023) Monte Carlo Markov Chains</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L8-timetoevent.html">
+ <span class="dropdown-text">Lecture 8 (February 16, 2023) Time to Event Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L9-comparing.html">
+ <span class="dropdown-text">Lecture 9 (February 21, 2023) Comparing Criteria for Biomarker Discovery</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L10-fdr.html">
+ <span class="dropdown-text">Lecture 10 (February 28, 2023) False Discovery Rates</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L11-regmean.html">
+ <span class="dropdown-text">Lecture 11: Regression to the Mean</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L12-shrinkage.html">
+ <span class="dropdown-text">Lecture 12: Shrinkage</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./L14-shrinkage2.html">
+ <span class="dropdown-text">Lecture 14 (March 21, 2023) Shrinkage part 2</span></a>
+  </li>  
+        <li class="dropdown-header">L15-metaanlysis2.qmd</li>
+        <li>
+    <a class="dropdown-item" href="./L17-twomarkers.html">
+ <span class="dropdown-text">Lecture 17 (March 29, 2023)</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#lecture-9-february-21-2023-comparing-criteria-for-biomarker-discovery" id="toc-lecture-9-february-21-2023-comparing-criteria-for-biomarker-discovery" class="nav-link active" data-scroll-target="#lecture-9-february-21-2023-comparing-criteria-for-biomarker-discovery">Lecture 9 (February 21, 2023) Comparing Criteria for Biomarker Discovery</a>
+  <ul class="collapse">
+  <li><a href="#comparing-criteria-for-biomarker-discovery" id="toc-comparing-criteria-for-biomarker-discovery" class="nav-link" data-scroll-target="#comparing-criteria-for-biomarker-discovery">Comparing Criteria for Biomarker Discovery</a>
+  <ul class="collapse">
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
+  <li><a href="#three-scores" id="toc-three-scores" class="nav-link" data-scroll-target="#three-scores">Three Scores</a></li>
+  <li><a href="#pairwise-comparisons-of-scores" id="toc-pairwise-comparisons-of-scores" class="nav-link" data-scroll-target="#pairwise-comparisons-of-scores">Pairwise Comparisons of Scores</a></li>
+  <li><a href="#auc-and-fold-change" id="toc-auc-and-fold-change" class="nav-link" data-scroll-target="#auc-and-fold-change">AUC and Fold Change</a></li>
+  <li><a href="#negative-log-p-value-and-fold-change." id="toc-negative-log-p-value-and-fold-change." class="nav-link" data-scroll-target="#negative-log-p-value-and-fold-change.">Negative Log P-Value and Fold Change.</a></li>
+  <li><a href="#negative-log-p-value-and-auc." id="toc-negative-log-p-value-and-auc." class="nav-link" data-scroll-target="#negative-log-p-value-and-auc.">Negative Log P-Value and AUC.</a></li>
+  <li><a href="#negative-log-p-value-and-residual-error." id="toc-negative-log-p-value-and-residual-error." class="nav-link" data-scroll-target="#negative-log-p-value-and-residual-error.">Negative Log P-Value and Residual Error.</a></li>
+  </ul></li>
+  <li><a href="#visualizations-of-individual-biomarkers." id="toc-visualizations-of-individual-biomarkers." class="nav-link" data-scroll-target="#visualizations-of-individual-biomarkers.">Visualizations of Individual Biomarkers.</a>
+  <ul class="collapse">
+  <li><a href="#a-biomarker-meeting-all-three-criteria-above." id="toc-a-biomarker-meeting-all-three-criteria-above." class="nav-link" data-scroll-target="#a-biomarker-meeting-all-three-criteria-above.">A biomarker meeting all three criteria above.</a></li>
+  <li><a href="#selecting-by-p-value-only" id="toc-selecting-by-p-value-only" class="nav-link" data-scroll-target="#selecting-by-p-value-only">Selecting by P-value Only</a></li>
+  <li><a href="#selecting-by-auc-only" id="toc-selecting-by-auc-only" class="nav-link" data-scroll-target="#selecting-by-auc-only">Selecting by AUC Only</a></li>
+  <li><a href="#selecting-by-fold-change-only" id="toc-selecting-by-fold-change-only" class="nav-link" data-scroll-target="#selecting-by-fold-change-only">Selecting by Fold Change Only</a></li>
+  </ul></li>
+  <li><a href="#to-log-or-not-to-log" id="toc-to-log-or-not-to-log" class="nav-link" data-scroll-target="#to-log-or-not-to-log">To log or not to log</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+
+
+<div style="page-break-after: always;"></div>
+<section id="lecture-9-february-21-2023-comparing-criteria-for-biomarker-discovery" class="level1">
+<h1>Lecture 9 (February 21, 2023) Comparing Criteria for Biomarker Discovery</h1>
+<section id="comparing-criteria-for-biomarker-discovery" class="level2">
+<h2 class="anchored" data-anchor-id="comparing-criteria-for-biomarker-discovery">Comparing Criteria for Biomarker Discovery</h2>
+<p>With this lecture we move to the search for promising biomarkers in high dimension. This task is implicity in most variable selection and machine learning methodologies. Here we will dissect it in a more basic and exploratory way.</p>
+<section id="data" class="level3">
+<h3 class="anchored" data-anchor-id="data">Data</h3>
+<p>We will start by going back to the <code>TCGA_eset</code> dataset and again consider the debulking variable. From before, this is a binary variable with <code>optimal</code> and <code>suboptimal</code> debulking. We will code an <code>optimal</code> debulking status as <span class="math inline">\(1\)</span> and <span class="math inline">\(0\)</span> otherwise. The biomarkers are on the continuous gene expression scale. We let <code>XXX</code> and <code>YYY</code> denote the biomarkers on the full set of patients, while <code>XX</code> and <code>YY</code> represent the biomarkers for the first 100 patients. For this analysis we remove any <code>NA</code>’s from both the response and gene expression predictor variables. In real applications we may consider imputation.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(curatedOvarianData)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ROCR)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(TCGA_eset)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>XX <span class="ot">=</span> <span class="fu">as.matrix</span>(<span class="fu">cbind</span>(<span class="fu">exprs</span>(TCGA_eset)))</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>YY <span class="ot">=</span> <span class="dv">1</span> <span class="sc">*</span> <span class="fu">as.vector</span>(<span class="fu">pData</span>(TCGA_eset)[,<span class="st">"debulking"</span>]<span class="sc">==</span><span class="st">"optimal"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>XX <span class="ot">=</span> XX[,<span class="sc">!</span><span class="fu">is.na</span>(YY)]; </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>YY <span class="ot">=</span> YY[<span class="sc">!</span><span class="fu">is.na</span>(YY)]</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>XXX <span class="ot">=</span> XX</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>YYY <span class="ot">=</span> YY</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># subset</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>subs <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>XX <span class="ot">=</span> XX[,subs]; YY <span class="ot">=</span> YY[subs]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="three-scores" class="level3">
+<h3 class="anchored" data-anchor-id="three-scores">Three Scores</h3>
+<p>What we have next is the <code>CompScores()</code> function. This function will compute the AUC, the negative log p-value, fold change, and the residual error associated with each gene on the subset of patients. The fold change is the difference in means, so names becasue the expression measurements in the Affy platform have been logged as part of the preprocessing. The residual error considers deviations of biomarker values from their class-specific means, and it includes two general sources of variation: expression measurement error and patient-to-patient variation.</p>
+<p>These are only a few of the scores one can compute, of course. A good way to contribute to the discussion is to add your favorite metric to the mix and start exploring.</p>
+<p>Now we run the function on the first 100 patients. We save the full set for later.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"RScripts/Scores.R"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>Scores <span class="ot">=</span> <span class="fu">CompScores</span>(XX,YY)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div style="page-break-after: always;"></div>
+<p>We will now focus on the sample of 100 first. To begin, we threshold negative log p-value at <span class="math inline">\(4.25\)</span>, AUC at <span class="math inline">\(0.66\)</span>, and the fold change at <span class="math inline">\(0.5\)</span> and tabulate the results. TRUE and FALSE refer to whether the score exceeds the cutoff.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>pcut <span class="ot">=</span> <span class="fl">4.25</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>acut <span class="ot">=</span> .<span class="dv">66</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>fcut <span class="ot">=</span> .<span class="dv">5</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>( <span class="fu">abs</span>(Scores[,<span class="st">"FoldChange"</span>])<span class="sc">&gt;</span>fcut , </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>       Scores[,<span class="st">"nlpvalueT"</span>]<span class="sc">&gt;</span>pcut, </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>       Scores[,<span class="st">"AUC"</span>]<span class="sc">&gt;</span>acut, <span class="at">dnn =</span> <span class="fu">c</span>(<span class="st">"FoldChange"</span>,<span class="st">"nlpvalueT"</span>,<span class="st">"AUC"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>, , AUC = FALSE
+
+          nlpvalueT
+FoldChange FALSE  TRUE
+     FALSE 12514    56
+     TRUE    118     7
+
+, , AUC = TRUE
+
+          nlpvalueT
+FoldChange FALSE  TRUE
+     FALSE   203   158
+     TRUE     24    24</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Did you expect more agreement? Less?</li>
+</ul>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<p>For later use.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>allTrue <span class="ot">=</span> <span class="fu">abs</span>(Scores[,<span class="st">"FoldChange"</span>])<span class="sc">&gt;</span>fcut <span class="sc">&amp;</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    Scores[,<span class="st">"nlpvalueT"</span>]<span class="sc">&gt;</span>pcut <span class="sc">&amp;</span> Scores[,<span class="st">"AUC"</span>]<span class="sc">&gt;</span>acut</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>aucOnly <span class="ot">=</span> <span class="fu">abs</span>(Scores[,<span class="st">"FoldChange"</span>])<span class="sc">&lt;</span>fcut <span class="sc">&amp;</span> </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    Scores[,<span class="st">"nlpvalueT"</span>]<span class="sc">&lt;</span>pcut <span class="sc">&amp;</span> Scores[,<span class="st">"AUC"</span>]<span class="sc">&gt;</span>acut</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>pOnly <span class="ot">=</span> <span class="fu">abs</span>(Scores[,<span class="st">"FoldChange"</span>])<span class="sc">&lt;</span>fcut <span class="sc">&amp;</span> </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    Scores[,<span class="st">"nlpvalueT"</span>]<span class="sc">&gt;</span>pcut <span class="sc">&amp;</span> Scores[,<span class="st">"AUC"</span>]<span class="sc">&lt;</span>acut</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>fcOnly <span class="ot">=</span> <span class="fu">abs</span>(Scores[,<span class="st">"FoldChange"</span>])<span class="sc">&gt;</span>fcut <span class="sc">&amp;</span> </span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    Scores[,<span class="st">"nlpvalueT"</span>]<span class="sc">&lt;</span>pcut <span class="sc">&amp;</span> Scores[,<span class="st">"AUC"</span>]<span class="sc">&lt;</span>acut</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>lowresi <span class="ot">=</span> (<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(Scores))[Scores[,<span class="st">"ResiErr"</span>]<span class="sc">&lt;</span>.<span class="dv">5</span><span class="sc">^</span><span class="dv">2</span>]</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>highauc_lowresi <span class="ot">&lt;-</span> <span class="fu">rownames</span>(Scores[Scores[,<span class="st">"ResiErr"</span>]<span class="sc">&lt;</span>.<span class="dv">5</span> <span class="sc">&amp;</span> Scores[,<span class="st">"AUC"</span>]<span class="sc">&gt;</span>acut,])</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>lowauc_lowresi <span class="ot">&lt;-</span> <span class="fu">rownames</span>(Scores[Scores[,<span class="st">"ResiErr"</span>]<span class="sc">&lt;</span>.<span class="dv">5</span> <span class="sc">&amp;</span> Scores[,<span class="st">"AUC"</span>]<span class="sc">&lt;</span>acut,])</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>highauc_higherresi <span class="ot">&lt;-</span> <span class="fu">rownames</span>(XX[<span class="fu">which</span>(Scores[,<span class="st">"ResiErr"</span>]<span class="sc">&gt;</span>.<span class="dv">8</span> <span class="sc">&amp;</span> Scores[,<span class="st">"AUC"</span>]<span class="sc">&gt;</span>acut,)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="pairwise-comparisons-of-scores" class="level3">
+<h3 class="anchored" data-anchor-id="pairwise-comparisons-of-scores">Pairwise Comparisons of Scores</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>lowresi <span class="ot">=</span> Scores[,<span class="st">"ResiErr"</span>]<span class="sc">&lt;</span>.<span class="dv">25</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>plotme <span class="ot">=</span> <span class="fu">cbind</span>(Scores,lowresi)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>(plotme,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">columns =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">color =</span> plotme[,<span class="dv">5</span>],<span class="at">alpha=</span>.<span class="dv">7</span>),</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">lower =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">"points"</span>, <span class="at">alpha =</span> <span class="fl">0.05</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="L9-comparing_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Pairwise comparison of Scores</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>are the residual error and fold change correlated? Are they independent?</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="auc-and-fold-change" class="level3">
+<h3 class="anchored" data-anchor-id="auc-and-fold-change">AUC and Fold Change</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">pty =</span> <span class="st">"m"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Scores[,<span class="st">"FoldChange"</span>],Scores[,<span class="st">"AUC"</span>],<span class="at">pch=</span><span class="st">"."</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(Scores[lowresi,<span class="st">"FoldChange"</span>],Scores[lowresi,<span class="st">"AUC"</span>],<span class="at">col=</span><span class="st">"green"</span>,<span class="at">pch=</span><span class="st">"."</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> acut, <span class="at">lty =</span> <span class="st">"dashed"</span>, <span class="at">col =</span> <span class="st">"deepskyblue3"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="L9-comparing_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>AUC on Fold Change with Green Points labeling Low Residual Error</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<p>For three specific biomarkers from each of the lists above, we will now plot their empirical densities. This will allow us to better understand how it is possible to have a low variance but high score in the AUC. Furthermore, what a biomarker with a high AUC but also a high variance looks like.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>ACADM <span class="ot">=</span> XX[<span class="st">"ACADM"</span>,]</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>Scores[<span class="st">"ACADM"</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            AUC nlpvalueT FoldChange   ResiErr
+ACADM 0.6802168  3.919139 -0.4339855 0.6550141</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(ACADM[YY<span class="sc">==</span><span class="dv">1</span>]),<span class="at">xlab=</span><span class="fu">c</span>(<span class="st">"Log Expression"</span>,<span class="st">"ACADM"</span>),<span class="at">main =</span> <span class="st">""</span>, <span class="at">col=</span> <span class="st">"blue"</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">density</span>(ACADM[YY<span class="sc">==</span><span class="dv">0</span>]), <span class="at">col=</span><span class="st">"green"</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rug</span>(ACADM[YY<span class="sc">==</span><span class="dv">0</span>],<span class="at">ticksize =</span> .<span class="dv">1</span>,<span class="at">lwd=</span><span class="dv">2</span>, <span class="at">col =</span> <span class="st">"green"</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rug</span>(ACADM[YY<span class="sc">==</span><span class="dv">1</span>],<span class="at">ticksize =</span> .<span class="dv">1</span>,<span class="at">lwd=</span><span class="dv">2</span>, <span class="at">col =</span> <span class="st">"blue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="L9-comparing_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Density Plots</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>A4GNT <span class="ot">=</span> XX[<span class="st">"A4GNT"</span>,]</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>Scores[<span class="st">"A4GNT"</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          AUC nlpvalueT FoldChange   ResiErr
+A4GNT 0.50271 0.4490836 0.01979107 0.1715732</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(A4GNT[YY<span class="sc">==</span><span class="dv">0</span>]),<span class="at">xlab=</span><span class="fu">c</span>(<span class="st">"Log Expression"</span>,<span class="st">"A4GNT"</span>),</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">""</span>,<span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">3</span>), <span class="at">col=</span> <span class="st">"green"</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">density</span>(A4GNT[YY<span class="sc">==</span><span class="dv">1</span>]), <span class="at">col=</span><span class="st">"blue"</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rug</span>(A4GNT[YY<span class="sc">==</span><span class="dv">0</span>],<span class="at">ticksize =</span> .<span class="dv">1</span>,<span class="at">lwd=</span><span class="dv">2</span>, <span class="at">col =</span> <span class="st">"green"</span>)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">rug</span>(A4GNT[YY<span class="sc">==</span><span class="dv">1</span>],<span class="at">ticksize =</span> .<span class="dv">1</span>,<span class="at">lwd=</span><span class="dv">2</span>, <span class="at">col =</span> <span class="st">"blue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="L9-comparing_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Density Plots for A4GNT</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<p>This is a tyrosine kinase.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>ARHGAP33 <span class="ot">=</span> XX[<span class="st">"ARHGAP33"</span>,]</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>Scores[<span class="st">"ARHGAP33"</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>               AUC nlpvalueT FoldChange   ResiErr
+ARHGAP33 0.6944444  2.975095 -0.4351615 0.7970158</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(ARHGAP33[YY<span class="sc">==</span><span class="dv">0</span>]),<span class="at">xlab=</span><span class="fu">c</span>(<span class="st">"Log Expression"</span>,<span class="st">"ARHGAP33"</span>),<span class="at">main =</span> <span class="st">""</span>,<span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">col=</span> <span class="st">"green"</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">density</span>(ARHGAP33[YY<span class="sc">==</span><span class="dv">1</span>]), <span class="at">col=</span><span class="st">"blue"</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rug</span>(ARHGAP33[YY<span class="sc">==</span><span class="dv">0</span>],<span class="at">ticksize =</span> .<span class="dv">1</span>,<span class="at">lwd=</span><span class="dv">2</span>, <span class="at">col =</span> <span class="st">"green"</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rug</span>(ARHGAP33[YY<span class="sc">==</span><span class="dv">1</span>],<span class="at">ticksize =</span> .<span class="dv">1</span>,<span class="at">lwd=</span><span class="dv">2</span>, <span class="at">col =</span> <span class="st">"blue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="L9-comparing_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Density Plots for ARHGAP33</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="negative-log-p-value-and-fold-change." class="level3">
+<h3 class="anchored" data-anchor-id="negative-log-p-value-and-fold-change.">Negative Log P-Value and Fold Change.</h3>
+<p>The following plot, sometimes called a volcano plot, is the negative log p-value against the fold change. The blue dotted horizontal line corresponds to where an <span class="math inline">\(\alpha = 0.05\)</span> significance level would sit. Everything above the blue dotted line would indicated <span class="math inline">\(\alpha = 0.05\)</span> significance. The darker green dotted lines show where a (logged) fold chance of 0.5 would be on either side.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Scores[,<span class="st">"FoldChange"</span>],Scores[,<span class="st">"nlpvalueT"</span>],<span class="at">pch=</span><span class="st">"."</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>lowresi <span class="ot">=</span> (<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(Scores))[Scores[,<span class="st">"ResiErr"</span>] <span class="sc">&lt;</span> .<span class="dv">5</span>]</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(Scores[lowresi,<span class="st">"FoldChange"</span>],Scores[lowresi,<span class="st">"nlpvalueT"</span>],<span class="at">col=</span><span class="st">"green"</span>,<span class="at">pch=</span><span class="st">"."</span>)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="sc">-</span><span class="fu">log</span>(<span class="fl">0.05</span>), <span class="at">lty =</span> <span class="st">"dashed"</span>, <span class="at">col =</span> <span class="st">"deepskyblue3"</span>)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fl">0.5</span>, <span class="at">lty =</span> <span class="st">"dashed"</span>, <span class="at">col =</span> <span class="st">"darkgreen"</span>)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">lty =</span> <span class="st">"dashed"</span>, <span class="at">col =</span> <span class="st">"darkgreen"</span>)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>interest <span class="ot">=</span> (<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(Scores))[<span class="fu">abs</span>(Scores[,<span class="st">"FoldChange"</span>])<span class="sc">&gt;</span><span class="fl">0.5</span> <span class="sc">&amp;</span> </span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>                                <span class="fu">abs</span>(Scores[,<span class="st">"nlpvalueT"</span>])<span class="sc">&gt;-</span><span class="fu">log</span>(<span class="fl">0.05</span>)]</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(Scores[interest,<span class="st">"FoldChange"</span>],Scores[interest,<span class="st">"nlpvalueT"</span>],<span class="at">col=</span><span class="st">"red"</span>,<span class="at">pch=</span><span class="st">"."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="L9-comparing_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Negative Log P-Value versus Fold Change</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>To practitioners in biology, the top left and top right quadrants indicate biomarkers of exceptional interest. Why might the combination of the two conditions of interest to them?</p>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="negative-log-p-value-and-auc." class="level3">
+<h3 class="anchored" data-anchor-id="negative-log-p-value-and-auc.">Negative Log P-Value and AUC.</h3>
+<p>We now have the nlpvalue against the AUC. We see that there is a linear trend in general. The top right quadrant would indicate biomarkers of specific interest. The green points indicate biomarkers of low variance. We see that the low variance genes don’t appear to be specifically clustered.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Scores[,<span class="st">"nlpvalueT"</span>],Scores[,<span class="st">"AUC"</span>],<span class="at">pch=</span><span class="st">"."</span>, <span class="at">main =</span> <span class="st">"NLP-value vs. AUC"</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>lowresi <span class="ot">=</span> (<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(Scores))[Scores[,<span class="st">"ResiErr"</span>]<span class="sc">&lt;</span>.<span class="dv">5</span><span class="sc">^</span><span class="dv">2</span>]</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(Scores[lowresi,<span class="st">"nlpvalueT"</span>],Scores[lowresi,<span class="st">"AUC"</span>],<span class="at">col=</span><span class="st">"green"</span>,<span class="at">pch=</span><span class="st">"."</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fl">0.66</span>, <span class="at">lty =</span> <span class="st">"dashed"</span>, <span class="at">col =</span> <span class="st">"deepskyblue3"</span>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="sc">-</span><span class="fu">log</span>(<span class="fl">0.05</span>), <span class="at">lty =</span> <span class="st">"dashed"</span>, <span class="at">col =</span> <span class="st">"deepskyblue3"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="L9-comparing_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Negative Log P-Value on AUC</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>are the residual error and fold change correlated? Are they independent?</li>
+</ul>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<p>Let’s revisit the marginal distribution of Residual Errors.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">sqrt</span>(Scores[,<span class="st">"ResiErr"</span>]),<span class="at">nclass=</span><span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="L9-comparing_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Marginal Histogram of Residual Errors</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>It is apparent that there are two “humps” in the graph. The first hump are genes with low residual error. These are generally genes with low dynamic range and whose overall variability is small but dominated by technical noise. The second hump are points with higher residual error, predominantly drive by biological variability across subjects. These are also more likely to provide detectable signal when comparing across classes.</p>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="negative-log-p-value-and-residual-error." class="level3">
+<h3 class="anchored" data-anchor-id="negative-log-p-value-and-residual-error.">Negative Log P-Value and Residual Error.</h3>
+<p>We now plot the nlpvalue against the residual error. The red dotted line indicates where points with a standard deviation of 0.2 would sit. The blue dotted line shows where an <span class="math inline">\(\alpha = 0.05\)</span> significance level would be at.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">sqrt</span>(Scores[,<span class="st">"ResiErr"</span>]),Scores[,<span class="st">"nlpvalueT"</span>],<span class="at">pch=</span><span class="st">"."</span>,<span class="at">cex =</span> <span class="dv">2</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="fu">sqrt</span>(Scores[lowresi,<span class="st">"ResiErr"</span>]),Scores[lowresi,<span class="st">"nlpvalueT"</span>],<span class="at">col=</span><span class="st">"green"</span>,<span class="at">pch=</span><span class="st">"."</span>, <span class="at">cex =</span> <span class="dv">3</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="sc">-</span><span class="fu">log</span>(<span class="fl">0.05</span>), <span class="at">lty =</span> <span class="st">"dashed"</span>, <span class="at">col =</span> <span class="st">"deepskyblue3"</span>)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fl">0.2</span>, <span class="at">lty =</span> <span class="st">"dashed"</span>, <span class="at">col =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="L9-comparing_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Negative Log P-Value versus Standard Deviation</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+</section>
+</section>
+<section id="visualizations-of-individual-biomarkers." class="level2">
+<h2 class="anchored" data-anchor-id="visualizations-of-individual-biomarkers.">Visualizations of Individual Biomarkers.</h2>
+<p>We now would like to examine individual biomarkers that satisfy varying criteria in the <code>CompScores()</code> function. The names of the biomarkers that satisfy all three criteria, only the p-value, only the AUC, and only the fold change are given by the following vectors.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>allTrueNames <span class="ot">&lt;-</span> <span class="fu">rownames</span>(XX)[(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(allTrue))[allTrue<span class="sc">==</span><span class="st">"TRUE"</span>]]</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>pOnlyNames   <span class="ot">&lt;-</span> <span class="fu">rownames</span>(XX)[(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(pOnly))[pOnly<span class="sc">==</span><span class="st">"TRUE"</span>]]</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>aucOnlyNames <span class="ot">&lt;-</span> <span class="fu">rownames</span>(XX)[(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(aucOnly))[aucOnly<span class="sc">==</span><span class="st">"TRUE"</span>]]</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>fcOnlyNames  <span class="ot">&lt;-</span> <span class="fu">rownames</span>(XX)[(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(fcOnly))[fcOnly<span class="sc">==</span><span class="st">"TRUE"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div style="page-break-after: always;"></div>
+<section id="a-biomarker-meeting-all-three-criteria-above." class="level3">
+<h3 class="anchored" data-anchor-id="a-biomarker-meeting-all-three-criteria-above.">A biomarker meeting all three criteria above.</h3>
+<p>We first look at a gene that fulfills all three criteria and visualize its properties.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ROCR)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">pty=</span><span class="st">"s"</span>, <span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>ggg <span class="ot">=</span> <span class="dv">1485</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(XX)[ggg] <span class="co"># CADM1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "CADM1"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(Scores[ggg,],<span class="at">digits=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       AUC nlpvalueT FoldChange ResiErr
+CADM1 0.72      4.53       0.68    0.93</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(XX)[ggg]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "CADM1"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(XX[ggg,YY<span class="sc">==</span><span class="dv">0</span>]),<span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">11</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.7</span>), <span class="at">main =</span> <span class="st">""</span>); <span class="fu">lines</span>(<span class="fu">density</span>(XX[ggg,YY<span class="sc">==</span><span class="dv">1</span>]),<span class="at">col=</span><span class="dv">3</span>); <span class="fu">rug</span>(XX[ggg,YY<span class="sc">==</span><span class="dv">1</span>],.<span class="dv">1</span>,<span class="at">lwd=</span><span class="fl">1.5</span>, <span class="at">col=</span><span class="dv">3</span>); <span class="fu">rug</span>(XX[ggg,YY<span class="sc">==</span><span class="dv">0</span>],.<span class="dv">1</span>,<span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qqplot</span>(XX[ggg,YY<span class="sc">==</span><span class="dv">0</span>],XX[ggg,YY<span class="sc">==</span><span class="dv">1</span>],<span class="at">asp=</span><span class="dv">1</span>); <span class="fu">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">performance</span>(<span class="fu">prediction</span>(<span class="fu">as.vector</span>(XX[ggg,]),YY),<span class="st">"tpr"</span>,<span class="st">"fpr"</span>)); <span class="fu">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>, <span class="at">col =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="L9-comparing_files/figure-html/unnamed-chunk-15-1.png" class="figure-img"></p>
+<figcaption>Visualizations for CADM1 - All 3 Criteria Satisfied</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="selecting-by-p-value-only" class="level3">
+<h3 class="anchored" data-anchor-id="selecting-by-p-value-only">Selecting by P-value Only</h3>
+<p>We now look at a gene that only satisfies the p-value only, but NOT the other two criteria.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">pty=</span><span class="st">"s"</span>, <span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>ggg <span class="ot">=</span> <span class="dv">211</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(XX)[ggg] <span class="co"># ADAMTSL3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "ADAMTSL3"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(Scores[ggg,],<span class="at">digits=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          AUC nlpvalueT FoldChange ResiErr
+ADAMTSL3 0.64      4.97       0.21    0.43</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(XX)[ggg]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "ADAMTSL3"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(XX[ggg,YY<span class="sc">==</span><span class="dv">0</span>]),<span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">6</span>), <span class="at">main =</span> <span class="st">""</span>); <span class="fu">lines</span>(<span class="fu">density</span>(XX[ggg,YY<span class="sc">==</span><span class="dv">1</span>]),<span class="at">col=</span><span class="dv">3</span>); <span class="fu">rug</span>(XX[ggg,YY<span class="sc">==</span><span class="dv">1</span>],.<span class="dv">1</span>,<span class="at">lwd=</span><span class="fl">1.5</span>, <span class="at">col=</span><span class="dv">3</span>); <span class="fu">rug</span>(XX[ggg,YY<span class="sc">==</span><span class="dv">0</span>],.<span class="dv">1</span>,<span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qqplot</span>(XX[ggg,YY<span class="sc">==</span><span class="dv">0</span>],XX[ggg,YY<span class="sc">==</span><span class="dv">1</span>],<span class="at">asp=</span><span class="dv">1</span>); <span class="fu">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">performance</span>(<span class="fu">prediction</span>(<span class="fu">as.vector</span>(XX[ggg,]),YY),<span class="st">"tpr"</span>,<span class="st">"fpr"</span>)); <span class="fu">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="L9-comparing_files/figure-html/unnamed-chunk-16-1.png" class="figure-img"></p>
+<figcaption>Visualizations for ADAMTSL3 - Satisfying P-value Only</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<p>We can now look at where the <code>ADAMTSL3</code> biomarker sits with relation to the rest of the biomarkers in our dataset.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(Scores[, <span class="st">"FoldChange"</span>], <span class="at">breaks =</span> <span class="dv">100</span>, <span class="at">main =</span> <span class="st">"Fold Change"</span>)</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span>Scores[ggg,][<span class="st">"FoldChange"</span>], <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(Scores[, <span class="st">"ResiErr"</span>], <span class="at">breaks =</span> <span class="dv">100</span>, <span class="at">main =</span> <span class="st">"ResiErr"</span>)</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span>Scores[ggg,][<span class="st">"ResiErr"</span>], <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(Scores[, <span class="st">"nlpvalueT"</span>], <span class="at">breaks =</span> <span class="dv">100</span>, <span class="at">main =</span> <span class="st">"NLPValue"</span>)</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span>Scores[ggg,][<span class="st">"nlpvalueT"</span>], <span class="at">col =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="L9-comparing_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="960"></p>
+<figcaption>FC, ResiErr, and NLP-value Histograms for ADAMTSL3</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="selecting-by-auc-only" class="level3">
+<h3 class="anchored" data-anchor-id="selecting-by-auc-only">Selecting by AUC Only</h3>
+<p>We now look at a gene that only satisfies the AUC only, but NOT the other two criteria.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">pty=</span><span class="st">"s"</span>, <span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>ggg <span class="ot">=</span> <span class="dv">9952</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(XX)[ggg] <span class="co"># SAYSD1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "SAYSD1"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(Scores[ggg,],<span class="at">digits=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        AUC nlpvalueT FoldChange ResiErr
+SAYSD1 0.68      4.22       0.33    0.49</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(XX)[ggg]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "SAYSD1"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(XX[ggg,YY<span class="sc">==</span><span class="dv">0</span>]), <span class="at">main =</span> <span class="st">""</span>); </span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">density</span>(XX[ggg,YY<span class="sc">==</span><span class="dv">1</span>]),<span class="at">col=</span><span class="dv">3</span>); </span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rug</span>(XX[ggg,YY<span class="sc">==</span><span class="dv">1</span>],.<span class="dv">1</span>,<span class="at">lwd=</span><span class="fl">1.5</span>, <span class="at">col=</span><span class="dv">3</span>); </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in rug(XX[ggg, YY == 1], 0.1, lwd = 1.5, col = 3): some values will be
+clipped</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rug</span>(XX[ggg,YY<span class="sc">==</span><span class="dv">0</span>],.<span class="dv">1</span>,<span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qqplot</span>(XX[ggg,YY<span class="sc">==</span><span class="dv">0</span>],XX[ggg,YY<span class="sc">==</span><span class="dv">1</span>],<span class="at">asp=</span><span class="dv">1</span>); <span class="fu">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>, <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">performance</span>(<span class="fu">prediction</span>(<span class="fu">as.vector</span>(XX[ggg,]),YY),<span class="st">"tpr"</span>,<span class="st">"fpr"</span>)); <span class="fu">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="L9-comparing_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="960"></p>
+<figcaption>Visualizations for SAYSD1 - Satisfying AUC Only</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<p>Again, we can look at where the <code>SAYSD1</code> biomarker sits with relation to the rest of the biomarkers in our dataset.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(Scores[, <span class="st">"AUC"</span>], <span class="at">breaks =</span> <span class="dv">100</span>, <span class="at">main =</span> <span class="st">"AUC"</span>)</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span>Scores[ggg,][<span class="st">"AUC"</span>], <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(Scores[, <span class="st">"nlpvalueT"</span>], <span class="at">breaks =</span> <span class="dv">100</span>, <span class="at">main =</span> <span class="st">"NLPValue"</span>)</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span>Scores[ggg,][<span class="st">"nlpvalueT"</span>], <span class="at">col =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="L9-comparing_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="960"></p>
+<figcaption>AUC and NLP-value Histograms for SAYSD1</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="selecting-by-fold-change-only" class="level3">
+<h3 class="anchored" data-anchor-id="selecting-by-fold-change-only">Selecting by Fold Change Only</h3>
+<p>We finally look at a biomarker that only satisfies the fold change criteria.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">pty=</span><span class="st">"s"</span>, <span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>ggg <span class="ot">=</span> <span class="dv">9903</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(XX)[ggg] <span class="co"># S100A9</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "S100A9"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(Scores[ggg,],<span class="at">digits=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        AUC nlpvalueT FoldChange ResiErr
+S100A9 0.57      1.59       0.52    1.76</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(XX)[ggg]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "S100A9"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(XX[ggg,YY<span class="sc">==</span><span class="dv">0</span>]), <span class="at">main =</span> <span class="st">""</span>); </span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">density</span>(XX[ggg,YY<span class="sc">==</span><span class="dv">1</span>]),<span class="at">col=</span><span class="dv">3</span>); <span class="fu">rug</span>(XX[ggg,YY<span class="sc">==</span><span class="dv">1</span>],.<span class="dv">1</span>,<span class="at">lwd=</span><span class="fl">1.5</span>, <span class="at">col=</span><span class="dv">3</span>); </span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rug</span>(XX[ggg,YY<span class="sc">==</span><span class="dv">0</span>],.<span class="dv">1</span>,<span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="fu">qqplot</span>(XX[ggg,YY<span class="sc">==</span><span class="dv">0</span>],XX[ggg,YY<span class="sc">==</span><span class="dv">1</span>],<span class="at">asp=</span><span class="dv">1</span>); <span class="fu">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">performance</span>(<span class="fu">prediction</span>(<span class="fu">as.vector</span>(XX[ggg,]),YY),<span class="st">"tpr"</span>,<span class="st">"fpr"</span>)); <span class="fu">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="L9-comparing_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="960"></p>
+<figcaption>Visualizations for S100A9 - Satisfying Fold Change Only</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>we can look at where the <code>S100A9</code> biomarker sits with relation to the rest of the biomarkers in our dataset.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(Scores[, <span class="st">"FoldChange"</span>], <span class="at">breaks =</span> <span class="dv">100</span>, <span class="at">main =</span> <span class="st">"Fold Change"</span>)</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span>Scores[ggg,][<span class="st">"AUC"</span>], <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(Scores[, <span class="st">"ResiErr"</span>], <span class="at">breaks =</span> <span class="dv">100</span>, <span class="at">main =</span> <span class="st">"Residual Error"</span>)</span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span>Scores[ggg,][<span class="st">"ResiErr"</span>], <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(Scores[, <span class="st">"nlpvalueT"</span>], <span class="at">breaks =</span> <span class="dv">100</span>, <span class="at">main =</span> <span class="st">"NLPValue"</span>)</span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span>Scores[ggg,][<span class="st">"nlpvalueT"</span>], <span class="at">col =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="L9-comparing_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="960"></p>
+<figcaption>FC, ResiErr, and NLP-value Histograms for S100A9</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="to-log-or-not-to-log" class="level2">
+<h2 class="anchored" data-anchor-id="to-log-or-not-to-log">To log or not to log</h2>
+<p>Optional material.</p>
+<p>It is interesting to explore the effect of having logged the data on the discovery process. Here, just to play a bit, I created the same scores after exponentiating the expression measurements.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>ScoresExp <span class="ot">=</span> <span class="fu">CompScores</span>(<span class="fu">exp</span>(XX),YY)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>How would you think about whether to log or not? Here are a few plots to get you started.</p>
+<p>It would be nice to have a gold standard, or at least some sort of validation. What options do we have?</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">log</span>(ScoresExp[,<span class="st">"ResiErr"</span>]),<span class="at">nclass=</span><span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="L9-comparing_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Marginal Histogram of Residual Errors in Raw Intensity Scale (the x scale is logged for resolution, but the scores are computed in the raw scale).</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>lowresiExp <span class="ot">=</span> ScoresExp[,<span class="st">"ResiErr"</span>] <span class="sc">&lt;</span> <span class="fu">exp</span>(<span class="dv">3</span>)</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">log</span>(ScoresExp[,<span class="st">"ResiErr"</span>]),ScoresExp[,<span class="st">"nlpvalueT"</span>],<span class="at">pch=</span><span class="st">"."</span>,<span class="at">cex =</span> <span class="dv">2</span>)</span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="fu">log</span>(Scores[lowresiExp,<span class="st">"ResiErr"</span>]),Scores[lowresiExp,<span class="st">"nlpvalueT"</span>],<span class="at">col=</span><span class="st">"green"</span>,<span class="at">pch=</span><span class="st">"."</span>, <span class="at">cex =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="L9-comparing_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Negative Log P-Value versus Standard Deviation</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Scores[,<span class="st">"nlpvalueT"</span>],ScoresExp[,<span class="st">"nlpvalueT"</span>],<span class="at">pch=</span><span class="st">"."</span>,<span class="at">cex =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="L9-comparing_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Negative Log P-Value with and without logging (is that a verb in math?)</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">log</span>(<span class="fu">abs</span>(ScoresExp[,<span class="st">"FoldChange"</span>])),ScoresExp[,<span class="st">"nlpvalueT"</span>],<span class="at">pch=</span><span class="st">"."</span>,<span class="at">cex =</span> <span class="fl">1.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="L9-comparing_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Volcano plot w/out logging (the x scale is logged for resolution, but the scores are computed in the raw scale).</figcaption>
+</figure>
+</div>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
