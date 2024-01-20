@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.545">
+<meta name="generator" content="quarto-1.3.353">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="dcterms.date" content="2023-02-02">
 
-<title>STAT 117: Data Analysis in Modern Biostatistics</title>
+<title>STAT 117: Data Analysis in Modern Biostatistics – l4-metrics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,7 +23,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -99,13 +99,7 @@ div.csl-indent {
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 50,
-  "keyboard-shortcut": [
-    "f",
-    "/",
-    "s"
-  ],
-  "show-item-context": false,
+  "limit": 20,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -114,42 +108,13 @@ div.csl-indent {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
-    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
+    "search-submit-button-title": "Submit"
   }
 }</script>
 
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -158,9 +123,9 @@ window.Quarto = {
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container mx-auto">
+      <div class="navbar-brand-container">
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">STAT 117: Data Analysis in Modern Biostatistics</span>
     </a>
@@ -172,81 +137,81 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
-<span class="menu-text">Home</span></a>
+    <a class="nav-link" href="./index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
-<span class="menu-text">Syllabus</span></a>
+    <a class="nav-link" href="./about.html" rel="" target="">
+ <span class="menu-text">Syllabus</span></a>
   </li>  
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-lectures" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-lectures" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text">Lectures</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-lectures">    
         <li>
-    <a class="dropdown-item" href="./L1-intro.html">
+    <a class="dropdown-item" href="./L1-intro.html" rel="" target="">
  <span class="dropdown-text">Lecture 1 (January 24, 2023) Introduction</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./L2-biomarkers.html">
+    <a class="dropdown-item" href="./L2-biomarkers.html" rel="" target="">
  <span class="dropdown-text">Lecture 2: Cancer Biomarkers</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./L3-data.html">
+    <a class="dropdown-item" href="./L3-data.html" rel="" target="">
  <span class="dropdown-text">Lecture 3: Data</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./L4-metrics.html">
+    <a class="dropdown-item" href="./L4-metrics.html" rel="" target="">
  <span class="dropdown-text">Lecture 4: Basics of Biomarker Evaluation</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./L5-decision.html">
+    <a class="dropdown-item" href="./L5-decision.html" rel="" target="">
  <span class="dropdown-text">Lecture 5 (February 7, 2023) Decision Analysis</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./L6-bayes.html">
+    <a class="dropdown-item" href="./L6-bayes.html" rel="" target="">
  <span class="dropdown-text">Lecture 6 (February 9, 2023) Bayesian Modeling</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./L7-mcmc.html">
+    <a class="dropdown-item" href="./L7-mcmc.html" rel="" target="">
  <span class="dropdown-text">Lecture 7 (February 14, 2023) Monte Carlo Markov Chains</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./L8-timetoevent.html">
+    <a class="dropdown-item" href="./L8-timetoevent.html" rel="" target="">
  <span class="dropdown-text">Lecture 8 (February 16, 2023) Time to Event Data</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./L9-comparing.html">
+    <a class="dropdown-item" href="./L9-comparing.html" rel="" target="">
  <span class="dropdown-text">Lecture 9 (February 21, 2023) Comparing Criteria for Biomarker Discovery</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./L10-fdr.html">
+    <a class="dropdown-item" href="./L10-fdr.html" rel="" target="">
  <span class="dropdown-text">Lecture 10 (February 28, 2023) False Discovery Rates</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./L11-regmean.html">
+    <a class="dropdown-item" href="./L11-regmean.html" rel="" target="">
  <span class="dropdown-text">Lecture 11: Regression to the Mean</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./L12-shrinkage.html">
+    <a class="dropdown-item" href="./L12-shrinkage.html" rel="" target="">
  <span class="dropdown-text">Lecture 12: Shrinkage</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./L14-shrinkage2.html">
+    <a class="dropdown-item" href="./L14-shrinkage2.html" rel="" target="">
  <span class="dropdown-text">Lecture 14 (March 21, 2023) Shrinkage part 2</span></a>
   </li>  
         <li class="dropdown-header">L15-metaanlysis2.qmd</li>
         <li>
-    <a class="dropdown-item" href="./L17-twomarkers.html">
+    <a class="dropdown-item" href="./L17-twomarkers.html" rel="" target="">
  <span class="dropdown-text">Lecture 17 (March 29, 2023)</span></a>
   </li>  
     </ul>
   </li>
 </ul>
-          </div> <!-- /navcollapse -->
-          <div class="quarto-navbar-tools">
+            <div class="quarto-navbar-tools ms-auto">
 </div>
+          </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -293,28 +258,6 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-</div>
-
-
-
-<div class="quarto-title-meta">
-
-    
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">February 2, 2023</p>
-    </div>
-  </div>
-  
-    
-  </div>
-  
-
-
-</header>
 
 
 <div style="page-break-after: always;"></div>
@@ -367,7 +310,7 @@ Debulking
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="L4-metrics_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="960"></p>
-<figcaption>Dotplot for ZNF487</figcaption>
+<figcaption class="figure-caption">Dotplot for ZNF487</figcaption>
 </figure>
 </div>
 </div>
@@ -404,7 +347,7 @@ Note
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="L4-metrics_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="960"></p>
-<figcaption>Density Plot for ZNF487 expression</figcaption>
+<figcaption class="figure-caption">Density Plot for ZNF487 expression</figcaption>
 </figure>
 </div>
 </div>
@@ -430,7 +373,7 @@ Note
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="L4-metrics_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="960"></p>
-<figcaption>PPV Plot for ZNF487 expression</figcaption>
+<figcaption class="figure-caption">PPV Plot for ZNF487 expression</figcaption>
 </figure>
 </div>
 </div>
@@ -480,7 +423,7 @@ Discussion Points:
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="L4-metrics_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="960"></p>
-<figcaption>Log-likelihood Ratio for ZNF487 expression</figcaption>
+<figcaption class="figure-caption">Log-likelihood Ratio for ZNF487 expression</figcaption>
 </figure>
 </div>
 </div>
@@ -541,7 +484,7 @@ Discussion Point
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="L4-metrics_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption>Empirical CDFs of ZNF487 for Optimal and Suboptimal debulking</figcaption>
+<figcaption class="figure-caption">Empirical CDFs of ZNF487 for Optimal and Suboptimal debulking</figcaption>
 </figure>
 </div>
 </div>
@@ -578,7 +521,7 @@ Attaching package: 'pROC'</code></pre>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="L4-metrics_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption>Empirical AUC of ZNF487 Expression for discrimination of Optimal v. Suboptimal</figcaption>
+<figcaption class="figure-caption">Empirical AUC of ZNF487 Expression for discrimination of Optimal v. Suboptimal</figcaption>
 </figure>
 </div>
 </div>
@@ -614,7 +557,7 @@ Note
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="L4-metrics_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="960"></p>
-<figcaption>ROC for ZNF487 derived from class-conditional smooth density estimates</figcaption>
+<figcaption class="figure-caption">ROC for ZNF487 derived from class-conditional smooth density estimates</figcaption>
 </figure>
 </div>
 </div>
@@ -645,7 +588,7 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="L4-metrics_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption>Dotplot for ANKRD66</figcaption>
+<figcaption class="figure-caption">Dotplot for ANKRD66</figcaption>
 </figure>
 </div>
 </div>
@@ -699,7 +642,7 @@ PR_p = \{ 1-F_1(c), \pi F_1(c) / [\pi F_1(c) + (1-\pi)F_0(c)] \} \qquad \text{fo
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="L4-metrics_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption>Empirical AUC of ZNF487 Expression for discrimination of Optimal v. Suboptimal</figcaption>
+<figcaption class="figure-caption">Empirical AUC of ZNF487 Expression for discrimination of Optimal v. Suboptimal</figcaption>
 </figure>
 </div>
 </div>
@@ -731,7 +674,7 @@ PR_p = \{ 1-F_1(c), \pi F_1(c) / [\pi F_1(c) + (1-\pi)F_0(c)] \} \qquad \text{fo
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="L4-metrics_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption>DET curve for ZNF487 derived from class-conditional smooth density estimates</figcaption>
+<figcaption class="figure-caption">DET curve for ZNF487 derived from class-conditional smooth density estimates</figcaption>
 </figure>
 </div>
 </div>
@@ -752,7 +695,7 @@ PR_p = \{ 1-F_1(c), \pi F_1(c) / [\pi F_1(c) + (1-\pi)F_0(c)] \} \qquad \text{fo
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="L4-metrics_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="960"></p>
-<figcaption>Dotplot for ZNF585B</figcaption>
+<figcaption class="figure-caption">Dotplot for ZNF585B</figcaption>
 </figure>
 </div>
 </div>
@@ -777,7 +720,7 @@ PR_p = \{ 1-F_1(c), \pi F_1(c) / [\pi F_1(c) + (1-\pi)F_0(c)] \} \qquad \text{fo
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="L4-metrics_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="960"></p>
-<figcaption>PPV Plot for ZNF487 and IGHA1 expression</figcaption>
+<figcaption class="figure-caption">PPV Plot for ZNF487 and IGHA1 expression</figcaption>
 </figure>
 </div>
 </div>
@@ -805,7 +748,7 @@ Setting direction: controls &lt; cases</code></pre>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="L4-metrics_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption>Empirical AUC of ZNF487 Expression for discrimination of Optimal v. Suboptimal</figcaption>
+<figcaption class="figure-caption">Empirical AUC of ZNF487 Expression for discrimination of Optimal v. Suboptimal</figcaption>
 </figure>
 </div>
 </div>
@@ -848,7 +791,7 @@ Setting direction: controls &lt; cases</code></pre>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="L4-metrics_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption>Empirical PR Curve of ZNF487 Expression for discrimination of Optimal v. Suboptimal</figcaption>
+<figcaption class="figure-caption">Empirical PR Curve of ZNF487 Expression for discrimination of Optimal v. Suboptimal</figcaption>
 </figure>
 </div>
 </div>
@@ -869,7 +812,7 @@ Setting direction: controls &lt; cases</code></pre>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="L4-metrics_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption>DET curve for ZNF487 derived from class-conditional smooth density estimates</figcaption>
+<figcaption class="figure-caption">DET curve for ZNF487 derived from class-conditional smooth density estimates</figcaption>
 </figure>
 </div>
 </div>
@@ -971,9 +914,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+  function tippyHover(el, contentFn) {
     const config = {
       allowHTML: true,
+      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -983,17 +927,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start',
+      placement: 'bottom-start'
     };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1006,125 +941,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
-    }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
-          }
-        }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
-        }
-        return container.innerHTML
-      } else {
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(note);
-        }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
-      }
-    }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
-          }
-        } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
-          .then(res => res.text())
-          .then(html => {
-            const parser = new DOMParser();
-            const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
-            if (note !== null) {
-              const html = processXRef(id, note);
-              instance.setContent(html);
-            } 
-          }).finally(() => {
-            instance.enable();
-            instance.show();
-          });
-        }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1168,7 +984,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
-            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1194,32 +1009,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1280,7 +1069,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-
 
 
 
