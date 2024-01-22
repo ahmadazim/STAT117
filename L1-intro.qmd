@@ -1,8 +1,8 @@
 {{< pagebreak >}}
 
-# Lecture 1 (January 24, 2023) Introduction
+# Lecture 1 Introduction
 
-These are lecture notes for the course STA117: "Data Analysis in Modern Biostatistics". We developed the course between 2016 and 2022.
+These are lecture notes for the course STA117: "Data Analysis in Modern Biostatistics". We developed the course between 2016 and 2023.
 
 ## Goal
 
@@ -103,7 +103,7 @@ We will also draw from the similar *CuratedBreastData* package [LINK](https://ww
 ## Course Topics
 
 | Research Goal                       | Question                                               | Data                         |
-|-----------------|--------------------------------------|-----------------|
+|------------------|-------------------------------------|------------------|
 | Biomarker Evaluation                | Utility of biomarker for clinical decision and...      | 1 study, 1 biomarker         |
 |                                     | ...its generalilzability                               | k studies, 1 biomarker       |
 | Biomarker Discovery                 | Search / prioritization of candidate biomarkers and... | 1 study, p biomarkers        |
@@ -111,7 +111,6 @@ We will also draw from the similar *CuratedBreastData* package [LINK](https://ww
 | Biomarker-based Risk Stratification | Prediction of future patient outcomes                  | design your own data subsets |
 
 : Questions considered in the course and their relation to @fig-dataStructure
-
 
 | Research Goal                       | Quantitative Method                                                                                                                                                                                  |
 |--------------------------|----------------------------------------------|
@@ -123,6 +122,4 @@ We will also draw from the similar *CuratedBreastData* package [LINK](https://ww
 
 : Questions considered in the course and related methodologies
 
-SPUDS
-https://uraf.harvard.edu/uraf-opportunities/spuds
-
+SPUDS https://uraf.harvard.edu/uraf-opportunities/spuds
