@@ -15,7 +15,7 @@ title: "Syllabus"
 
 # Course Overview
 
-The course is an introduction to the application of statistical concepts in biomedical research, through the lens of biomarker research in cancer biology and medicine. The foundation are two comprehensive collections of data on gene expression and clinical characteristics for patients with cancer of the ovaries ([*CuratedOvarianData*](http://bioconductor.org/packages/release/data/experiment/html/curatedOvarianData.html)) and breast ([*CuratedBreastData*](http://bioconductor.org/packages/release/data/experiment/html/curatedBreastData.html)). The notes for Lecture 1 on the Canvas site provide an overview of goals and methods covered.
+The course is an introduction to the application of statistical concepts in biomedical research, through the lens of biomarker research in cancer biology and medicine. The foundation are two comprehensive collections of data on gene expression and clinical characteristics for patients with cancer of the ovaries ([*CuratedOvarianData*](http://bioconductor.org/packages/release/data/experiment/html/curatedOvarianData.html)) and breast ([*CuratedBreastData*](http://bioconductor.org/packages/release/data/experiment/html/curatedBreastData.html)). The notes for Lecture 1 provide an overview of goals and methods covered.
 
 ## Objectives
 
@@ -23,16 +23,18 @@ To develop a sense for practical applications of statistical thinking and tools 
 
 ## Prerequisites
 
--   **Required:** Stat 110 and (AP Stat or 102 or 104)/111/139
+-   **Required:** Stat 110, AP Stat or 102 or 104, Stat 111 and Stat 139
 -   **Recommended:** Stat 115; Basics of R programming
 
 # Lectures and Sections
 
 The course uses a combination of lectures, required sections, online discussions, individual homeworks, and both individual and group projects. Emphasis is placed on peer-to-peer discussion / critique and class presentations.
 
-Lecture notes, including discussion topics will be shared at least one week ahead of the class. Students are expected to review the notes and post comments and questions on Canvas prior to class by noon the day before class. The instructor will review these comments and use them to lead discussion in class. Clarifications will be abundant, but lecture will be hard to follow without having read the notes.
+Draft lecture notes, including discussion topics have been posted. The notes and questions for discussion may still be modified to adapt them to the flow of our discussions, but they will be finalized at least one week ahead of the class. Students are expected to review the notes and post comments and questions on Canvas prior to class by noon the day before class. The instructor will review these comments and use them to lead discussion in class. The typical week will have three discussion topics. Students are expected to comment on at least one.
 
-Lectures will focus on discussions and project critiques. Sections will cover hands-on examples and programming. Attendance is mandatory for both.
+Clarifications will be abundant, but lecture will be hard to follow without having read the notes.
+
+Lectures will start with a brief didactic review, and then move to discussion.Sections will cover hands-on examples and programming. Attendance is mandatory for both.
 
 One-hour weekly sections will begin the second week of the course. Sections will be the place to work through examples, review lecture material in a more detailed way, solve problems, and learn how to use the statistics packages for implementing the various methods taught in the course.
 
@@ -92,11 +94,13 @@ Helpful materials include general references on computing and modeling, such as,
 -   G. James, D. Witten, T. Hastie, R Tibshirani. *An Introduction to Statistical Learning, with Applications in R.* [*free download*](http://www-bcf.usc.edu/~gareth/ISL/ISLR%20First%20Printing.pdf)
 -   G. Parmigiani. *Modeling in Medical Decision Making*. Wiley 2002.
 
-as well as articles or book chapters specific to the individual topics. All course materials will be free and available through the course website.
+as well as articles or book chapters specific to the individual topics. All course materials will be free and available through the course canvas site.
 
 # Canvas
 
-All course documents, including homework assignments, supplementary material, links to data and software, will be available on this course web site Students will receive course announcements through canvas e-mail. Homework and projects will be submitted through canvas.
+All course documents, including homework assignments, supplementary material, links to data and software, will be available on this course canvas site. Notes may be hosted on GitHub, but a link can always be found on the canvas main page.
+
+Students will receive course announcements through canvas e-mail. Homework and projects will be submitted through canvas.
 
 # Disability accommodations for timed exams.
 
