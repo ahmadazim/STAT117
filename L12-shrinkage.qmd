@@ -1,9 +1,3 @@
----
-date: March 7, 2023
----
-
-\newpage
-
 # Lecture 12: Shrinkage
 
 ## Recap

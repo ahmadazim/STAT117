@@ -1,16 +1,14 @@
 \newpage
 
-# Lecture 9 (February 21, 2023) Comparing Criteria for Biomarker Discovery
+# Lecture 9: Comparing Criteria for Biomarker Discovery
 
 ## Comparing Criteria for Biomarker Discovery
 
-With this lecture we move to the search for promising biomarkers in high dimension. 
-This task is implicity in most variable selection and machine learning methodologies.
-Here we will dissect it in a more basic and exploratory way.
+With this lecture we move to the search for promising biomarkers in high dimension. This task is implicity in most variable selection and machine learning methodologies. Here we will dissect it in a more basic and exploratory way.
 
 ### Data
 
-We will start by going back to the `TCGA_eset` dataset and again consider the debulking variable. From before, this is a binary variable with `optimal` and `suboptimal` debulking. We will code an `optimal` debulking status as $1$ and $0$ otherwise. The biomarkers are on the continuous gene expression scale. We let `XXX` and `YYY` denote the biomarkers on the full set of patients, while `XX` and `YY` represent the biomarkers for the first 100 patients. For this analysis we remove any `NA`'s from both the response and gene expression predictor variables. In real applications we may consider imputation. 
+We will start by going back to the `TCGA_eset` dataset and again consider the debulking variable. From before, this is a binary variable with `optimal` and `suboptimal` debulking. We will code an `optimal` debulking status as $1$ and $0$ otherwise. The biomarkers are on the continuous gene expression scale. We let `XXX` and `YYY` denote the biomarkers on the full set of patients, while `XX` and `YY` represent the biomarkers for the first 100 patients. For this analysis we remove any `NA`'s from both the response and gene expression predictor variables. In real applications we may consider imputation.
 
 ```{r, cache = T, message=F}
 library(curatedOvarianData)
@@ -32,7 +30,7 @@ XX = XX[,subs]; YY = YY[subs]
 
 ### Three Scores
 
-What we have next is the `CompScores()` function. This function will compute the AUC, the negative log p-value, fold change, and the residual error associated with each gene on the subset of patients. The fold change is the difference in means, so names becasue the expression measurements in the Affy platform have been logged as part of the preprocessing. The residual error considers deviations of biomarker values from their class-specific means, and it includes two general sources of variation: expression measurement error and patient-to-patient variation. 
+What we have next is the `CompScores()` function. This function will compute the AUC, the negative log p-value, fold change, and the residual error associated with each gene on the subset of patients. The fold change is the difference in means, so names becasue the expression measurements in the Affy platform have been logged as part of the preprocessing. The residual error considers deviations of biomarker values from their class-specific means, and it includes two general sources of variation: expression measurement error and patient-to-patient variation.
 
 These are only a few of the scores one can compute, of course. A good way to contribute to the discussion is to add your favorite metric to the mix and start exploring.
 
@@ -44,6 +42,7 @@ Scores = CompScores(XX,YY)
 ```
 
 \newpage
+
 We will now focus on the sample of 100 first. To begin, we threshold negative log p-value at $4.25$, AUC at $0.66$, and the fold change at $0.5$ and tabulate the results. TRUE and FALSE refer to whether the score exceeds the cutoff.
 
 ```{r}
@@ -57,10 +56,11 @@ table( abs(Scores[,"FoldChange"])>fcut ,
 ```
 
 ::: callout-note
-* Did you expect more agreement? Less?
+-   Did you expect more agreement? Less?
 :::
 
 \newpage
+
 For later use.
 
 ```{r}
@@ -79,6 +79,7 @@ highauc_higherresi <- rownames(XX[which(Scores[,"ResiErr"]>.8 & Scores[,"AUC"]>a
 ```
 
 \newpage
+
 ### Pairwise Comparisons of Scores
 
 ```{r, message = F, fig.cap = "Pairwise comparison of Scores"}
@@ -92,8 +93,7 @@ ggpairs(plotme,
 ```
 
 ::: callout-note
-
-* are the residual error and fold change correlated? Are they independent?
+-   are the residual error and fold change correlated? Are they independent?
 :::
 
 ### AUC and Fold Change
@@ -107,7 +107,7 @@ abline(h = acut, lty = "dashed", col = "deepskyblue3")
 
 \newpage
 
-For three specific biomarkers from each of the lists above, we will now plot their empirical densities. This will allow us to better understand how it is possible to have a low variance but high score in the AUC. Furthermore, what a biomarker with a high AUC but also a high variance looks like. 
+For three specific biomarkers from each of the lists above, we will now plot their empirical densities. This will allow us to better understand how it is possible to have a low variance but high score in the AUC. Furthermore, what a biomarker with a high AUC but also a high variance looks like.
 
 ```{r, fig.cap="Density Plots"}
 ACADM = XX["ACADM",]
@@ -147,7 +147,7 @@ rug(ARHGAP33[YY==1],ticksize = .1,lwd=2, col = "blue")
 
 ### Negative Log P-Value and Fold Change.
 
-The following plot, sometimes called a volcano plot, is the negative log p-value against the fold change. The blue dotted horizontal line corresponds to where an $\alpha = 0.05$ significance level would sit. Everything above the blue dotted line would indicated $\alpha = 0.05$ significance. The darker green dotted lines show where a (logged) fold chance of 0.5 would be on either side. 
+The following plot, sometimes called a volcano plot, is the negative log p-value against the fold change. The blue dotted horizontal line corresponds to where an $\alpha = 0.05$ significance level would sit. Everything above the blue dotted line would indicated $\alpha = 0.05$ significance. The darker green dotted lines show where a (logged) fold chance of 0.5 would be on either side.
 
 ```{r, fig.cap="Negative Log P-Value versus Fold Change"}
 plot(Scores[,"FoldChange"],Scores[,"nlpvalueT"],pch=".", cex = 2)
@@ -162,11 +162,8 @@ points(Scores[interest,"FoldChange"],Scores[interest,"nlpvalueT"],col="red",pch=
 ```
 
 ::: callout-note
-
 To practitioners in biology, the top left and top right quadrants indicate biomarkers of exceptional interest. Why might the combination of the two conditions of interest to them?
-
 :::
-
 
 \newpage
 
@@ -183,10 +180,8 @@ abline(v = -log(0.05), lty = "dashed", col = "deepskyblue3")
 ```
 
 ::: callout-note
-
-* are the residual error and fold change correlated? Are they independent?
+-   are the residual error and fold change correlated? Are they independent?
 :::
-
 
 \newpage
 
@@ -198,12 +193,11 @@ hist(sqrt(Scores[,"ResiErr"]),nclass=100)
 
 It is apparent that there are two "humps" in the graph. The first hump are genes with low residual error. These are generally genes with low dynamic range and whose overall variability is small but dominated by technical noise. The second hump are points with higher residual error, predominantly drive by biological variability across subjects. These are also more likely to provide detectable signal when comparing across classes.
 
-
 \newpage
 
 ### Negative Log P-Value and Residual Error.
 
-We now plot the nlpvalue against the residual error. The red dotted line indicates where points with a standard deviation of 0.2 would sit. The blue dotted line shows where an $\alpha = 0.05$ significance level would be at. 
+We now plot the nlpvalue against the residual error. The red dotted line indicates where points with a standard deviation of 0.2 would sit. The blue dotted line shows where an $\alpha = 0.05$ significance level would be at.
 
 ```{r, fig.cap="Negative Log P-Value versus Standard Deviation"}
 plot(sqrt(Scores[,"ResiErr"]),Scores[,"nlpvalueT"],pch=".",cex = 2)
@@ -243,8 +237,8 @@ qqplot(XX[ggg,YY==0],XX[ggg,YY==1],asp=1); abline(0,1)
 plot(performance(prediction(as.vector(XX[ggg,]),YY),"tpr","fpr")); abline(0,1, col = "red")
 ```
 
-
 \newpage
+
 ### Selecting by P-value Only
 
 We now look at a gene that only satisfies the p-value only, but NOT the other two criteria.
@@ -295,8 +289,8 @@ plot(performance(prediction(as.vector(XX[ggg,]),YY),"tpr","fpr")); abline(0,1)
 ```
 
 \newpage
-Again, we can look at where the `SAYSD1` biomarker sits with relation to the rest of the biomarkers in our dataset.
 
+Again, we can look at where the `SAYSD1` biomarker sits with relation to the rest of the biomarkers in our dataset.
 
 ```{r, fig.cap = "AUC and NLP-value Histograms for SAYSD1", fig.height=5, fig.width=10}
 par(mfrow = c(1,2))
@@ -341,18 +335,16 @@ abline(v=Scores[ggg,]["nlpvalueT"], col = "red")
 
 Optional material.
 
-It is interesting to explore the effect of having logged the data on the discovery process. 
-Here, just to play a bit, I created the same scores after exponentiating the expression measurements.
+It is interesting to explore the effect of having logged the data on the discovery process. Here, just to play a bit, I created the same scores after exponentiating the expression measurements.
 
 ```{r}
 ScoresExp = CompScores(exp(XX),YY)
 ```
 
 ::: callout-note
-How would you think about whether to log or not?
-Here are a few plots to get you started. 
+How would you think about whether to log or not? Here are a few plots to get you started.
 
-It would be nice to have a gold standard, or at least some sort of validation. What options do we have? 
+It would be nice to have a gold standard, or at least some sort of validation. What options do we have?
 :::
 
 ```{r, fig.cap="Marginal Histogram of Residual Errors in Raw Intensity Scale (the x scale is logged for resolution, but the scores are computed in the raw scale)."}
@@ -372,4 +364,3 @@ plot(Scores[,"nlpvalueT"],ScoresExp[,"nlpvalueT"],pch=".",cex = 2)
 ```{r, fig.cap="Volcano plot w/out logging (the x scale is logged for resolution, but the scores are computed in the raw scale)."}
 plot(log(abs(ScoresExp[,"FoldChange"])),ScoresExp[,"nlpvalueT"],pch=".",cex = 1.5)
 ```
-

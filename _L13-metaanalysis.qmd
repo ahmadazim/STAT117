@@ -1,8 +1,4 @@
-\newpage
-
-# Lecture 13 (March 9, 2023)
-
-## Multi-level Modeling of Studies, Meta-Analysis
+# Lecture 13: Multi-level Modeling of Studies, Meta-Analysis
 
 ### Motivation: CXCL12 and survival
 
