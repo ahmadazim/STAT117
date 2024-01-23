@@ -129,7 +129,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="dropdown-menu" aria-labelledby="nav-menu-lectures">    
         <li>
     <a class="dropdown-item" href="./L1-intro.html" rel="" target="">
- <span class="dropdown-text">Lecture 1 (January 24, 2023) Introduction</span></a>
+ <span class="dropdown-text">Lecture 1 Introduction</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./L2-biomarkers.html" rel="" target="">
@@ -202,7 +202,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#lecture-1-january-24-2023-introduction" id="toc-lecture-1-january-24-2023-introduction" class="nav-link active" data-scroll-target="#lecture-1-january-24-2023-introduction">Lecture 1 (January 24, 2023) Introduction</a>
+  <li><a href="#lecture-1-introduction" id="toc-lecture-1-introduction" class="nav-link active" data-scroll-target="#lecture-1-introduction">Lecture 1 Introduction</a>
   <ul class="collapse">
   <li><a href="#goal" id="toc-goal" class="nav-link" data-scroll-target="#goal">Goal</a></li>
   <li><a href="#audience-and-prerequisites" id="toc-audience-and-prerequisites" class="nav-link" data-scroll-target="#audience-and-prerequisites">Audience and Prerequisites</a></li>
@@ -223,9 +223,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div style="page-break-after: always;"></div>
-<section id="lecture-1-january-24-2023-introduction" class="level1">
-<h1>Lecture 1 (January 24, 2023) Introduction</h1>
-<p>These are lecture notes for the course STA117: “Data Analysis in Modern Biostatistics”. We developed the course between 2016 and 2022.</p>
+<section id="lecture-1-introduction" class="level1">
+<h1>Lecture 1 Introduction</h1>
+<p>These are lecture notes for the course STA117: “Data Analysis in Modern Biostatistics”. We developed the course between 2016 and 2023.</p>
 <section id="goal" class="level2">
 <h2 class="anchored" data-anchor-id="goal">Goal</h2>
 <p>The course is an introduction to the application of statistical concepts in biomedical research, through the lens of biomarker research in cancer biology. The general objectives of the course are to develop a sense for practical applications of statistical thinking and tools in biomedical sciences. Concepts and interpretation receive more emphasis than how-to training. The code is often written with far more attention to interpretability than efficiency.</p>
@@ -289,16 +289,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Installs Cran R packages if they are missing</span></span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">length</span>(R_packages_missing) <span class="sc">!=</span> <span class="dv">0</span>) {</span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install.packages</span>(<span class="at">pkgs =</span> R_packages_missing, <span class="at">repos =</span> <span class="st">"https://cloud.r-project.org"</span>)</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Installs Bioconductor Manager</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"BiocManager"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install.packages</span>(<span class="st">"BiocManager"</span>)</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Installs Bioconductor R packages if they are missing</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>()</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">length</span>(Bioc_packages_missing) <span class="sc">!=</span> <span class="dv">0</span>) {</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    BiocManager<span class="sc">::</span><span class="fu">install</span>(Bioc_package_list)</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+  There are binary versions available but the source versions are later:
+       binary source needs_compilation
+uuid    1.1-1  1.2-0              TRUE
+reprex  2.0.2  2.1.0             FALSE
+
+
+The downloaded binary packages are in
+    /var/folders/c6/lg5lps5s2655hdzwjxqjf7kc0000gn/T//RtmpERQYab/downloaded_packages</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Installs Bioconductor Manager</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"BiocManager"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install.packages</span>(<span class="st">"BiocManager"</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Installs Bioconductor R packages if they are missing</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>()</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">length</span>(Bioc_packages_missing) <span class="sc">!=</span> <span class="dv">0</span>) {</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    BiocManager<span class="sc">::</span><span class="fu">install</span>(Bioc_package_list)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div style="page-break-after: always;"></div>
 </section>
@@ -328,9 +339,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <table class="table">
 <caption>Questions considered in the course and their relation to <a href="#fig-dataStructure">Figure&nbsp;1</a></caption>
 <colgroup>
-<col style="width: 23%">
-<col style="width: 52%">
-<col style="width: 23%">
+<col style="width: 24%">
+<col style="width: 50%">
+<col style="width: 24%">
 </colgroup>
 <thead>
 <tr class="header">
