@@ -1,6 +1,6 @@
 \newpage
 
-# Lecture 10 (February 28, 2023) False Discovery Rates
+# Lecture 10: False Discovery Rates
 
 ## Multiple Testing
 
@@ -8,7 +8,7 @@
 
 In our previous discussion we played with various approaches for discovering sets of promising biomarkers. How can we assess the quality of the discovery process and results? The most basic version of this assessment is based on assuming there is a binary truth at the gene level, representing biomarker with and without biological signal, and that the discovery process is about revealing this vector of binary labels. Formally, this is a multiple hypothesis testing problem.
 
-The literature of multiple testing is enormously big. A favorite of mine is [@Tukey:1991ga](https://doi.org/10.1214/ss/1177011945)
+The literature of multiple testing is enormously big. A favorite of mine is [\@Tukey:1991ga](https://doi.org/10.1214/ss/1177011945)
 
 ### Setting and notation:
 
@@ -18,7 +18,7 @@ $i = 1, \ldots, I$ subjects in the discovery sample
 
 $x_{1g}, \ldots, x_{Ig}$ observed quantitative level of the expression of gene $g$ in the $I$ subjects
 
-$y_{1}, \ldots, y_{I}$ binary class labels for the $I$ subjects 
+$y_{1}, \ldots, y_{I}$ binary class labels for the $I$ subjects
 
 $z_g = z_g (x_{1g}, \ldots, x_{Ig}, y_{1}, \ldots, y_{I})$ a statistic used to select, or "discover" biomarkers. For example the absolute value of a t-statistic, the AUC or the fold change. We assume that larger values of the statistic are indicative of the signal we try to discover.
 
@@ -30,7 +30,7 @@ $p_g = P ( z_g > c | H_{0g})$ p-value.
 
 ### Data
 
-Continuous genomic feature: gene expression microarray readout in the TCGA study 
+Continuous genomic feature: gene expression microarray readout in the TCGA study
 
 Binary phenotype (optimal surgical debulking)
 
@@ -62,7 +62,7 @@ ScoresAll = CompScores(XXX,YYY)
 ```
 
 A useful place to start a discussion about multiple testing are the histograms of the p-values obtained with the t-test.
- 
+
 ```{r, fig.cap = "Histograms of P-values, for the 100 patient subset (left) and Entire Set"}
 par(mfrow = c(1, 2), pty = "s")
 hist(exp(-ScoresSub[,"nlpvalueT"]),
@@ -70,7 +70,6 @@ hist(exp(-ScoresSub[,"nlpvalueT"]),
 hist(exp(-ScoresAll[,"nlpvalueT"]),
      main="Full Set",xlab="p-value")
 ```
-
 
 ```{r, fig.cap="Empirical CDFs of P-values, for the 100 patient subset (left) and Entire Set "}
 par(mfrow = c(1, 2), pty = "s")
@@ -81,22 +80,24 @@ plot(ecdf(exp(-ScoresAll[,"nlpvalueT"])),
 ```
 
 ::: callout-note
-### Higher Criticism 
+### Higher Criticism
 
-Review: if the null hypothesis is correct, the sampling distribution of the p-value is uniform in (0,1). "Sampling distribution" refers to hypothetical repetitions of the same experiment, in this case under the null.  
+Review: if the null hypothesis is correct, the sampling distribution of the p-value is uniform in (0,1). "Sampling distribution" refers to hypothetical repetitions of the same experiment, in this case under the null.
 
-* These histograms show a single experiment. The distribution arises from variation across biomarkers. Can we still learn something useful about the frequentist multiple testing problem? 
+-   These histograms show a single experiment. The distribution arises from variation across biomarkers. Can we still learn something useful about the frequentist multiple testing problem?
 
-* How would you test for the "global null", that is the scenario where each and every biomarker is independent of the debulking status?
-::: 
+-   How would you test for the "global null", that is the scenario where each and every biomarker is independent of the debulking status?
+:::
 
-Hint: [@Donoho2015ss](http://projecteuclid.org/euclid.ss/1425492437)
+Hint: [\@Donoho2015ss](http://projecteuclid.org/euclid.ss/1425492437)
 
 \newpage
+
 ## False Discovery Rates
 
-A simple way to think about the discovery process is to focus on a list of promising candidates (or "discoveries"), as we did in our previous lecture. 
-If we know the true data generating model for each gene, we could, for example, look at this table:
+A simple way to think about the discovery process is to focus on a list of promising candidates (or "discoveries"), as we did in our previous lecture. If we know the true data generating model for each gene, we could, for example, look at this table:
+
+```{=tex}
 \begin{center}
 \resizebox{\linewidth}{!}{% Resize table to fit within \linewidth horizontally
 \begin{tabular}{|lccc|}
@@ -110,24 +111,24 @@ Total & $G-R$ & $R$ & $G$ \\
 \hline
 \end{tabular}}
 \end{center}
-It is common to study the proportion $R_0/R$ of discoveries for which the true data generating model is null. 
+```
+It is common to study the proportion $R_0/R$ of discoveries for which the true data generating model is null.
 
 ::: callout-note
-
 $R_0/R$ is unknown. It depends on both the data and the parameter (the vector of indicators of whether eagh gene is null)
 
-* When is $R_0/R$ an appropriate quantity to focus on?
+-   When is $R_0/R$ an appropriate quantity to focus on?
 :::
 
-This parameter can be estimated from a couple of different perspectives. If you are interested in evaluating the list generating *process* you may be interested in a frequentist expectation. Bounds can be obtained using methods like Benjamini-Hochberg (see below). If your focus is on the actual list rather than the procedure, Bayesian estimates may be your choice. 
+This parameter can be estimated from a couple of different perspectives. If you are interested in evaluating the list generating *process* you may be interested in a frequentist expectation. Bounds can be obtained using methods like Benjamini-Hochberg (see below). If your focus is on the actual list rather than the procedure, Bayesian estimates may be your choice.
 
-We review many of the connections here:
-[@muel:parm:rice:2007](https://biostats.bepress.com/jhubiostat/paper115/)
+We review many of the connections here: [\@muel:parm:rice:2007](https://biostats.bepress.com/jhubiostat/paper115/)
 
 \newpage
 
 ### Frequentist Definition of FDR
 
+```{=tex}
 \begin{itemize} 
 \item Define the \textcolor{red}{\textbf{False Discovery Proportion}} (FDP) as:
 \begin{equation*}
@@ -144,18 +145,20 @@ $$
 where the expectation is with respect to the sampling distribution under the null hypothesis.
 
 \end{itemize}
-
+```
 \newpage
 
-### The Benjamini-Hochberg Algorithm 
+### The Benjamini-Hochberg Algorithm
 
+```{=tex}
 \begin{itemize}
 \item 
 The Benjamini-Hochberg Method can be used to construct a list of discoveries from the p-values, controlling the False Discovery Rate via bound.
 \item Idea is to have $FDR = \mathbb{E}(FDP) \leq \alpha$.
 \item The \textbf{Benjamini-Hochberg Method} guarantees this asymptotically.
 \end{itemize}
-
+```
+```{=tex}
 \begin{enumerate}
 \item Let $p_{(1)} < \cdots < p_{(G)}$ be the ordered p-values. 
 \item Let $j$ index the ranks ($p_{(g)} = p_j$) and compute
@@ -165,7 +168,7 @@ $$
 \item Let $p^*=p_{j^*}$ be the rejection threshold. 
 \item Reject all null $H_{0j}$ where $p_j \leq p^*$.
 \end{enumerate}
-
+```
 \textbf{If we apply the method, we can \textbf{control} the FDR at $\alpha$.}
 
 \newpage
@@ -183,17 +186,14 @@ abline(0,.07)
 ```
 
 ::: callout-note
-
 How would you comment these results?
-
 :::
 
 \newpage
 
 ### Empirical Null Distribtution of Scores
 
-It is simple to permute the labels of the subjects and recompute the scores.
-After permutation, for each gene, the link between expression and debulking has been broken. Discoveries are now random. We will look at a single permutation for illustration. As the number of features is large a single permutation can give reasonable indications. In a real application we may want to use multiple permutation and average over the inferential results, particularly if we are interested in events with small probability.
+It is simple to permute the labels of the subjects and recompute the scores. After permutation, for each gene, the link between expression and debulking has been broken. Discoveries are now random. We will look at a single permutation for illustration. As the number of features is large a single permutation can give reasonable indications. In a real application we may want to use multiple permutation and average over the inferential results, particularly if we are interested in events with small probability.
 
 ```{r, cache=TRUE}
 set.seed(1)
@@ -214,17 +214,16 @@ table(aucDiscAllNull)
 ```
 
 ::: callout-note
-* is it correct to conclude that of the 28 discovery, only 1 is likely false?
+-   is it correct to conclude that of the 28 discovery, only 1 is likely false?
 
-* what is 1/28 and estimate of?
+-   what is 1/28 and estimate of?
 :::
 
 \newpage
 
 ### Empirical Bayes estimate of the false discovery rate:
 
-Empirical Bayes FDR makes the 1/28 story a bit more formal. 
-The thinking is now conditional on the observed set of data, specifically the observed set of scores, the $z$'s. The $z$'s can coincide with the p-values, but this logic does not require p-values, so the p-value calculation adds an unnecessary step.
+Empirical Bayes FDR makes the 1/28 story a bit more formal. The thinking is now conditional on the observed set of data, specifically the observed set of scores, the $z$'s. The $z$'s can coincide with the p-values, but this logic does not require p-values, so the p-value calculation adds an unnecessary step.
 
 Define $F(z) = P ( z_g \leq z)$ to the the true marginal distribution of the scores, and $\bar F(z) = 1 - F(z) = P ( z_g > z)$. Now restrict attention to the genes whose true generating model is null and let $\bar F_0(z) = 1 - F_0(z) = P ( z_g > z | H_{og})$. In a genemo where $p_A$ genes are from some alternative (each gene can have its own!) and the remaining $1-p_A$ are from the same null, the unknown proportion of false discoveries can be rewritten as:
 
@@ -232,18 +231,18 @@ $$
 \frac{R_0}{R} = \frac{ (1-p_A) * \bar F_0 (z)}{(1-p_A) * \bar F_0 (z) + p_A \bar F_A (z) } =\frac{  (1-p_A) \bar F_0 (z)}{ \bar F (z) } \approx\frac{ \bar F_0 (z)}{ \bar F (z) } 
 $$
 
+In EB, the denominator, for any given cutoff, can be estimated empirically from the geneome-wide distribution of $z_g$'s. Just don't pick the cutoff so that the list is empty.
 
-In EB, the denominator, for any given cutoff, can be estimated empirically from the geneome-wide distribution of $z_g$'s. Just don't pick the cutoff so that the list is empty. 
+The numerator is a bit trickier. If the disctribution of the $z$'s under the null is known (as is the case for example with $z$-scores for which normality can be trusted, $\bar F_0 (z)$ can be estimated that way. If not, one approach is to use the geneome-wide distribution of $z_g$'s after a permutation that mimics the global null. $p_A$ is not identifiable w/out parametric / smoothness assumptions on the distributions of the $z$'s. A surprisingly useful approximation is $1-p_A = 1$, which gives a conservative bounds to EF FDR, but often a reasonably realistic one.
 
-The numerator is a bit trickier. If the disctribution of the $z$'s under the null is known (as is the case for example with $z$-scores for which normality can be trusted, $\bar F_0 (z)$ can be estimated that way. If not, one approach is to use the geneome-wide distribution of $z_g$'s after a permutation that mimics the global null. $p_A$ is not identifiable w/out parametric / smoothness assumptions on the distributions of the $z$'s. A surprisingly useful approximation is $1-p_A = 1$, which gives a conservative bounds to EF FDR, but often a reasonably realistic one. 
-
-[@Efron2003as](https://doi.org/10.1214/aos/1051027871)
+[\@Efron2003as](https://doi.org/10.1214/aos/1051027871)
 
 ::: callout-note
-* tie this back to the 1/28 story
+-   tie this back to the 1/28 story
 :::
 
 \newpage
+
 ### Empirical Bayes estimate of the local FDR
 
 Let's look at estimates of densities corresponding to $F$ and $F_0$. These densities are normalized to integrate to $1$.
@@ -255,38 +254,37 @@ lines(density(ScoresAll[,"nlpvalueT"]),col=2,lwd=4)
 ```
 
 ::: callout-note
-* does this figure suggests a quick and dirty way of estimating $1-p_A$? Think through the assumptions would would be making.
+-   does this figure suggests a quick and dirty way of estimating $1-p_A$? Think through the assumptions would would be making.
 :::
 
-This figure does suggest a way of evaluating the false discovery rate specifically for discoveries at and around a score of $z$. Imagine you have estimates $\hat f$ and $\hat f_0$. 
+This figure does suggest a way of evaluating the false discovery rate specifically for discoveries at and around a score of $z$. Imagine you have estimates $\hat f$ and $\hat f_0$.
 
 $$
 \text{fdr}(z) = \frac{ (1-\hat p_A) * \hat f_0 (z)}{(1-\hat p_A) * \hat f_0 (z) + \hat p_A f_A (z) } =\frac{  (1-\hat p_A) \hat f_0 (z)}{ \hat f (z) } \approx\frac{ \hat f_0 (z)}{ \hat f (z) } 
-$$
-\newpage
-### Summary 
+$$ \newpage \### Summary
 
 If you can trust the assumptions behind the p-value calculation, then:
 
+```{=tex}
 \begin{itemize}
-	\item Higher Criticism to test the global null
-	\item Benjamini-Hochberg or other approximation to select top candidates controlling FDR
+    \item Higher Criticism to test the global null
+    \item Benjamini-Hochberg or other approximation to select top candidates controlling FDR
 \end{itemize}
-
+```
 else:
 
+```{=tex}
 \begin{itemize}
-	\item estimate an "empirical null" distribution by permutation
-	\item can use any statistic
-	\item can get classification probabilities at the single biomarker level (as opposed to the group)
+    \item estimate an "empirical null" distribution by permutation
+    \item can use any statistic
+    \item can get classification probabilities at the single biomarker level (as opposed to the group)
 \end{itemize}
-
-
+```
 \newpage
 
 ### Addendum: Familywise Error Control
 
-A different way of thinking about multiple testing is to control the probability of falsely rejecting *any* null hypothesis (Familywise Error Control). 
+A different way of thinking about multiple testing is to control the probability of falsely rejecting *any* null hypothesis (Familywise Error Control).
 
 ::: callout-note
 How do you decide whether FDR or FEC is a better fit for your analysis?
@@ -294,6 +292,7 @@ How do you decide whether FDR or FEC is a better fit for your analysis?
 
 The Bonferroni method provides a bound to familywise error. Here is an exampe of how it works.
 
+```{=tex}
 \begin{itemize}
 \item Given 30,000 gene expressions, we want to know which are significant.
 \item If we tested each gene, we have 30,000 separate hypothesis tests.
@@ -308,7 +307,8 @@ $$
 \item Let $p_1, \ldots, p_G$ be the $G$ p-values for each of these tests.
 \item \textbf{Question:} What happens if we use level $\alpha$ for all these tests?
 \end{itemize}
-
+```
+```{=tex}
 \begin{itemize}
 \item Consider the \textbf{Bonferroni Method}.
 \item Using the $G$ p-values $p_1, \ldots, p_G$, reject the null hypothesis $H_{0g}$ if:
@@ -319,7 +319,8 @@ $$
 \item If $G$ is really big, then our rejection level will be super small.
 \item Ex: With 30,000 gene expressions, declare significant difference for $0.05/30000= 0.0000017$.
 \end{itemize}
-
+```
+```{=tex}
 \begin{itemize}
 \item Consider the probability of at least one significant result:
 \begin{align*}
@@ -335,7 +336,7 @@ $$
 \end{align*}
 \item The \textbf{Bonferoni Method} is very conservative since its trying to make it unlikely you made even one false rejection.
 \end{itemize}
-
+```
 \newpage
-## References
 
+## References

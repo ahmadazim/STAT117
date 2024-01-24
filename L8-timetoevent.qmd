@@ -1,16 +1,14 @@
 \newpage
 
-# Lecture 8 (February 16, 2023) Time to Event Data
+# Lecture 8: Time to Event Data
 
 ## Time-to-Event Biomarkers
 
-We will now look at time-to-event outcomes. In many clinical applications, the researcher will have access to both whether or not an event occurred, but the also \textit{when} the event occurred. Only considering one of the two pieces of information will result in an either incomplete or incorrect analysis of a problem of interest. Being able to use both types of data results in better inferences. 
+We will now look at time-to-event outcomes. In many clinical applications, the researcher will have access to both whether or not an event occurred, but the also \textit{when} the event occurred. Only considering one of the two pieces of information will result in an either incomplete or incorrect analysis of a problem of interest. Being able to use both types of data results in better inferences.
 
 ### Censored Data
 
-An important new concept in this lecture is that of censored data. 
-For example, the ovarian cancer studies considered in curatedOvarianData, inluding Yoshihara B, only followed patient for a limited period of time. As a result, the time elapsed between diagnosis and death (survival time) is known for some but not for all patients. The outcome data includes "days_to_death" and "vital_status". Let's take a look. 
-
+An important new concept in this lecture is that of censored data. For example, the ovarian cancer studies considered in curatedOvarianData, inluding Yoshihara B, only followed patient for a limited period of time. As a result, the time elapsed between diagnosis and death (survival time) is known for some but not for all patients. The outcome data includes "days_to_death" and "vital_status". Let's take a look.
 
 ```{r, message=F}
 library(curatedOvarianData)
@@ -37,20 +35,21 @@ head(SurvObj)
 
 A quick reminder of the terminology: the survival function is the probability of surviving until time $t$. The hazard $h$, or intensity, is the rate of occurrence of the event relative to the number of individual still available to experience it.
 
+```{=tex}
 \begin{eqnarray*}
 S(t) & = & P ( \mbox{Event occurs after time t}) \\
 F(t) & = & 1 - S(t) \\
 dF(t) / dt & = & f(t) \\
 h(t) & = & f(t) / S(t)
 \end{eqnarray*}
-
+```
 You can go back and forth between $h$ and $F$ under smoothenss conditions.
 
 To check you followed the logic so far, say $S(t)$ depends on some parameters $\theta$ and try to write down the likelihood function for $\theta$ the six observations in the code chunk just above.
 
 ### Kaplan-Maier Construction
 
-The Kaplan-Maier algorithm provides a nonparametric maximum likelihood estimate of the survival function for censored data. It is the counterpart of the empirical survival function (i.e.  one minus the empirical c.d.f.) which we may use in fully observed data.
+The Kaplan-Maier algorithm provides a nonparametric maximum likelihood estimate of the survival function for censored data. It is the counterpart of the empirical survival function (i.e. one minus the empirical c.d.f.) which we may use in fully observed data.
 
 The following plot yields the Kaplan-Meier curve. The survfit functions produces this if you set up a "regression" only including the intercept.
 
@@ -64,11 +63,11 @@ ggsurvplot(km.as.one,data=SurvObj,
            risk.table = "nrisk_cumcensor")
 ```
 
-The [Kaplan Meier learning tool](https://rubenvp.shinyapps.io/kmplotter/) and associated [Kaplan Meier curves: an introduction](https://rmvpaeme.github.io/KaplanMeier_intro/) tutorial are a good way to get a sense for how KM works, with code. Check out the "worse and best case scenario" figures in the tutorial. They give you a sense for the extra uncertainty brought in by censoring. This uncertainty is in addition to the sampling uncertainty we are all accustomed to. 
-Another [Introduction to Survival Analysis using R](https://shariq-mohammed.github.io/files/cbsa2019/1-intro-to-survival.html).
+The [Kaplan Meier learning tool](https://rubenvp.shinyapps.io/kmplotter/) and associated [Kaplan Meier curves: an introduction](https://rmvpaeme.github.io/KaplanMeier_intro/) tutorial are a good way to get a sense for how KM works, with code. Check out the "worse and best case scenario" figures in the tutorial. They give you a sense for the extra uncertainty brought in by censoring. This uncertainty is in addition to the sampling uncertainty we are all accustomed to. Another [Introduction to Survival Analysis using R](https://shariq-mohammed.github.io/files/cbsa2019/1-intro-to-survival.html).
 
 \newpage
-Next, this is the same population split by debulking status. 
+
+Next, this is the same population split by debulking status.
 
 ```{r, fig.cap="Kaplan-Meier Curve by Debulking Status"}
 library(survminer)
@@ -85,7 +84,7 @@ ggsurvplot(km.by.debulking,data=SurvObj,
 
 ## Modeling Dependence Between a Biomarker and a Censored Outcome
 
-We normally visualize dependence via scatterplots. In this case the response variable is censored, so a scatterplot might look something like this. 
+We normally visualize dependence via scatterplots. In this case the response variable is censored, so a scatterplot might look something like this.
 
 ```{r, fig.cap="Scatterplot of survival time by ZNF487 expression"}
 pendant.plot = function(time,status,biomarker){
@@ -99,11 +98,12 @@ pendant.plot(time=pData(GSE32063_eset)[,"days_to_death"],
           status=pData(GSE32063_eset)[,"vital_status"],
           biomarker=exprs(GSE32063_eset)["ZNF487",])
 ```
+
 \newpage
 
 ### Concordance Index
 
-There is a popular way to compute a nonparametric measure of dependence that accounts for this type of censoring: the *concordance index*. The basic building block are concordant pairs: a pair of patients is called concordant if the biomarker is higher for the patient who experiences the event at a later timepoint. With censored data, we exclude all the pairs for which it is not possible to established whether they are concordant or not. The concordance probability (C-index) is the proportion of concordant pairs among all pairs of subjects. Similar to the AUC, 50 percent represents no dependence. A C-index above 50 percent indicates a negative dependence and a value below 50 percent indicates a positive dependence. For details see [What is Harrell’s C-index?](https://statisticaloddsandends.wordpress.com/2019/10/26/what-is-harrells-c-index/)
+There is a popular way to compute a nonparametric measure of dependence that accounts for this type of censoring: the *concordance index*. The basic building block are concordant pairs: a pair of patients is called concordant if the biomarker is higher for the patient who experiences the event at a later timepoint. With censored data, we exclude all the pairs for which it is not possible to established whether they are concordant or not. The concordance probability (C-index) is the proportion of concordant pairs among all pairs of subjects. Similar to the AUC, 50 percent represents no dependence. A C-index above 50 percent indicates a negative dependence and a value below 50 percent indicates a positive dependence. For details see [What is Harrell's C-index?](https://statisticaloddsandends.wordpress.com/2019/10/26/what-is-harrells-c-index/)
 
 Let's look at ZNF487:
 
@@ -111,24 +111,23 @@ Let's look at ZNF487:
 concordance(SurvObj ~ exprs(GSE32063_eset)["ZNF487",])
 ```
 
-The C-index was introduced to measure the discrimination of a risk prediction model, in which case the prediction is a real or ordinal valued risk score, and the model works well if low risk goes with longer survival. 
-
+The C-index was introduced to measure the discrimination of a risk prediction model, in which case the prediction is a real or ordinal valued risk score, and the model works well if low risk goes with longer survival.
 
 \newpage
 
 ### Log Hazard Modeling
 
-The next level of analysis is regression.
-The most common way to model time-to-event data, with or without censoring, is via hazard (or intensity) functions. 
+The next level of analysis is regression. The most common way to model time-to-event data, with or without censoring, is via hazard (or intensity) functions.
 
-[@KraghAndersen2021sim](https://doi-org.ezp-prod1.hul.harvard.edu/10.1002/sim.8757) provide a thoughtful and concise introduction to time-to-event data. Highly recommended.
+[\@KraghAndersen2021sim](https://doi-org.ezp-prod1.hul.harvard.edu/10.1002/sim.8757) provide a thoughtful and concise introduction to time-to-event data. Highly recommended.
 
-### Exponential and Weibull Time-to-Event Distributions 
+### Exponential and Weibull Time-to-Event Distributions
 
-Let's start our discussion by calculating the hazard function for Exponential and  Weibull distribution.
+Let's start our discussion by calculating the hazard function for Exponential and Weibull distribution.
 
-The Weibull fits a lot of cancer survival data fairly well. [@Plana2022nc]({https://doi.org/10.1038/s41467-022-28410-9) looks at Weibull fit across hundreds of studies ---very interesting work.
+The Weibull fits a lot of cancer survival data fairly well. [\@Plana2022nc](%7Bhttps://doi.org/10.1038/s41467-022-28410-9) looks at Weibull fit across hundreds of studies ---very interesting work.
 
+```{=tex}
 \begin{Large}
 \begin{eqnarray*}
 \mbox{Exponential Hazard -- Constant in time:} \;\;\;\; h(t) & = & \lambda \\
@@ -137,9 +136,10 @@ h(t) & = & v \lambda t ^{v-1} \\
 \mbox{Weibull Survival:} \;\;\;\; S(t) & =&  e^{-\lambda t ^v}
 \end{eqnarray*}
 \end{Large}
+```
+The hazard of the weibull is a polynomial function of time. The $v$ parameter controls whether the event rate is slowing down or picking up speed with time. $\lambda$ acts as an intercept for hazard. A popular tactic is to model $log h$, via $\log \lambda$ as a function of the biomarker.
 
-The hazard of the weibull is a polynomial function of time. The $v$ parameter controls whether the event rate is slowing down or picking up speed with time. $\lambda$ acts as an intercept for hazard. A popular tactic is to model $log h$, via $\log \lambda$ as a function of the biomarker. 
-
+```{=tex}
 \begin{Large}
 \begin{eqnarray*}
 \mbox{Weibull Log Hazard:} \;\;\;\; \log h(t) & = & log (v) + (v-1) log (t) + log \lambda \\
@@ -148,9 +148,9 @@ The hazard of the weibull is a polynomial function of time. The $v$ parameter co
 \mbox{Cox Proportional Hazard:} \;\;\;\; \log h_x(t) & = & \log h_0(t) + \beta x \\
 \end{eqnarray*}
 \end{Large}
+```
+To illustrate this, we will consider the `POSTN` gene within the `GSE32063_eset` dataset. In the coding chunk that follows, we will consider `XX` as the gene expression and `XXgmedian` as the binary variable created through dichotomizing the expression values at the median.
 
-To illustrate this, we will consider the `POSTN` gene within the `GSE32063_eset` dataset. 
-In the coding chunk that follows, we will consider `XX` as the gene expression and `XXgmedian` as the binary variable created through dichotomizing the expression values at the median.
 ```{r}
 library(curatedOvarianData)
 data(GSE32063_eset)
@@ -166,7 +166,8 @@ POSTN.frame = data.frame(time = pData(GSE32063_eset)[,"days_to_death"],
               expression = XX,
               gtmedian = XXgmedian)
 ```
-The next yields the scatterplot and the Kaplan-Meier curves stratified by an indicator of whether the biomarker exceeds the population median (with and w/out confidence bands), for illustration. 
+
+The next yields the scatterplot and the Kaplan-Meier curves stratified by an indicator of whether the biomarker exceeds the population median (with and w/out confidence bands), for illustration.
 
 ```{r, fig.cap="Kaplan-Meier Curve on Median Cut-off"}
 pendant.plot(time=pData(GSE32063_eset)[,"days_to_death"],
@@ -178,7 +179,8 @@ ggsurvplot(km.by.gene,data=POSTN.frame,conf.int=TRUE)
 ```
 
 \newpage
-The following gives the survival concordance objects. 
+
+The following gives the survival concordance objects.
 
 ```{r}
 concordance(SurvObj ~ XXgmedian, reverse=TRUE)
@@ -189,9 +191,7 @@ The loss of concordance gives you one way to think about the information loss fr
 
 \newpage
 
-Then, we can call out the Cox-Proportional Hazards Model for both the median cut-off variable and the entire gene expression variable.
-This is a concise introduction to assumptions and interpretation in
-[Cox Proportional Hazards Regression Analysis](https://sphweb.bumc.bu.edu/otlt/mph-modules/bs/bs704_survival/BS704_Survival6.html)
+Then, we can call out the Cox-Proportional Hazards Model for both the median cut-off variable and the entire gene expression variable. This is a concise introduction to assumptions and interpretation in [Cox Proportional Hazards Regression Analysis](https://sphweb.bumc.bu.edu/otlt/mph-modules/bs/bs704_survival/BS704_Survival6.html)
 
 ```{r}
 summary(coxph(SurvObj~XXgmedian))
@@ -203,13 +203,13 @@ summary(coxph(SurvObj~XX))
 
 ::: callout-note
 ### Metrics
-* Does this regression provide useful metrics for evaluating whether POSTN is a useful biomarker?
 
-* What are some of their strengths and limitations?
+-   Does this regression provide useful metrics for evaluating whether POSTN is a useful biomarker?
+
+-   What are some of their strengths and limitations?
 :::
 
 \newpage
-
 
 Now, we can also fit the Cox Proportional Hazards Model to POSTN, which is now a full continuous biomarker, and plot the predicted survival curve for an individual with a biomarker value of $5$ for POSTN.
 
@@ -221,16 +221,16 @@ par(pty = "s", mfrow = c(1,1))
 plot(survfit(fit, newdata=data.frame(XX = - 5)), xscale=365.25, xlab = "Years", ylab="Survival Probability", col = c(1,3,3))
 ```
 
-
 ::: callout-note
 ### $Y|X$ versus $X|Y$
 
-With binary data, we operated by modeling class conditional distributions $X|Y$, and converting to PPV using Bayes rule. With survival data we modeled $Y|X$. 
+With binary data, we operated by modeling class conditional distributions $X|Y$, and converting to PPV using Bayes rule. With survival data we modeled $Y|X$.
 
-* What are some of the pros and cons of the two approaches?
+-   What are some of the pros and cons of the two approaches?
 
-* What is the equivalent to PPV in time-to-event data?
+-   What is the equivalent to PPV in time-to-event data?
 :::
 
 \newpage
+
 ## References

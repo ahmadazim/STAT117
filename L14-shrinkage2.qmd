@@ -1,7 +1,5 @@
 \newpage
 
-# Lecture 14 (March 21, 2023) Shrinkage part 2
+# Lecture 14: Shrinkage part 2
 
-split current L12 into two 
-
-
+split current L12 into two

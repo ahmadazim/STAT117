@@ -166,7 +166,7 @@ window.Quarto = {
     <ul class="dropdown-menu" aria-labelledby="nav-menu-lectures">    
         <li>
     <a class="dropdown-item" href="./L1-intro.html">
- <span class="dropdown-text">Lecture 1 (January 24, 2023) Introduction</span></a>
+ <span class="dropdown-text">Lecture 1 Introduction</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./L2-biomarkers.html">
@@ -182,27 +182,27 @@ window.Quarto = {
   </li>  
         <li>
     <a class="dropdown-item" href="./L5-decision.html">
- <span class="dropdown-text">Lecture 5 (February 7, 2023) Decision Analysis</span></a>
+ <span class="dropdown-text">Lecture 5: Decision Analysis</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./L6-bayes.html">
- <span class="dropdown-text">Lecture 6 (February 9, 2023) Bayesian Modeling</span></a>
+ <span class="dropdown-text">Lecture 6: Bayesian Modeling</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./L7-mcmc.html">
- <span class="dropdown-text">Lecture 7 (February 14, 2023) Monte Carlo Markov Chains</span></a>
+ <span class="dropdown-text">Lecture 7: Monte Carlo Markov Chains</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./L8-timetoevent.html">
- <span class="dropdown-text">Lecture 8 (February 16, 2023) Time to Event Data</span></a>
+ <span class="dropdown-text">Lecture 8: Time to Event Data</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./L9-comparing.html">
- <span class="dropdown-text">Lecture 9 (February 21, 2023) Comparing Criteria for Biomarker Discovery</span></a>
+ <span class="dropdown-text">Lecture 9: Comparing Criteria for Biomarker Discovery</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./L10-fdr.html">
- <span class="dropdown-text">Lecture 10 (February 28, 2023) False Discovery Rates</span></a>
+ <span class="dropdown-text">Lecture 10: False Discovery Rates</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./L11-regmean.html">
@@ -213,13 +213,8 @@ window.Quarto = {
  <span class="dropdown-text">Lecture 12: Shrinkage</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./L14-shrinkage2.html">
- <span class="dropdown-text">Lecture 14 (March 21, 2023) Shrinkage part 2</span></a>
-  </li>  
-        <li class="dropdown-header">L15-metaanlysis2.qmd</li>
-        <li>
     <a class="dropdown-item" href="./L17-twomarkers.html">
- <span class="dropdown-text">Lecture 17 (March 29, 2023)</span></a>
+ <span class="dropdown-text">Lecture 17</span></a>
   </li>  
     </ul>
   </li>
@@ -239,7 +234,7 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#lecture-8-february-16-2023-time-to-event-data" id="toc-lecture-8-february-16-2023-time-to-event-data" class="nav-link active" data-scroll-target="#lecture-8-february-16-2023-time-to-event-data">Lecture 8 (February 16, 2023) Time to Event Data</a>
+  <li><a href="#lecture-8-time-to-event-data" id="toc-lecture-8-time-to-event-data" class="nav-link active" data-scroll-target="#lecture-8-time-to-event-data">Lecture 8: Time to Event Data</a>
   <ul class="collapse">
   <li><a href="#time-to-event-biomarkers" id="toc-time-to-event-biomarkers" class="nav-link" data-scroll-target="#time-to-event-biomarkers">Time-to-Event Biomarkers</a>
   <ul class="collapse">
@@ -265,8 +260,8 @@ window.Quarto = {
 
 
 <div style="page-break-after: always;"></div>
-<section id="lecture-8-february-16-2023-time-to-event-data" class="level1">
-<h1>Lecture 8 (February 16, 2023) Time to Event Data</h1>
+<section id="lecture-8-time-to-event-data" class="level1">
+<h1>Lecture 8: Time to Event Data</h1>
 <section id="time-to-event-biomarkers" class="level2">
 <h2 class="anchored" data-anchor-id="time-to-event-biomarkers">Time-to-Event Biomarkers</h2>
 <p>We will now look at time-to-event outcomes. In many clinical applications, the researcher will have access to both whether or not an event occurred, but the also the event occurred. Only considering one of the two pieces of information will result in an either incomplete or incorrect analysis of a problem of interest. Being able to use both types of data results in better inferences.</p>
@@ -305,12 +300,12 @@ window.Quarto = {
 <section id="survival-and-hazard-functions" class="level3">
 <h3 class="anchored" data-anchor-id="survival-and-hazard-functions">Survival and Hazard Functions</h3>
 <p>A quick reminder of the terminology: the survival function is the probability of surviving until time <span class="math inline">\(t\)</span>. The hazard <span class="math inline">\(h\)</span>, or intensity, is the rate of occurrence of the event relative to the number of individual still available to experience it.</p>
-<p><span class="math display">\[\begin{eqnarray*}
+<span class="math display">\[\begin{eqnarray*}
 S(t) &amp; = &amp; P ( \mbox{Event occurs after time t}) \\
 F(t) &amp; = &amp; 1 - S(t) \\
 dF(t) / dt &amp; = &amp; f(t) \\
 h(t) &amp; = &amp; f(t) / S(t)
-\end{eqnarray*}\]</span></p>
+\end{eqnarray*}\]</span>
 <p>You can go back and forth between <span class="math inline">\(h\)</span> and <span class="math inline">\(F\)</span> under smoothenss conditions.</p>
 <p>To check you followed the logic so far, say <span class="math inline">\(S(t)\)</span> depends on some parameters <span class="math inline">\(\theta\)</span> and try to write down the likelihood function for <span class="math inline">\(\theta\)</span> the six observations in the code chunk just above.</p>
 </section>
@@ -406,12 +401,12 @@ concordant discordant     tied.x     tied.y    tied.xy
 <section id="log-hazard-modeling" class="level3">
 <h3 class="anchored" data-anchor-id="log-hazard-modeling">Log Hazard Modeling</h3>
 <p>The next level of analysis is regression. The most common way to model time-to-event data, with or without censoring, is via hazard (or intensity) functions.</p>
-<p><a href="https://doi-org.ezp-prod1.hul.harvard.edu/10.1002/sim.8757"><span class="citation" data-cites="KraghAndersen2021sim">@KraghAndersen2021sim</span></a> provide a thoughtful and concise introduction to time-to-event data. Highly recommended.</p>
+<p><a href="https://doi-org.ezp-prod1.hul.harvard.edu/10.1002/sim.8757">@KraghAndersen2021sim</a> provide a thoughtful and concise introduction to time-to-event data. Highly recommended.</p>
 </section>
 <section id="exponential-and-weibull-time-to-event-distributions" class="level3">
 <h3 class="anchored" data-anchor-id="exponential-and-weibull-time-to-event-distributions">Exponential and Weibull Time-to-Event Distributions</h3>
 <p>Let’s start our discussion by calculating the hazard function for Exponential and Weibull distribution.</p>
-<p>The Weibull fits a lot of cancer survival data fairly well. <a href="{https://doi.org/10.1038/s41467-022-28410-9"><span class="citation" data-cites="Plana2022nc">@Plana2022nc</span></a> looks at Weibull fit across hundreds of studies —very interesting work.</p>
+<p>The Weibull fits a lot of cancer survival data fairly well. <a href="{https://doi.org/10.1038/s41467-022-28410-9">@Plana2022nc</a> looks at Weibull fit across hundreds of studies —very interesting work.</p>
 <p>The hazard of the weibull is a polynomial function of time. The <span class="math inline">\(v\)</span> parameter controls whether the event rate is slowing down or picking up speed with time. <span class="math inline">\(\lambda\)</span> acts as an intercept for hazard. A popular tactic is to model <span class="math inline">\(log h\)</span>, via <span class="math inline">\(\log \lambda\)</span> as a function of the biomarker.</p>
 <p>To illustrate this, we will consider the <code>POSTN</code> gene within the <code>GSE32063_eset</code> dataset. In the coding chunk that follows, we will consider <code>XX</code> as the gene expression and <code>XXgmedian</code> as the binary variable created through dichotomizing the expression values at the median.</p>
 <div class="cell">

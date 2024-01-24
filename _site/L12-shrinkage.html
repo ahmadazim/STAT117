@@ -6,7 +6,6 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2023-03-07">
 
 <title>STAT 117: Data Analysis in Modern Biostatistics</title>
 <style>
@@ -167,7 +166,7 @@ window.Quarto = {
     <ul class="dropdown-menu" aria-labelledby="nav-menu-lectures">    
         <li>
     <a class="dropdown-item" href="./L1-intro.html">
- <span class="dropdown-text">Lecture 1 (January 24, 2023) Introduction</span></a>
+ <span class="dropdown-text">Lecture 1 Introduction</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./L2-biomarkers.html">
@@ -183,27 +182,27 @@ window.Quarto = {
   </li>  
         <li>
     <a class="dropdown-item" href="./L5-decision.html">
- <span class="dropdown-text">Lecture 5 (February 7, 2023) Decision Analysis</span></a>
+ <span class="dropdown-text">Lecture 5: Decision Analysis</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./L6-bayes.html">
- <span class="dropdown-text">Lecture 6 (February 9, 2023) Bayesian Modeling</span></a>
+ <span class="dropdown-text">Lecture 6: Bayesian Modeling</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./L7-mcmc.html">
- <span class="dropdown-text">Lecture 7 (February 14, 2023) Monte Carlo Markov Chains</span></a>
+ <span class="dropdown-text">Lecture 7: Monte Carlo Markov Chains</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./L8-timetoevent.html">
- <span class="dropdown-text">Lecture 8 (February 16, 2023) Time to Event Data</span></a>
+ <span class="dropdown-text">Lecture 8: Time to Event Data</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./L9-comparing.html">
- <span class="dropdown-text">Lecture 9 (February 21, 2023) Comparing Criteria for Biomarker Discovery</span></a>
+ <span class="dropdown-text">Lecture 9: Comparing Criteria for Biomarker Discovery</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./L10-fdr.html">
- <span class="dropdown-text">Lecture 10 (February 28, 2023) False Discovery Rates</span></a>
+ <span class="dropdown-text">Lecture 10: False Discovery Rates</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./L11-regmean.html">
@@ -214,13 +213,8 @@ window.Quarto = {
  <span class="dropdown-text">Lecture 12: Shrinkage</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./L14-shrinkage2.html">
- <span class="dropdown-text">Lecture 14 (March 21, 2023) Shrinkage part 2</span></a>
-  </li>  
-        <li class="dropdown-header">L15-metaanlysis2.qmd</li>
-        <li>
     <a class="dropdown-item" href="./L17-twomarkers.html">
- <span class="dropdown-text">Lecture 17 (March 29, 2023)</span></a>
+ <span class="dropdown-text">Lecture 17</span></a>
   </li>  
     </ul>
   </li>
@@ -269,31 +263,9 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-</div>
 
 
 
-<div class="quarto-title-meta">
-
-    
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">March 7, 2023</p>
-    </div>
-  </div>
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<div style="page-break-after: always;"></div>
 <section id="lecture-12-shrinkage" class="level1">
 <h1>Lecture 12: Shrinkage</h1>
 <section id="recap" class="level2">
@@ -726,13 +698,28 @@ Initializing model</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mcmc.out[[<span class="dv">1</span>]][,<span class="fu">c</span>(<span class="st">"ph0"</span>,<span class="st">"precision.a"</span>,<span class="st">"precision.d"</span>,<span class="st">"precision.s"</span>)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>      ph0          precision.a      precision.d       precision.s     
- Min.   :0.8270   Min.   :0.1197   Min.   : 0.6013   Min.   :0.09878  
- 1st Qu.:0.9509   1st Qu.:0.1267   1st Qu.:13.6651   1st Qu.:0.10778  
- Median :0.9704   Median :0.1313   Median :20.5607   Median :0.11110  
- Mean   :0.9610   Mean   :0.1311   Mean   :19.9455   Mean   :0.11165  
- 3rd Qu.:0.9878   3rd Qu.:0.1352   3rd Qu.:26.9825   3rd Qu.:0.11441  
- Max.   :0.9998   Max.   :0.1457   Max.   :42.1556   Max.   :0.12827  </code></pre>
+<pre><code>
+Iterations = 110:1100
+Thinning interval = 10 
+Number of chains = 1 
+Sample size per chain = 100 
+
+1. Empirical mean and standard deviation for each variable,
+   plus standard error of the mean:
+
+               Mean       SD  Naive SE Time-series SE
+ph0          0.9585 0.029661 0.0029661      0.0172528
+precision.a  0.1305 0.006263 0.0006263      0.0006263
+precision.d 22.9849 8.180652 0.8180652      2.6154521
+precision.s  0.1117 0.005536 0.0005536      0.0004727
+
+2. Quantiles for each variable:
+
+              2.5%     25%     50%     75%   97.5%
+ph0         0.8967  0.9414  0.9625  0.9846  0.9969
+precision.a 0.1179  0.1267  0.1299  0.1347  0.1417
+precision.d 6.7714 17.3542 23.4045 28.4747 37.6601
+precision.s 0.1019  0.1076  0.1119  0.1154  0.1216</code></pre>
 </div>
 </div>
 <div style="page-break-after: always;"></div>
