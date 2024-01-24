@@ -1,5 +1,7 @@
 \newpage
 
-# Lecture 15: Metaanalysis part 2
+# Lecture 15 (March 23, 2023) Metaanalysis part 2
 
-split current L13 into two
+split current L13 into two 
+
+

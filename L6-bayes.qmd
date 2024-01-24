@@ -1,6 +1,6 @@
 \newpage
 
-# Lecture 6: Bayesian Modeling
+# Lecture 6 (February 9, 2023) Bayesian Modeling
 
 ## Bayesian Models
 

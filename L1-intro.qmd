@@ -103,7 +103,7 @@ We will also draw from the similar *CuratedBreastData* package [LINK](https://ww
 ## Course Topics
 
 | Research Goal                       | Question                                               | Data                         |
-|------------------|------------------------------------|------------------|
+|------------------|-------------------------------------|------------------|
 | Biomarker Evaluation                | Utility of biomarker for clinical decision and...      | 1 study, 1 biomarker         |
 |                                     | ...its generalilzability                               | k studies, 1 biomarker       |
 | Biomarker Discovery                 | Search / prioritization of candidate biomarkers and... | 1 study, p biomarkers        |

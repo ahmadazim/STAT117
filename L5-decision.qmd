@@ -1,14 +1,15 @@
 {{< pagebreak >}}
 
-# Lecture 5: Decision Analysis
+# Lecture 5 (February 7, 2023) Decision Analysis
 
 ## Decision Analysis
 
 ### Decision Tree
 
-We will now introduce biomarker analysis through a decision-theoretic framework. "Modeling in Medical Decision Making" goes over these concepts in detail. I posted a copy on the canvas files. A seminal paper on this topic in the medical area is [@Pauker1980nejm].
+We will now introduce biomarker analysis through a decision-theoretic framework. 
+"Modeling in Medical Decision Making" goes over these concepts in detail. I posted a copy on the canvas files. A seminal paper on this topic in the medical area is [@Pauker1980nejm]. 
 
-We try to model the clinical application of biomarker expressions levels to medical decision making. Our model can be use to quantify the value using the marker for specific individuals and groups, and ca also be used to determine the optimal threshold for a continuous marker in a formal way. We begin with a fixed threshold.
+We try to model the clinical application of biomarker expressions levels to medical decision making. Our model can be use to quantify the value using the marker for specific individuals and groups, and ca also be used to determine the optimal threshold for a continuous marker in a formal way. We begin with a fixed threshold. 
 
 To motivate our discussion, we introduce an example where a clinician must make an informed decision regarding whether to conduct a surgery for an ovarian cancer patient when it is not known ahead of time whether the surgery can be performed "optimally" as defined earlier. Should the clinician conduct a surgery where the tumor is operable optimally, then a large utility should be subsequently accrued by the patient. However, a low utility may be experienced by the patient when a surgery is performed while the tumor was only amanable to a suboptimal outcome. We present the following decision tree that captures such a scenario.
 
@@ -95,9 +96,9 @@ p \left[ (1-F_1(\tau)) u_{11} + F_1(\tau) u_{10} \right] + (1-p) \left[ (1-F_0(\
 ```
 This quantity can be used to assess the expected utility as a function of the threshold, assuming one proceeds optimally.
 
-This logic is an example of "Value of Information" analysis (VoI), a very general principle for quantifying the value of collecting a particular piece of data, in the context of solving a specific decision task. [\@Jackson2022arsa](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7612603/) review this extensively and provide many useful references.
+This logic is an example of "Value of Information" analysis (VoI), a very general principle for quantifying the value of collecting a particular piece of data, in the context of solving a specific decision task. [@Jackson2022arsa](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7612603/) review this extensively and provide many useful references.
 
-[\@vickers2008as](http://dx.doi.org/10.1198/000313008X370302) has an interesting perspective on how to bypass the specification of the ratio $( u_{00}-u_{10} )/( u_{11}-u_{01} )$, which results in an approach called decision curve analysis.
+[@vickers2008as](http://dx.doi.org/10.1198/000313008X370302) has an interesting perspective on how to bypass the specification of the ratio $( u_{00}-u_{10} )/( u_{11}-u_{01} )$, which results in an approach called decision curve analysis.
 
 \newpage
 
