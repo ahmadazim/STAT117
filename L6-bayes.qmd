@@ -6,7 +6,7 @@
 
 So far we focused on statistical summaries, but have paid little attention to uncertainty about them. When we say that the PPV at a level of -1 for ZNF487 expression is .2, how sure are we? When we look at the comparison between the PR curves or benefit curves of two biomarkers, how reliably can we say that one is above the other? We are going to approach these questions using Bayesian models. Both "Bayesian" and "model" are very loaded words. We could go w/out models at all and rely on resampling techniques like the bootstrap to generate uncertainty statements. Or we could specify models, but use non-Bayesian methods, such as maximum likelihood, for our uncertainty. There are pros and cons of each of these choices. Models are powerful and can amplify the value of your data if you get them approximately right (a nontrivial task). Bayes is powerful, general and simple in concept, but a bit high maintenance compared to its frequentist counterparts. There are cool model-free or model-robust Bayesian techniques, but we will only scratch the surface there.
 
-If you are completely new to Bayesian learning, here is [a gentle introduction with a cute animation](https://willhipson.netlify.app/post/bayesian_intro/binomial_gold/) and here is [the Bayesrulesbook chapter on the Beta-Binomial case](https://www.bayesrulesbook.com/chapter-3.html). You will not find it hard to scout material at the right level for you online. "Modeling in Medical Decision Making" has relevant chapters. I posted a copy on the canvas files. A great reference is [@Hoff2009]() A fun book, though perhaps way more than you signed up for, is [@mcelreath2020]. [@sarma2020chi](http://dx.doi.org/10.1145/3313831.3376377) offers a brief review on how to think about, and specify, prior distributions, often a sticky points for Bayesian analysis.
+If you are completely new to Bayesian learning, here is [a gentle introduction with a cute animation](https://willhipson.netlify.app/post/bayesian_intro/binomial_gold/) and here is [the Bayesrulesbook chapter on the Beta-Binomial case](https://www.bayesrulesbook.com/chapter-3.html). You will not find it hard to scout material at the right level for you online. "Modeling in Medical Decision Making" has relevant chapters. I posted a copy on the canvas files. A great reference is [\@Hoff2009]() A fun book, though perhaps way more than you signed up for, is [@mcelreath2020]. [\@sarma2020chi](http://dx.doi.org/10.1145/3313831.3376377) offers a brief review on how to think about, and specify, prior distributions, often a sticky points for Bayesian analysis.
 
 Bayesian learning uses probability to represent both variation / randomness in the real world, and incomplete knowledge. As a result, probabilities provide a selef contained system that formally represents knowledge in the face of uncertainty and can be used to update knowledge when new information is introduced. In general, we typically wish to understand characteristics that govern a population, from which we normally have a subset of data representing it. Population quantities capturing these characteristics are usually represented in terms of a parameter $\theta$. The subset of data is represented through variables $x,y$.
 
@@ -184,7 +184,7 @@ P(\alpha,\beta,\pi) & = \frac{\Gamma(p_0+p_1)}{\Gamma(p_1)\Gamma(p_0)}\pi^{p_1-1
 \times \\
 &  \frac{\Gamma(b_0+b_1)}{\Gamma(b_1)\Gamma(b_0)}\beta^{b_1-1}(1-\beta)^{b_0-1}\frac{\Gamma(a_0+a_1)}{\Gamma(a_1)\Gamma(a_0)}(1-\alpha)^{a_1-1}\alpha^{a_0-1}
 \end{split}
-\end{equation}\\end{equation}\\end{equation}\\end{equation}
+\end{equation}\\end{equation}\\end{equation}\\end{equation}\\end{equation}
 
 which leads to a posterior of the form,
 
@@ -264,7 +264,7 @@ pbinom(3, 12, 0.5)
 1-pnbinom(8, 3, 0.5)
 ```
 
-[@lavine2020nams](https://doi.org/10.1090/noti2114) Has important insight about this if you are interested. His brief and enlightening paper begins by saying: "A fundamental idea in statistics and data science is that statistical procedures are judged by criteria such as misclassification rates, p-values, or convergence that measure how the procedure performs when applied to many possible data sets. But such measures gloss over quantifying the evidence in a particular data set. We show that assessing a procedure and assessing evidence are distinct. The main distinction is that procedures are assessed unconditionally, i.e., by averaging over many data sets, while evidence must be assessed conditionally by considering only the data at hand."
+[\@lavine2020nams](https://doi.org/10.1090/noti2114) Has important insight about this if you are interested. His brief and enlightening paper begins by saying: "A fundamental idea in statistics and data science is that statistical procedures are judged by criteria such as misclassification rates, p-values, or convergence that measure how the procedure performs when applied to many possible data sets. But such measures gloss over quantifying the evidence in a particular data set. We show that assessing a procedure and assessing evidence are distinct. The main distinction is that procedures are assessed unconditionally, i.e., by averaging over many data sets, while evidence must be assessed conditionally by considering only the data at hand."
 
 \newpage
 
