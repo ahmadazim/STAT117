@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.545">
+<meta name="generator" content="quarto-1.3.353">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2023-01-26">
+<meta name="dcterms.date" content="2024-01-25">
 
-<title>STAT 117: Data Analysis in Modern Biostatistics</title>
+<title>STAT 117: Data Analysis in Modern Biostatistics – l2-biomarkers</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 /* CSS for citations */
 div.csl-bib-body { }
@@ -65,13 +99,7 @@ div.csl-indent {
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 50,
-  "keyboard-shortcut": [
-    "f",
-    "/",
-    "s"
-  ],
-  "show-item-context": false,
+  "limit": 20,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -80,10 +108,8 @@ div.csl-indent {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
-    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
+    "search-submit-button-title": "Submit"
   }
 }</script>
 
@@ -95,9 +121,9 @@ div.csl-indent {
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container mx-auto">
+      <div class="navbar-brand-container">
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">STAT 117: Data Analysis in Modern Biostatistics</span>
     </a>
@@ -109,76 +135,81 @@ div.csl-indent {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
-<span class="menu-text">Home</span></a>
+    <a class="nav-link" href="./index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
-<span class="menu-text">Syllabus</span></a>
+    <a class="nav-link" href="./about.html" rel="" target="">
+ <span class="menu-text">Syllabus</span></a>
   </li>  
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-lectures" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-lectures" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text">Lectures</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-lectures">    
         <li>
-    <a class="dropdown-item" href="./L1-intro.html">
+    <a class="dropdown-item" href="./L1-intro.html" rel="" target="">
  <span class="dropdown-text">Lecture 1 Introduction</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./L2-biomarkers.html">
+    <a class="dropdown-item" href="./L2-biomarkers.html" rel="" target="">
  <span class="dropdown-text">Lecture 2: Cancer Biomarkers</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./L3-data.html">
+    <a class="dropdown-item" href="./L3-data.html" rel="" target="">
  <span class="dropdown-text">Lecture 3: Data</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./L4-metrics.html">
+    <a class="dropdown-item" href="./L4-metrics.html" rel="" target="">
  <span class="dropdown-text">Lecture 4: Basics of Biomarker Evaluation</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./L5-decision.html">
- <span class="dropdown-text">Lecture 5: Decision Analysis</span></a>
+    <a class="dropdown-item" href="./L5-decision.html" rel="" target="">
+ <span class="dropdown-text">Lecture 5 (February 7, 2023) Decision Analysis</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./L6-bayes.html">
- <span class="dropdown-text">Lecture 6: Bayesian Modeling</span></a>
+    <a class="dropdown-item" href="./L6-bayes.html" rel="" target="">
+ <span class="dropdown-text">Lecture 6 (February 9, 2023) Bayesian Modeling</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./L7-mcmc.html">
- <span class="dropdown-text">Lecture 7: Monte Carlo Markov Chains</span></a>
+    <a class="dropdown-item" href="./L7-mcmc.html" rel="" target="">
+ <span class="dropdown-text">Lecture 7 (February 14, 2023) Monte Carlo Markov Chains</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./L8-timetoevent.html">
- <span class="dropdown-text">Lecture 8: Time to Event Data</span></a>
+    <a class="dropdown-item" href="./L8-timetoevent.html" rel="" target="">
+ <span class="dropdown-text">Lecture 8 (February 16, 2023) Time to Event Data</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./L9-comparing.html">
- <span class="dropdown-text">Lecture 9: Comparing Criteria for Biomarker Discovery</span></a>
+    <a class="dropdown-item" href="./L9-comparing.html" rel="" target="">
+ <span class="dropdown-text">Lecture 9 (February 21, 2023) Comparing Criteria for Biomarker Discovery</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./L10-fdr.html">
- <span class="dropdown-text">Lecture 10: False Discovery Rates</span></a>
+    <a class="dropdown-item" href="./L10-fdr.html" rel="" target="">
+ <span class="dropdown-text">Lecture 10 (February 28, 2023) False Discovery Rates</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./L11-regmean.html">
+    <a class="dropdown-item" href="./L11-regmean.html" rel="" target="">
  <span class="dropdown-text">Lecture 11: Regression to the Mean</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./L12-shrinkage.html">
+    <a class="dropdown-item" href="./L12-shrinkage.html" rel="" target="">
  <span class="dropdown-text">Lecture 12: Shrinkage</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./L17-twomarkers.html">
- <span class="dropdown-text">Lecture 17</span></a>
+    <a class="dropdown-item" href="./L14-shrinkage2.html" rel="" target="">
+ <span class="dropdown-text">Lecture 14 (March 21, 2023) Shrinkage part 2</span></a>
+  </li>  
+        <li class="dropdown-header">L15-metaanlysis2.qmd</li>
+        <li>
+    <a class="dropdown-item" href="./L17-twomarkers.html" rel="" target="">
+ <span class="dropdown-text">Lecture 17 (March 29, 2023)</span></a>
   </li>  
     </ul>
   </li>
 </ul>
-          </div> <!-- /navcollapse -->
-          <div class="quarto-navbar-tools">
+            <div class="quarto-navbar-tools ms-auto">
 </div>
+          </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -211,58 +242,28 @@ div.csl-indent {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-</div>
-
-
-
-<div class="quarto-title-meta">
-
-    
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">January 26, 2023</p>
-    </div>
-  </div>
-  
-    
-  </div>
-  
-
-
-</header>
 
 
 <section id="lecture-2-cancer-biomarkers" class="level1">
 <h1>Lecture 2: Cancer Biomarkers</h1>
 <section id="cancer-evolution" class="level2">
 <h2 class="anchored" data-anchor-id="cancer-evolution">Cancer Evolution</h2>
-<p>Cancer arises from evolution of cells within tissues. Changes in the genome code and organization result in changes in cell characteristics. Natural selection operates on this variability so that, for example, cells that divide faster and invade surrounding tissues are sometimes able to grow large colonies and generate tumors. <span class="citation" data-cites="Podlaha:2012vw">@Podlaha:2012vw</span> explains these concepts. <a href="#fig-cancerEvolution" class="quarto-xref">Figure&nbsp;1</a> From <span class="citation" data-cites="Podlaha:2012vw">@Podlaha:2012vw</span> illustrates the typical stages of cancer progression for a cancer that resists to treatment. In this example, we begin with normal cells (blue circles). The progression to cancer starts when a cell acquires a genetic change (for example a DNA mutation, or a chromosomal translocation) which results in a larger and more fit population compared to the normal cells. <span class="citation" data-cites="Podlaha:2012vw">@Podlaha:2012vw</span> remarks that “This process involves the evolution of multiple ‘novel’ cellular traits. Most somatic alterations in epithelial cells lining the colon, for instance, are not advantageous and will disappear with the death of a cell. Occasionally, an alteration that increases the proliferation rate of a cell arises, allowing this cell to increase in number. This population of ‘rogue’ cells can decline with the onset of anti-cancer therapy; however, the arrival of an alteration conferring drug resistance reverses the effects of treatment and allows new growth (b). In some cases, resistance to an anti-cancer drug may already be present in a small subset of tumor cells. In such a scenario, the population of sensitive cancer cells will decline and eventually be replaced by drug-resistant cells. Further alterations may be necessary to enable tumor cells to metastasize (c) and spread to other tissues (d).”</p>
-<div id="fig-cancerEvolution" class="quarto-figure quarto-figure-center quarto-float anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-cancerEvolution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<embed src="Figures/Podlaha.pdf" class="img-fluid">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cancerEvolution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Cancer Evolution a the Cell Level
-</figcaption>
+<p>Cancer arises from evolution of cells within tissues. Changes in the genome code and organization result in changes in cell characteristics. Natural selection operates on this variability so that, for example, cells that divide faster and invade surrounding tissues are sometimes able to grow large colonies and generate tumors. <span class="citation" data-cites="Podlaha:2012vw">@Podlaha:2012vw</span> explains these concepts. <a href="#fig-cancerEvolution">Figure&nbsp;1</a> From <span class="citation" data-cites="Podlaha:2012vw">@Podlaha:2012vw</span> illustrates the typical stages of cancer progression for a cancer that resists to treatment. In this example, we begin with normal cells (blue circles). The progression to cancer starts when a cell acquires a genetic change (for example a DNA mutation, or a chromosomal translocation) which results in a larger and more fit population compared to the normal cells. <span class="citation" data-cites="Podlaha:2012vw">@Podlaha:2012vw</span> remarks that “This process involves the evolution of multiple ‘novel’ cellular traits. Most somatic alterations in epithelial cells lining the colon, for instance, are not advantageous and will disappear with the death of a cell. Occasionally, an alteration that increases the proliferation rate of a cell arises, allowing this cell to increase in number. This population of ‘rogue’ cells can decline with the onset of anti-cancer therapy; however, the arrival of an alteration conferring drug resistance reverses the effects of treatment and allows new growth (b). In some cases, resistance to an anti-cancer drug may already be present in a small subset of tumor cells. In such a scenario, the population of sensitive cancer cells will decline and eventually be replaced by drug-resistant cells. Further alterations may be necessary to enable tumor cells to metastasize (c) and spread to other tissues (d).”</p>
+<div id="fig-cancerEvolution" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><embed src="Figures/Podlaha.pdf" style="width:95.0%;height:5in"></p>
+<figcaption class="figure-caption">Figure&nbsp;1: Cancer Evolution a the Cell Level</figcaption>
 </figure>
 </div>
 <div style="page-break-after: always;"></div>
 </section>
 <section id="cancer-causes" class="level2">
 <h2 class="anchored" data-anchor-id="cancer-causes">Cancer Causes</h2>
-<p>Many factors contribute to the changes in the genome represented by a lighting in <a href="#fig-cancerEvolution" class="quarto-xref">Figure&nbsp;1</a>. <span class="citation" data-cites="Song2018s">@Song2018s</span> review the main categories of causes, also summarized in <a href="#fig-cancerCauses" class="quarto-xref">Figure&nbsp;2</a></p>
-<div id="fig-cancerCauses" class="quarto-figure quarto-figure-center quarto-float anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-cancerCauses-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<embed src="Figures/CancerCauses.pdf" class="img-fluid">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cancerCauses-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: Categories of Cancer Causes and their Position in Cancer Evolution
-</figcaption>
+<p>Many factors contribute to the changes in the genome represented by a lighting in <a href="#fig-cancerEvolution">Figure&nbsp;1</a>. <span class="citation" data-cites="Song2018s">@Song2018s</span> review the main categories of causes, also summarized in <a href="#fig-cancerCauses">Figure&nbsp;2</a></p>
+<div id="fig-cancerCauses" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><embed src="Figures/CancerCauses.pdf" style="width:95.0%;height:6in"></p>
+<figcaption class="figure-caption">Figure&nbsp;2: Categories of Cancer Causes and their Position in Cancer Evolution</figcaption>
 </figure>
 </div>
 <div style="page-break-after: always;"></div>
@@ -347,14 +348,10 @@ Figure&nbsp;2: Categories of Cancer Causes and their Position in Cancer Evolutio
 <p><strong>Early detection biomarkers</strong> are used to anticipate the clinical symptoms and begin cancer therapy earlier. Early treatment is often associated with better results, because the cancer is less likely to have begun the process of invading other organs.</p>
 <p>In contrast to early detection biomarkers, <strong>prognostic biomarkers</strong> are used at diagnosis to assess the severity of the disease.</p>
 <p><strong>Therapy selection biomarkers</strong> are those that in addition to severity can predict response to specific treatments. The medical literature often uses the term “predictive” for these biomarkers, but we will avoid this here, because in statistics the word predictive has a broader meaning. These biomarkers can be used at any stage after diagnosis. Some biomarkers are both prognostic and helpful in therapy selection. The distinction between prognostic and therapy-selection markers is somewhat challenging empirically, because very few diagnosed patients go untreated.</p>
-<div id="fig-useBiomarkers" class="quarto-figure quarto-figure-center quarto-float anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-useBiomarkers-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<embed src="Figures/Biomarkers.pdf" class="img-fluid">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-useBiomarkers-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3: Broad Categories of Use for Biomarkers from <span class="citation" data-cites="ou2021jto">@ou2021jto</span>
-</figcaption>
+<div id="fig-useBiomarkers" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><embed src="Figures/Biomarkers.pdf" style="width:95.0%;height:5in"></p>
+<figcaption class="figure-caption">Figure&nbsp;3: Broad Categories of Use for Biomarkers from <span class="citation" data-cites="ou2021jto">@ou2021jto</span></figcaption>
 </figure>
 </div>
 <p>Additional readings:</p>
@@ -365,70 +362,30 @@ Figure&nbsp;3: Broad Categories of Use for Biomarkers from <span class="citation
 <h3 class="anchored" data-anchor-id="high-throughput-biology">High Throughput Biology</h3>
 <p>Today the search for novel and more effective biomarkers often leverages our ability to interrogate the molecular biology of the cell using high throughput technologies.</p>
 <p>We can measure:</p>
-<table class="table">
-<caption>Levels and Types of High Throughput Biology Measurements used in Biomarker Research; An important take-home point is the trade-off between ease of measurement and biological relevance of high-throughput biology investigations.</caption>
-<colgroup>
-<col style="width: 34%">
-<col style="width: 65%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Type</th>
-<th>Issues</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>DNA</td>
-<td>We can read most of the 6+ gigabase pairs in the human genome, count copies of genome sections, compare genomes across cells</td>
-</tr>
-<tr class="even">
-<td></td>
-<td>Relatively easy to define and read, getting cheaper</td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>A couple of steps removed from shedding light on what the cell(s) are doing</td>
-</tr>
-<tr class="even">
-<td>Various Aspects of Protein Production</td>
-<td>Hard to define and poorly understood, somewhat hard to do well, getting cheaper</td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>Far more relevant for shedding light on what the cell(s) are doing</td>
-</tr>
-<tr class="even">
-<td>Proteins</td>
-<td>Relatively easy to define, very hard to measure well, expensive. 100.000+ estimated proteins, likely a substantial underestimate</td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>The most relevant for shedding light on what the cell(s) are doing</td>
-</tr>
-</tbody>
-</table>
+<p>Type | Issues |</p>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD |————————-|———————————————–| ======= |————————-|———————————————-| &gt;&gt;&gt;&gt;&gt;&gt;&gt; 5426b84e136e2bccade619eca492b328568f1eff | DNA | We can read most of the 6+ gigabase pairs in the human genome, count copies of genome sections, compare genomes across cells | | | Relatively easy to define and read, getting cheaper | | | A couple of steps removed from shedding light on what the cell(s) are doing | | Various Aspects of Protein Production | Hard to define and poorly understood, somewhat hard to do well, getting cheaper | | | Far more relevant for shedding light on what the cell(s) are doing | | Proteins | Relatively easy to define, very hard to measure well, expensive. 100.000+ estimated proteins, likely a substantial underestimate | | | The most relevant for shedding light on what the cell(s) are doing |</p>
+<p>: Levels and Types of High Throughput Biology Measurements used in Biomarker Research; An important take-home point is the trade-off between ease of measurement and biological relevance of high-throughput biology investigations.</p>
 <div style="page-break-after: always;"></div>
 <p>To gain a better understanding of how gene expression analysis fits into the broader landscape of different omics data see <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6192166/">@Chakraborty2018bmri</a> who provides a brief overview of the different applications for high throughput biology platforms. Since 2018, when this article was written, at least to major brakthrough have occurred: the ability to measure these in single cells, and the ability to take measurement without disruptin the spatial organization of cells in the original tissue.</p>
 <div style="page-break-after: always;"></div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><embed src="Figures/ChakrabortyF1.pdf" class="img-fluid"></p>
-<figcaption>Pyramid of complexity. From <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6192166/">@Chakraborty2018bmri</a> “The pyramid represents the flow of information from genome (top) to transcriptome (middle), to proteome (bottom). The complexity increases from genome to proteome (indicated by down arrow). The complexity of transcriptome is largely mediated by temporal dynamics and alternative splicing. In contrast, spatiotemporal dynamics and posttranslational modifications (PTMs) are mainly responsible for high proteome complexity. Examples of PTMs include phosphorylation (P) and acetylation (Ac)”.</figcaption>
+<p><embed src="Figures/ChakrabortyF1.pdf" style="width:95.0%;height:6in"></p>
+<figcaption class="figure-caption">Pyramid of complexity. From <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6192166/">@Chakraborty2018bmri</a> “The pyramid represents the flow of information from genome (top) to transcriptome (middle), to proteome (bottom). The complexity increases from genome to proteome (indicated by down arrow). The complexity of transcriptome is largely mediated by temporal dynamics and alternative splicing. In contrast, spatiotemporal dynamics and posttranslational modifications (PTMs) are mainly responsible for high proteome complexity. Examples of PTMs include phosphorylation (P) and acetylation (Ac)”.</figcaption>
 </figure>
 </div>
 <div style="page-break-after: always;"></div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><embed src="Figures/ChakrabortyT1.pdf" class="img-fluid" style="width:140.0%"></p>
-<figcaption>Omics From <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6192166/">@Chakraborty2018bmri</a></figcaption>
+<p><embed src="Figures/ChakrabortyT1.pdf" style="width:95.0%;height:5in"></p>
+<figcaption class="figure-caption">Omics From <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6192166/">@Chakraborty2018bmri</a></figcaption>
 </figure>
 </div>
 <div style="page-break-after: always;"></div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><embed src="Figures/ChakrabortyF4.pdf" class="img-fluid" style="width:100.0%"></p>
-<figcaption>Roles of NGS <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6192166/">@Chakraborty2018bmri</a></figcaption>
+<p><embed src="Figures/ChakrabortyF4.pdf" style="width:100.0%;height:5in"></p>
+<figcaption class="figure-caption">Roles of NGS <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6192166/">@Chakraborty2018bmri</a></figcaption>
 </figure>
 </div>
 <div style="page-break-after: always;"></div>
@@ -467,13 +424,19 @@ RNA levels have a higher likelihood of being accurate predictors of phenotype (a
 <li><p>100 blood samples from patients free of cancer.</p></li>
 </ul>
 <p>They measure a blood biomarker in all samples and present you with the following plot:</p>
-<div class="cell" data-warnings="false">
+<div class="cell" data-warnings="false" data-hash="L2-biomarkers_cache/html/unnamed-chunk-1_06de34d420089b317cff2de4b38639a4">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">117</span>); nn <span class="ot">=</span> <span class="dv">100</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">=</span> <span class="fu">data.frame</span>( </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">XX =</span> <span class="fu">c</span>(<span class="fu">rnegbin</span>( nn, <span class="at">mu =</span> <span class="dv">20</span>, <span class="at">theta =</span> <span class="fl">1.0</span> ),</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rnegbin</span>( nn, <span class="at">mu =</span> <span class="dv">120</span>, <span class="at">theta =</span> <span class="fl">1.5</span> )),</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">yy =</span> <span class="fu">rep</span>(letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>],<span class="at">each =</span> nn) )</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat,<span class="fu">aes</span>(<span class="at">x=</span>XX)) <span class="sc">+</span> </span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">data=</span><span class="fu">subset</span>(dat,yy <span class="sc">==</span> <span class="st">'a'</span>),<span class="at">fill =</span> <span class="st">"orange"</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">data=</span><span class="fu">subset</span>(dat,yy <span class="sc">==</span> <span class="st">'b'</span>),<span class="at">fill =</span> <span class="st">"blue"</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="L2-biomarkers_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
+<p><img src="L2-biomarkers_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="callout callout-style-simple callout-none no-icon">
@@ -636,9 +599,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+  function tippyHover(el, contentFn) {
     const config = {
       allowHTML: true,
+      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -648,17 +612,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start',
+      placement: 'bottom-start'
     };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -671,125 +626,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
-    }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
-          }
-        }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
-        }
-        return container.innerHTML
-      } else {
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(note);
-        }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
-      }
-    }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
-          }
-        } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
-          .then(res => res.text())
-          .then(html => {
-            const parser = new DOMParser();
-            const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
-            if (note !== null) {
-              const html = processXRef(id, note);
-              instance.setContent(html);
-            } 
-          }).finally(() => {
-            instance.enable();
-            instance.show();
-          });
-        }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -833,7 +669,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
-            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -859,32 +694,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -945,7 +754,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-
 
 
 

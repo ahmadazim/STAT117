@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.545">
+<meta name="generator" content="quarto-1.3.353">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="dcterms.date" content="2024-01-30">
 
-<title>STAT 117: Data Analysis in Modern Biostatistics</title>
+<title>STAT 117: Data Analysis in Modern Biostatistics – l3-data</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,7 +23,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -99,13 +99,7 @@ div.csl-indent {
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 50,
-  "keyboard-shortcut": [
-    "f",
-    "/",
-    "s"
-  ],
-  "show-item-context": false,
+  "limit": 20,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -114,10 +108,8 @@ div.csl-indent {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
-    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
+    "search-submit-button-title": "Submit"
   }
 }</script>
 
@@ -129,9 +121,9 @@ div.csl-indent {
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container mx-auto">
+      <div class="navbar-brand-container">
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">STAT 117: Data Analysis in Modern Biostatistics</span>
     </a>
@@ -143,76 +135,81 @@ div.csl-indent {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
-<span class="menu-text">Home</span></a>
+    <a class="nav-link" href="./index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
-<span class="menu-text">Syllabus</span></a>
+    <a class="nav-link" href="./about.html" rel="" target="">
+ <span class="menu-text">Syllabus</span></a>
   </li>  
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-lectures" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-lectures" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text">Lectures</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-lectures">    
         <li>
-    <a class="dropdown-item" href="./L1-intro.html">
+    <a class="dropdown-item" href="./L1-intro.html" rel="" target="">
  <span class="dropdown-text">Lecture 1 Introduction</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./L2-biomarkers.html">
+    <a class="dropdown-item" href="./L2-biomarkers.html" rel="" target="">
  <span class="dropdown-text">Lecture 2: Cancer Biomarkers</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./L3-data.html">
+    <a class="dropdown-item" href="./L3-data.html" rel="" target="">
  <span class="dropdown-text">Lecture 3: Data</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./L4-metrics.html">
+    <a class="dropdown-item" href="./L4-metrics.html" rel="" target="">
  <span class="dropdown-text">Lecture 4: Basics of Biomarker Evaluation</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./L5-decision.html">
- <span class="dropdown-text">Lecture 5: Decision Analysis</span></a>
+    <a class="dropdown-item" href="./L5-decision.html" rel="" target="">
+ <span class="dropdown-text">Lecture 5 (February 7, 2023) Decision Analysis</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./L6-bayes.html">
- <span class="dropdown-text">Lecture 6: Bayesian Modeling</span></a>
+    <a class="dropdown-item" href="./L6-bayes.html" rel="" target="">
+ <span class="dropdown-text">Lecture 6 (February 9, 2023) Bayesian Modeling</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./L7-mcmc.html">
- <span class="dropdown-text">Lecture 7: Monte Carlo Markov Chains</span></a>
+    <a class="dropdown-item" href="./L7-mcmc.html" rel="" target="">
+ <span class="dropdown-text">Lecture 7 (February 14, 2023) Monte Carlo Markov Chains</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./L8-timetoevent.html">
- <span class="dropdown-text">Lecture 8: Time to Event Data</span></a>
+    <a class="dropdown-item" href="./L8-timetoevent.html" rel="" target="">
+ <span class="dropdown-text">Lecture 8 (February 16, 2023) Time to Event Data</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./L9-comparing.html">
- <span class="dropdown-text">Lecture 9: Comparing Criteria for Biomarker Discovery</span></a>
+    <a class="dropdown-item" href="./L9-comparing.html" rel="" target="">
+ <span class="dropdown-text">Lecture 9 (February 21, 2023) Comparing Criteria for Biomarker Discovery</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./L10-fdr.html">
- <span class="dropdown-text">Lecture 10: False Discovery Rates</span></a>
+    <a class="dropdown-item" href="./L10-fdr.html" rel="" target="">
+ <span class="dropdown-text">Lecture 10 (February 28, 2023) False Discovery Rates</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./L11-regmean.html">
+    <a class="dropdown-item" href="./L11-regmean.html" rel="" target="">
  <span class="dropdown-text">Lecture 11: Regression to the Mean</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./L12-shrinkage.html">
+    <a class="dropdown-item" href="./L12-shrinkage.html" rel="" target="">
  <span class="dropdown-text">Lecture 12: Shrinkage</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./L17-twomarkers.html">
- <span class="dropdown-text">Lecture 17</span></a>
+    <a class="dropdown-item" href="./L14-shrinkage2.html" rel="" target="">
+ <span class="dropdown-text">Lecture 14 (March 21, 2023) Shrinkage part 2</span></a>
+  </li>  
+        <li class="dropdown-header">L15-metaanlysis2.qmd</li>
+        <li>
+    <a class="dropdown-item" href="./L17-twomarkers.html" rel="" target="">
+ <span class="dropdown-text">Lecture 17 (March 29, 2023)</span></a>
   </li>  
     </ul>
   </li>
 </ul>
-          </div> <!-- /navcollapse -->
-          <div class="quarto-navbar-tools">
+            <div class="quarto-navbar-tools ms-auto">
 </div>
+          </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -250,28 +247,6 @@ div.csl-indent {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-</div>
-
-
-
-<div class="quarto-title-meta">
-
-    
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">January 30, 2024</p>
-    </div>
-  </div>
-  
-    
-  </div>
-  
-
-
-</header>
 
 
 <section id="lecture-3-data" class="level1">
@@ -358,7 +333,7 @@ Question for Debate
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><embed src="Figures/GanzfriedF1b.pdf" class="img-fluid"></p>
-<figcaption>Scheme of preprocessing pipeline for the CuratedOvarianData Package</figcaption>
+<figcaption class="figure-caption">Scheme of preprocessing pipeline for the CuratedOvarianData Package</figcaption>
 </figure>
 </div>
 <p>Detailed description of dataset <a href="https://academic.oup.com/database/article-abstract/doi/10.1093/database/bat013/330978">@ganzfried2013curatedovariandata</a></p>
@@ -369,7 +344,7 @@ Question for Debate
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><embed src="Figures/GanzfriedF2.pdf" class="img-fluid"></p>
-<figcaption>This heatmap visualizes for each curated clinical characteristic (rows) the availability in each data set (columns). Red indicates that the corresponding characteristic is available for at least one sample in the data set. See <a href="https://academic.oup.com/database/article-abstract/doi/10.1093/database/bat013/330978">@ganzfried2013curatedovariandata</a> for further details.</figcaption>
+<figcaption class="figure-caption">This heatmap visualizes for each curated clinical characteristic (rows) the availability in each data set (columns). Red indicates that the corresponding characteristic is available for at least one sample in the data set. See <a href="https://academic.oup.com/database/article-abstract/doi/10.1093/database/bat013/330978">@ganzfried2013curatedovariandata</a> for further details.</figcaption>
 </figure>
 </div>
 <p>It may seem disappointing that there are only two clinical annotations that all of these datasets have. When we originally created the dataset we recontacted all the groups that originally generated the data to try to fill as many of the gaps as possible. Unfortunately some of the clinical data may not have been collected, or may not be easy to share due to privacy concerns or investigators’ reluctance. Since we compiled this data, the field has moved towards larger coordinated efforts across multiple institutions, which have had better outcomes in terms of completeness and homogeneity of phenotypes. An example is <a href="https://dcc.icgc.org/">PCAWG</a> but heterogeneity and missingness of labels remain important issues in health data.</p>
@@ -383,7 +358,7 @@ Question for Debate
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Handling missing data is a prominent challenge, particularly in the context of clinical data collection. What data collection standards should be in place, and what are some effective methods for managing missingness (and more broadly, data quality) in these datasets?</p>
+<p>Handling missing data is a prominent challenge, particularly in the context of clinical data collection. What are some effective methods for managing missingness? What assumptions do these make? What would you want to know about data collection to decide which missing data approach makes more sense for your data?</p>
 </div>
 </div>
 <div style="page-break-after: always;"></div>
@@ -439,11 +414,7 @@ A3GALT2  -5.0457100 -4.183009 -4.553020 -4.2992754 -4.304550 -4.4622746</code></
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">heatmap.2</span>((<span class="fu">exprs</span>(TCGA_eset)[,<span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>])[<span class="fu">order</span>(sds,<span class="at">decreasing=</span><span class="cn">TRUE</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>],],</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">margins =</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="L3-data_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="960"></p>
-</figure>
-</div>
+<p><img src="L3-data_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="960"></p>
 </div>
 </div>
 <p>Trees (dendrograms) on the top and sides represent the result of hierarchical clustering. The goal is to reorder rows and columns so that similar rows (column) are close to each other. In this case I am using them to facilitate visualization, but this is also a technique to identify patterns in the data or divide them into subgroups. This is a general overview <a href="https://biostats.bepress.com/jhubiostat/paper70/">@Garrett2005</a></p>
@@ -454,38 +425,22 @@ A3GALT2  -5.0457100 -4.183009 -4.553020 -4.2992754 -4.304550 -4.4622746</code></
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>iqr.g <span class="ot">=</span> <span class="fu">apply</span>(<span class="fu">exprs</span>(TCGA_eset),<span class="dv">1</span>,IQR) <span class="co">#</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(iqr.g, <span class="at">main =</span><span class="st">"IQR by gene"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="L3-data_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
+<p><img src="L3-data_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>iqr.s <span class="ot">=</span> <span class="fu">apply</span>(<span class="fu">exprs</span>(TCGA_eset),<span class="dv">2</span>,IQR) </span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(iqr.s, <span class="at">main =</span><span class="st">"IQR by sample"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="L3-data_files/figure-html/unnamed-chunk-4-2.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
+<p><img src="L3-data_files/figure-html/unnamed-chunk-4-2.png" class="img-fluid" width="672"></p>
 </div>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>med.g <span class="ot">=</span> <span class="fu">apply</span>(<span class="fu">exprs</span>(TCGA_eset),<span class="dv">1</span>,median)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(med.g, <span class="at">main =</span><span class="st">"median by gene"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="L3-data_files/figure-html/unnamed-chunk-4-3.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
+<p><img src="L3-data_files/figure-html/unnamed-chunk-4-3.png" class="img-fluid" width="672"></p>
 </div>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>med.s <span class="ot">=</span> <span class="fu">apply</span>(<span class="fu">exprs</span>(TCGA_eset),<span class="dv">2</span>,median)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(med.s, <span class="at">main =</span><span class="st">"median by sample"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="L3-data_files/figure-html/unnamed-chunk-4-4.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
+<p><img src="L3-data_files/figure-html/unnamed-chunk-4-4.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -509,11 +464,7 @@ Quantile Normlization
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gplots)</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">heatmap.2</span>(<span class="fu">exprs</span>(GSE32063_eset)[<span class="fu">order</span>(sds,<span class="at">decreasing=</span><span class="cn">TRUE</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>],])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="L3-data_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="960"></p>
-</figure>
-</div>
+<p><img src="L3-data_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="960"></p>
 </div>
 </div>
 <div style="page-break-after: always;"></div>
@@ -522,38 +473,22 @@ Quantile Normlization
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>iqr.g <span class="ot">=</span> <span class="fu">apply</span>(<span class="fu">exprs</span>(GSE32063_eset),<span class="dv">1</span>,IQR)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(iqr.g, <span class="at">main =</span><span class="st">"IQR by gene"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="L3-data_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
+<p><img src="L3-data_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>iqr.s <span class="ot">=</span> <span class="fu">apply</span>(<span class="fu">exprs</span>(GSE32063_eset),<span class="dv">2</span>,IQR) </span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(iqr.s, <span class="at">main =</span><span class="st">"IQR by sample"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="L3-data_files/figure-html/unnamed-chunk-6-2.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
+<p><img src="L3-data_files/figure-html/unnamed-chunk-6-2.png" class="img-fluid" width="672"></p>
 </div>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>med.g <span class="ot">=</span> <span class="fu">apply</span>(<span class="fu">exprs</span>(GSE32063_eset),<span class="dv">1</span>,median)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(med.g, <span class="at">main =</span><span class="st">"median by gene"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="L3-data_files/figure-html/unnamed-chunk-6-3.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
+<p><img src="L3-data_files/figure-html/unnamed-chunk-6-3.png" class="img-fluid" width="672"></p>
 </div>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>med.s <span class="ot">=</span> <span class="fu">apply</span>(<span class="fu">exprs</span>(GSE32063_eset),<span class="dv">2</span>,median)</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(med.s, <span class="at">main =</span><span class="st">"median by sample"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="L3-data_files/figure-html/unnamed-chunk-6-4.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
+<p><img src="L3-data_files/figure-html/unnamed-chunk-6-4.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="callout callout-style-default callout-important callout-titled">
@@ -566,7 +501,7 @@ Question for Debate
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>A variety of data normalization are performed in RNA-Seq analysis. What are some of the different methods of normalization, and what is their impact on data interpretability?</p>
+<p>A variety of data normalization are performed in gene expression analysis. What are some of the different methods of normalization, what are some important assumptions they use, and what is their potential impact on data interpretability? For example what is the logic behind assuming that all samples have, say, the same median?</p>
 </div>
 </div>
 </section>
@@ -661,9 +596,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+  function tippyHover(el, contentFn) {
     const config = {
       allowHTML: true,
+      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -673,17 +609,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start',
+      placement: 'bottom-start'
     };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -696,125 +623,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
-    }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
-          }
-        }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
-        }
-        return container.innerHTML
-      } else {
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(note);
-        }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
-      }
-    }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
-          }
-        } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
-          .then(res => res.text())
-          .then(html => {
-            const parser = new DOMParser();
-            const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
-            if (note !== null) {
-              const html = processXRef(id, note);
-              instance.setContent(html);
-            } 
-          }).finally(() => {
-            instance.enable();
-            instance.show();
-          });
-        }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -858,7 +666,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
-            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -884,32 +691,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -970,7 +751,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-
 
 
 
