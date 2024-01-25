@@ -1,0 +1,189 @@
+---
+date: January 26, 2023
+---
+
+# Lecture 2 Cancer Biomarkers
+
+## Cancer Evolution
+
+Cancer arises from evolution of cells within tissues. Changes in the genome code and organization result in changes in cell characteristics. Natural selection operates on this variability so that, for example, cells that divide faster and invade surrounding tissues are sometimes able to grow large colonies and generate tumors. @Podlaha:2012vw explains these concepts. @fig-cancerEvolution From @Podlaha:2012vw illustrates the typical stages of cancer progression for a cancer that resists to treatment. In this example, we begin with normal cells (blue circles). The progression to cancer starts when a cell acquires a genetic change (for example a DNA mutation, or a chromosomal translocation) which results in a larger and more fit population compared to the normal cells. @Podlaha:2012vw remarks that "This process involves the evolution of multiple 'novel' cellular traits. Most somatic alterations in epithelial cells lining the colon, for instance, are not advantageous and will disappear with the death of a cell. Occasionally, an alteration that increases the proliferation rate of a cell arises, allowing this cell to increase in number. This population of 'rogue' cells can decline with the onset of anti-cancer therapy; however, the arrival of an alteration conferring drug resistance reverses the effects of treatment and allows new growth (b). In some cases, resistance to an anti-cancer drug may already be present in a small subset of tumor cells. In such a scenario, the population of sensitive cancer cells will decline and eventually be replaced by drug-resistant cells. Further alterations may be necessary to enable tumor cells to metastasize (c) and spread to other tissues (d)."
+
+![Cancer Evolution a the Cell Level](Figures/Podlaha.pdf){#fig-cancerEvolution}
+
+{{< pagebreak >}}
+
+## Cancer Causes
+
+Many factors contribute to the changes in the genome represented by a lighting in @fig-cancerEvolution. @Song2018s review the main categories of causes, also summarized in @fig-cancerCauses
+
+![Categories of Cancer Causes and their Position in Cancer Evolution](Figures/CancerCauses.pdf){#fig-cancerCauses}
+
+{{< pagebreak >}}
+
+## Biomarkers
+
+### Exemples
+
+A biomarker is any readout of biological activity.
+
+| Type                         | Exemple                                                                                                         |
+|--------------------------|----------------------------------------------|
+| Physiologic                  | Patient Performance Status (a score that estimates the patient's ability to perform activities of daily living) |
+| Image-based                  | Mammograms                                                                                                      |
+| Specific molecules           | Prostate-Specific Antigen (PSA)                                                                                 |
+|                              | Circulating Tumor Cells (CTC)                                                                                   |
+| Germline Genetic Alterations | BRCA mutations                                                                                                  |
+| Tumor products in Serum      | Circulating Tumor Cells                                                                                         |
+|                              | Circulating Tumor DNA                                                                                           |
+| Tumor Biology Readouts       | Gene expression                                                                                                 |
+|                              | Protein Levels                                                                                                  |
+|                              | Metabolite Levels                                                                                               |
+|                              | Methylation                                                                                                     |
+|                              | Copy Number Alterations                                                                                         |
+|                              | Mutational Signatures                                                                                           |
+
+: Common biomarkers types used in cancer, with examples
+
+{{< pagebreak >}}
+
+### Broad Categories of Use for Biomarkers in Cancer Care
+
+The period between the origin of the cancer and the manifestation of clinical symptoms is called pre-clinical. The clinical period begins with the diagnosis.
+
+**Early detection biomarkers** are used to anticipate the clinical symptoms and begin cancer therapy earlier. Early treatment is often associated with better results, because the cancer is less likely to have begun the process of invading other organs.
+
+In contrast to early detection biomarkers, **prognostic biomarkers** are used at diagnosis to assess the severity of the disease.
+
+**Therapy selection biomarkers** are those that in addition to severity can predict response to specific treatments. The medical literature often uses the term "predictive" for these biomarkers, but we will avoid this here, because in statistics the word predictive has a broader meaning. These biomarkers can be used at any stage after diagnosis. Some biomarkers are both prognostic and helpful in therapy selection. The distinction between prognostic and therapy-selection markers is somewhat challenging empirically, because very few diagnosed patients go untreated.
+
+![Broad Categories of Use for Biomarkers from @ou2021jto](Figures/Biomarkers.pdf){#fig-useBiomarkers}
+
+Additional readings:
+
+Context: @Srivastava2020cebp; Broad Statistical Perspective: @ou2021jto
+
+{{< pagebreak >}}
+
+### High Throughput Biology
+
+Today the search for novel and more effective biomarkers often leverages our ability to interrogate the molecular biology of the cell using high throughput technologies.
+
+We can measure:
+
+| Type                                  | Issues                                                                                                                           |
+|------------------------|------------------------------------------------|
+| DNA                                   | We can read most of the 6+ gigabase pairs in the human genome, count copies of genome sections, compare genomes across cells     |
+|                                       | Relatively easy to define and read, getting cheaper                                                                              |
+|                                       | A couple of steps removed from shedding light on what the cell(s) are doing                                                      |
+| Various Aspects of Protein Production | Hard to define and poorly understood, somewhat hard to do well, getting cheaper                                                  |
+|                                       | Far more relevant for shedding light on what the cell(s) are doing                                                               |
+| Proteins                              | Relatively easy to define, very hard to measure well, expensive. 100.000+ estimated proteins, likely a substantial underestimate |
+|                                       | The most relevant for shedding light on what the cell(s) are doing                                                               |
+
+: Levels and Types of High Throughput Biology Measurements used in Biomarker Research; An important take-home point is the trade-off between ease of measurement and biological relevance of high-throughput biology investigations.
+
+\newpage
+
+To gain a better understanding of how gene expression analysis fits into the broader landscape of different omics data see [\@Chakraborty2018bmri](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6192166/) who provides a brief overview of the different applications for high throughput biology platforms. Since 2018, when this article was written, at least to major brakthrough have occurred: the ability to measure these in single cells, and the ability to take measurement without disruptin the spatial organization of cells in the original tissue.
+
+\newpage
+
+![Pyramid of complexity. From [\@Chakraborty2018bmri](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6192166/) "The pyramid represents the flow of information from genome (top) to transcriptome (middle), to proteome (bottom). The complexity increases from genome to proteome (indicated by down arrow). The complexity of transcriptome is largely mediated by temporal dynamics and alternative splicing. In contrast, spatiotemporal dynamics and posttranslational modifications (PTMs) are mainly responsible for high proteome complexity. Examples of PTMs include phosphorylation (P) and acetylation (Ac)".](Figures/ChakrabortyF1.pdf)
+
+\newpage
+
+![Omics From [\@Chakraborty2018bmri](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6192166/)](Figures/ChakrabortyT1.pdf){width="140%"}
+
+\newpage
+
+![Roles of NGS [\@Chakraborty2018bmri](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6192166/)](Figures/ChakrabortyF4.pdf){width="100%"}
+
+{{< pagebreak >}}
+
+### Premises for Measuring Gene Expression Profiles
+
+In our course we will use high throughput "transcriptomics" data. This is a quantification of the number of copies of messenger RNAs in a sample. We will label RNA measurement by "gene" ---these "genes" will be our candidate biomarkers. The next lecture will go into more detail into how this is done. For now it is important to understand that old-fashioned genes are a limited and somewhat arbitrary way of organizing information from RNA analysis. The "What is a gene?" box in @Hatje2019be is a very thoughtful and concise explanation. Highly recommended.
+
+::: callout-note
+## RNA levels have a higher likelihood of being accurate predictors of phenotype (and thus future outcomes) if:
+
+a)  Gene expression levels correlate well with the corresponding protein levels
+b)  More abundant transcripts are more important in determining behavior of cells
+c)  Normal cells have a stable expression profile
+d)  Changes in expression indicate that \`\`something is happening''
+e)  Gene expression are a proxy measure for the stimuli that control the cell
+:::
+
+A useful resource for those with limited biology lingo under their belt is the [Talking Glossary of Genomic and Genetic Terms](https://www.genome.gov/genetics-glossary)
+
+And for those who like historical landmarks.... @Gilbert1978n
+
+{{< pagebreak >}}
+
+### Discussion Example
+
+A biotech startup collects:
+
+-   100 blood samples from patients diagnosed with pancreas cancer at DFCI and
+
+-   100 blood samples from patients free of cancer.
+
+They measure a blood biomarker in all samples and present you with the following plot:
+
+```{r, echo=F, message=F, warnings = F, cache=T}
+library(MASS)
+library(ggplot2)
+set.seed(117); nn = 100
+dat = data.frame( 
+  XX = c(rnegbin( nn, mu = 20, theta = 1.0 ),
+  rnegbin( nn, mu = 120, theta = 1.5 )),
+  yy = rep(letters[1:2],each = nn) )
+ggplot(dat,aes(x=XX)) + 
+    geom_histogram(data=subset(dat,yy == 'a'),fill = "orange", alpha = 0.4) +
+    geom_histogram(data=subset(dat,yy == 'b'),fill = "blue", alpha = 0.4)
+```
+
+::: callout
+The blue (orange) histogram represents the distribution of RNA counts (XX) for the candidate biomarker among cancer (normal) samples.
+:::
+
+{{< pagebreak >}}
+
+::: callout-important
+## Question for Debate
+
+They approach you, a well endowed angel investor, about a business model based on using the biomarker for early detection of cancer. What do you ask them?
+:::
+
+Below are some ideas to think about as you prepare to discuss this example in class. This list is not at all exhaustive. In fact that are at least a couple of very important additional questions for the investor to ask are not included.
+
+::: callout-note
+### Longitudinal vs Cross-Sectional Data
+
+Longitudinal studies follow people over time; data on health and illness can be available for the *same* individual. Cross sectional and case-control study compare healthy and ill individuals.
+:::
+
+::: callout-note
+### Lead Time
+
+The *lead time* of an early detection strategy refers to the gap between the time when a cancer is discovered using a biomarker, and the time it would have been discovered in the absence of biomarker screening.
+
+Are case control studies more or less likely than cross-sectional studies to discover biomarkers that become detectable early enough to generate a large lead time?
+:::
+
+::: callout-note
+### Reverse Causation
+
+Discovering that a marker's level is higher in cancer compared to normal samples is not ground to conclude that the high level is indicative of a cause of the cancer. This is because the cancer could be caused by the expression of gene A, and then produce large quantities of gene B. Gene B might still become detectable before symptoms occur and serve as a marker while being an effect and not a cause of the tumor.
+
+As an angel investor, should you be worried or not about whether the biomarker is genuinely causative of cancer?
+:::
+
+<!--# Additional Topics: Prevalence PPV; Repeatability  -->
+
+{{< pagebreak >}}
+
+## References
+
+::: {#refs}
+:::

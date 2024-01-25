@@ -1,0 +1,265 @@
+\newpage
+
+# Lecture 7: Monte Carlo Markov Chains
+
+## Monte Carlo Markov Chains (MCMC)
+
+### Intro
+
+From the previous section, we saw that for the two models we proposed, we are able to find conjugate prior distributions. When paired with the likelihood, these resulted in a posterior distribution that is not only in closed form but also in the same family as the prior, and amenable to some pencil-and-paper analysis. For example marginal distributions and marginal moments are easy to compute. Even in this case, we saw that generating a Monte Carlo sample from the posterior can be a useful shortcut for exploring variability in nonlinear transformation of the parameters such as the PPV or the log odds ratio.
+
+In more complex situations, for example when we are dealing with prior knowledge on a parameter that may result in non-conjugate priors, or when dealing with a hierarchical set-up, little progress can be made analytically. We often have the numerator of the posterior in closed form, but cannot evaluate analytically the denominator. In such cases, we can still rely on computational solutions to obtain approximately representative samples of the posterior distribution. With these samples, one can then obtain posterior summaries such as marginal densities, or probabilities of events defined in terms of several parameters, that otherwise would be difficult or impossible.
+
+\newpage
+
+### Gibbs and Metropolis Sampling
+
+To motivate, we note that the expectation of any function $f$ of a random variable $\theta$ with distribution $p(\theta)$ can be estimated arbitrarily accurately by:
+
+```{=tex}
+\begin{itemize}
+\item Generating a sample $\theta^1, \ldots \theta^M$
+\item Evaluating $$ E ( f(\theta) ) \approx \frac 1M \sum_1^M f(\theta^m)$$
+\end{itemize}
+```
+In \textbf{Gibbs Sampling}, a Monte Carlo sample from the joint distribution $p (\theta_1,\theta_2)$ can be obtained by iteratively sampling $p(\theta_1 | \theta_2)$ and $p(\theta_2 | \theta_1)$, where these are known distributions, called "full conditional" distributions.
+
+This is especially useful when the full conditionals are easy to sample from, but works in general, because full conditionals tend to be far more amenable to decent approximations that their multivariate counterparts.
+
+When the full conditionals are not easily tractable, a useful alternative is the Metropolis sampling algorithm.
+
+```{=tex}
+\begin{itemize}
+\item Start with a symmetric transition kernel $q(\theta^m, \theta^{m+1})$.
+\item Given a current state $\theta^m$ this is used to generate a candidate next state $\theta^*$.
+\item Then either the transition is accepted and $\theta^{m+1} = \theta^*$ or it is not when $\theta^{m+1} = \theta^{m}$. The probability that the move is accepted is $min \left\{ 1, \frac {p(\theta^*)}{ p(\theta^{m})} \right\}$.
+\end{itemize}
+```
+Most Bayesian texts, including "Modeling in Medical Decision Making" on Canvas have chapters on MCMC. A nice monograph is [\@Gamerman2006](https://www.pdfdrive.com/markov-chain-monte-carlo-stochastic-simulation-for-bayesian-inference-e168647228.html).
+
+I find [Chi Feng's Animations](http://chi-feng.github.io/mcmc-demo/) extremely effective to getan intuition for these samplers!
+
+\newpage
+
+## A simple parametric model for ZNF487
+
+### Data
+
+We now introduce coding for MCMC's. This week's section has more example and coding details.
+
+Consider again the debulking variable with optimal as $1$ for the `ZNF487` gene. We first look at the dot plots in both the log scale and the original intensity scale (obtined by exponentiating the value in the database).
+
+```{r, echo=F, message=F}
+library(curatedOvarianData)
+data(GSE32063_eset)
+GeneName = "ZNF487"
+XX = exprs(GSE32063_eset)[GeneName,]
+YY = 1 * ( pData(GSE32063_eset)[,"debulking"] == "optimal" )
+XXe = exp(XX)
+```
+
+```{r, fig.cap="Plots for ZNF487"}
+par(mfrow = c(1,2))
+plot(XX,YY,xlab=c("Log Expression of",GeneName),cex=2)
+plot(exp(XX),YY,xlab=c("Expression of",GeneName),cex=2)
+```
+
+\newpage
+
+### Likelihood and Prior
+
+To illustrate, we model the two class conditional distributions of expression using gamma densities. The model specification is in this code chunk, which we will feed to JAGS via rJAGS below. JAGS is persnickety about paramter inputs. Check section 9.2 of the [JAGS manual](https://people.stat.sc.edu/hansont/stat740/jags_user_manual.pdf).
+
+```{r}
+GamModel ="model {
+    # Likelihood:
+    for( i in 1 : n0 ) { x0[i] ~ dgamma(ss0,rr0) } 
+    for( j in 1 : n1 ) { x1[j] ~ dgamma(ss1,rr1) }
+    # Prior:
+    ss0 ~ dnorm( 0, 1.0E-3)T(0,)
+    rr0 ~ dnorm( 0, 1.0E-3)T(0,)
+    ss1 ~ dnorm( 0, 1.0E-3)T(0,) 
+    rr1 ~ dnorm( 0, 1.0E-3)T(0,) 
+}
+"
+```
+
+ss0, rr0, ss1 and rr1 are unknown shape and rate parameters. They are by definition positive. The priors for all these are "half normal" obtained by centering a normal at 0 and restricting is to have positive values. JAGS expect the normal scale to be specified as "precision", formally defined as the reciprocal of the variance. A small precision will give you a flat half normal, but one that will eventially die out. You can set the precision so that the range of the prior stretches across all a priori plausible values, and only rule out values that are clearly implausible. Let's take a look.
+
+```{r, fig.cap="Illustration of the Effect of Precision on Half Normal Prior"}
+hist(abs(rnorm(1600,0,sd=sqrt(1/.001))),main="",xlab="parameter (rr or ss)",nclass=50)
+```
+
+\newpage
+
+### rJAGS
+
+We use `RJags` to run this. We first import the three packages we wish to utilize for `RJags` to work:
+
+```{r, message = F}
+library(coda)
+library(rjags)
+library(R2jags)
+```
+
+We run four short chains, to illustrate the initial aches and pains of convergence, then run 4 longer chains with 10000 iterations, the first 1000 of which ("burn-in") are discarded via n.adapt.
+
+```{r, cache = T}
+GamModelJ = jags.model(textConnection(GamModel),
+                   data = list( x0 = exp(XX[YY==0]), 
+                                n0 = sum(YY==0), 
+                                x1 = exp(XX[YY==1]), 
+                                n1 = sum(YY==1)),
+                   n.chains = 4,
+                   n.adapt = 1)
+set.seed(117)
+mcmc.out.short = coda.samples(GamModelJ,c("rr0","rr1","ss0","ss1"),n.iter = 90,thin=1)
+GamModelJ = jags.model(textConnection(GamModel),
+                   data = list( x0 = exp(XX[YY==0]), 
+                                n0 = sum(YY==0), 
+                                x1 = exp(XX[YY==1]), 
+                                n1 = sum(YY==1)),
+                   n.chains = 4,
+                   n.adapt = 1000)
+mcmc.out = coda.samples(GamModelJ,c("rr0","rr1","ss0","ss1"),n.iter = 9000,thin=100)
+```
+
+\newpage
+
+### Trace Plots
+
+It is useful to look at trace plot of samples from the posterior. Multiple independent chains allow us to gauge convergence (more formal approaches are discussed in Section). We look for stable and overlapping traces. Chains in group 0 are closer and more stable than in group 1. In Group 1, between iterations 50 and 70 both parameters take a detour upwards, illustrating the correlation, and how correlated runs can visit region of relatively low probability for too long.
+
+```{r, fig.cap = "MCMC Plots"}
+cex <- 0.7
+par(cex.lab=cex, cex.axis=cex, cex.main=0.85)
+par(mgp=c(1.5, 0.4, 0))
+par(oma=c(0,0,0,0))
+par(mar=rep(1.2, 4))
+plot(mcmc.out.short,smooth=F,auto.layout=T)
+```
+
+\newpage
+
+The same diagnostic on the longer chain, after removing the burn-in, looks fine.
+
+```{r, fig.cap = "MCMC Trace"}
+cex <- 0.7
+par(cex.lab=cex, cex.axis=cex, cex.main=0.85)
+par(mgp=c(1.5, 0.4, 0))
+par(oma=c(0,0,0,0))
+par(mar=rep(1.2, 4))
+plot(mcmc.out,smooth=F,auto.layout=T)
+```
+
+Note how the final marginal densities do not differ much from those of the first 90 iterations. So why go for the longer chain? When chains show questionable convergence, there is a bigger change that some entirely unexplored region of high posterior may exist. Converged chains don't rule that out (we could have hit the same local mode four times!) but make it less likely. Also, other features like tail probaiblities or probabilities of rare events require better convergence and bigger sample sizes.
+
+\newpage
+
+### Posterior Summaries of Class Conditional Densities and Their Functions
+
+We next extract the the MCMC chain for each parameters.
+
+```{r}
+rr0 = as.vector(mcmc.out[[1]][,"rr0"]) # rate in dgamma R function
+rr1 = as.vector(mcmc.out[[1]][,"rr1"])
+ss0 = as.vector(mcmc.out[[1]][,"ss0"]) # shape in dgamma R function (not to be confused with scale)
+ss1 = as.vector(mcmc.out[[1]][,"ss1"])
+```
+
+Each value of the chain gives us a model-based estimate of the class-conditional distributions. A straightforward summary is to average these densities point-wise over a grid.
+
+\newpage
+
+```{r}
+xx = seq(0,1,.01)
+MM = length(rr0)
+ff0 = ff1 = matrix(NA,length(xx),MM)
+for (mm in 1:MM) {
+  ff0[,mm] = dgamma(xx,ss0[mm],rr0[mm])
+  ff1[,mm] = dgamma(xx,ss1[mm],rr1[mm])
+}
+ff0.postmean = apply(ff0,1,mean)
+ff1.postmean = apply(ff1,1,mean)
+```
+
+```{r, fig.cap = "Conditional Density Plot"}
+plot(xx,ff0.postmean,xlab="Expression",ylab="Conditional Density",type="l",lwd=2); lines(xx,ff1.postmean,lwd=2,col=3); abline(0,0); rug(XXe[YY==0],lwd=2); rug(XXe[YY==1],col=3,lwd=2)
+```
+
+We can use these directly to visualize the log likelihood ratio and PPV. A better estimator can be constructed by calculating the log likelihood ration pointwise and averaging the results.
+
+```{r, fig.cap = "Log Likelihood Ratio"}
+llr.postmean = apply( log(ff1/ff0), 1, mean )
+plot(xx,llr.postmean,xlab="Expression",ylab="Log Likelihood Ratio",type="l",lwd=2); abline(0,0)
+```
+
+```{r, fig.cap="Positive Predictive Value"}
+pi = .1
+ppv.postmean = apply ( 1 / ( 1 + ((1-pi)/pi) * (ff0/ff1) ), 1, mean)
+plot(log(xx), ppv.postmean, xlab="Log Expression",ylab="Probability of Optimal Debulking",type="l",ylim=c(0,1))
+```
+
+### Posterior Uncertianty in Benefit Curves
+
+Importantly, we can also analyze the variability. We focus here on visualizing variability of the benefit curve. We evaluate the benefit curve at each draw of the parameter values, and graph a small subset.
+
+```{r}
+benefit.uncertain = function(pp,
+                             minX = 0,
+                             maxX = 1.2,
+                   rrr0=rr0,
+                   rrr1=rr1,
+                   sss0=ss0,
+                   sss1=ss1,
+                   u00 = 3, 
+                   u11 = 20, 
+                   u10 = 2, 
+                   u01 = 15,
+                   nn = 10
+                   ){
+  subs.chain = sample(1:length(rrr0),nn)
+                   rrr0=rr0[subs.chain]
+                   rrr1=rr1[subs.chain]
+                   sss0=ss0[subs.chain]
+                   sss1=ss1[subs.chain]
+uD2yes = pp*u11 + (1-pp)*u10
+uD2no = pp*u01 + (1-pp)*u00
+uNoMarker = max(uD2yes,uD2no)
+tau = seq(minX,maxX,by= ( maxX-minX )/100 )
+F0 = F1 = matrix(NA,length(tau),length(rrr0))
+for (jj in 1:length(tau)){
+  F1[jj,] = pgamma(tau[jj],sss1,rrr1)
+  F0[jj,] = pgamma(tau[jj],sss0,rrr0)
+  }
+uMarker = pp * (1-F1) * u11 + (1-pp) * (1-F0)* u10 + pp * F1 * u01 +  (1-pp) * F0 * u00
+benefitMarker = uMarker - uNoMarker
+return(list(tau=tau,benefitMarker=benefitMarker,
+            uD2yes=uD2yes,uD2no=uD2no))
+}
+```
+
+```{r, fig.cap="Benefit of Biomarker against tau, with uncertainty. Prevalence .2"}
+set.seed(314)
+BU = benefit.uncertain(1/6)
+plot(log(BU$tau),BU$benefitMarker[,1],
+     type="l",lwd=2,ylim=c(-1,.75),
+     ylab="Benefit of Biomarker",xlab="tau")
+for(ll in 1:ncol(BU$benefitMarker)) lines(log(BU$tau),BU$benefitMarker[,ll])
+abline(0,0)
+```
+
+\newpage
+
+```{r, fig.cap="Benefit of Biomarker against tau, with uncertainty. Prevalence .4"}
+BU = benefit.uncertain(.25)
+plot(log(BU$tau),BU$benefitMarker[,1],
+     type="l",lwd=2,ylim=c(-1,.5),
+     ylab="Benefit of Biomarker",xlab="tau")
+for(ll in 2:ncol(BU$benefitMarker)) lines(log(BU$tau),BU$benefitMarker[,ll])
+abline(0,0)
+```
+
+\newpage
+
+## References

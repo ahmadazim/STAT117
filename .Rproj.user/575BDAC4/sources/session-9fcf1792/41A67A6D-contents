@@ -1,0 +1,128 @@
+---
+date: January 23, 2024
+---
+
+
+# Lecture 1 Introduction
+
+These are lecture notes for the course STA117: "Data Analysis in Modern Biostatistics". We developed the course between 2016 and 2023.
+
+## Goal
+
+The course is an introduction to the application of statistical concepts in biomedical research, through the lens of biomarker research in cancer biology. The general objectives of the course are to develop a sense for practical applications of statistical thinking and tools in biomedical sciences. Concepts and interpretation receive more emphasis than how-to training. The code is often written with far more attention to interpretability than efficiency.
+
+## Audience and Prerequisites
+
+The audience for this class consists mostly of Statistics and Computer Science concentrators at Harvard College. When we teach this course at Harvard we require students to have taken a statistical inference class and a regression/modeling class.
+
+Also a class on statistical learning or introductory machine learning at the level of [James et al](https://www.statlearning.com){style="color: blue"} is very helpful.
+
+{{< pagebreak >}}
+
+## R and RStudio Setup
+
+This course is designed for R within RStudio. The course notes written in Quarto, a markdown language for R currently provided with the free version of RStudio.
+
+This section guides you through setting up your computing environment. First install R and RStudio. This code checks you have the latest version of R. If not, this code will direct you to the R website where you can select your operating system for the appropriate updates.
+
+```{r echo=TRUE}
+if(as.numeric(gsub(".", "",
+    substring(version[['version.string']], 11, 15),
+      fixed = TRUE)) < 422)
+{
+  browseURL("https://cran.r-project.org/bin/")
+  stop("Please update to the newest version of R!")
+}
+```
+
+Next, this code will install all the necessary R and Bioconductor packages to run the examples in the course. It will normally take a while to install. First we make a list of all the packages we need,
+
+```{r, message=FALSE, eval = T, tidy=TRUE, tidy.opts = list(blank = FALSE, width.cutoff = 64)}
+R_package_list <- c('BH','BiocManager','CompQuadForm','DBI','KernSmooth','MASS','Matrix','R2WinBUGS','R2jags','R6','RCurl','ROCR','RSQLite','Rcpp','RcppEigen','SQUAREM','SuppDists','XML','abind','assertthat','base64enc','bit','bit64','bitops','blob','bookdown','boot','bootstrap','caTools','class','classInt','cli','clipr','coda','codetools','combinat','crayon','digest','dplyr','e1071','ellipsis','evaluate','fansi','fastmap','fdrtool','forcats','foreach','formatR','futile.logger','futile.options','gam','gdata','glue','gplots','gtools','haven','highr','hms','htmltools','httpuv','ipred','iterators','jsonlite','klaR','knitr','labelled','lambda.r','later','lattice','lava','lifecycle','lme4','locfit','logging','magrittr','markdown','matrixStats','memoise','meta','metafor','mime','miniUI','minqa','nloptr','nnet','numDeriv','pROC','pillar','pkgconfig','plogr','plyr','pracma','prodlim','promises','purrr','questionr','readr','renv','rjags','rlang','rmarkdown','rmeta','rstudioapi','shiny','snow','sourcetools','statmod','stringi','stringr','survival','survivalROC','tibble','tidyselect','tinytex','tidyverse','utf8','vctrs','xfun','xtable','yaml','ggplot2')
+
+Bioc_package_list <- c('AnnotationDbi','Biobase','BiocGenerics','BiocParallel','IRanges','S4Vectors','affy','affyio','annotate','curatedOvarianData','curatedBreastData','edgeR','genefilter','impute','limma','preprocessCore','survcomp','sva','switchBox','zlibbioc')
+```
+
+and then we proceed with the actual installation.
+
+```{r eval=T, message=FALSE, warning=FALSE, tidy=TRUE, tidy.opts = list(blank = FALSE, width.cutoff = 64)}
+R_packages_missing <- R_package_list[which(R_package_list %in% installed.packages() == F)]
+# Finds which of the required CRAN R packages are missing
+
+Bioc_packages_missing <- Bioc_package_list[which(Bioc_package_list %in% installed.packages() == F)]
+# Finds which of the required Bioconductor R packages are missing
+
+# Installs Cran R packages if they are missing
+if(length(R_packages_missing) != 0){
+  install.packages(pkgs = R_packages_missing,repos = "https://cloud.r-project.org")
+}
+
+# Installs Bioconductor Manager
+if (!requireNamespace("BiocManager", quietly = TRUE)){
+    install.packages("BiocManager")
+}
+
+# Installs Bioconductor R packages if they are missing
+BiocManager::install()
+if(length(Bioc_packages_missing) != 0){
+  BiocManager::install(Bioc_package_list)
+}
+```
+
+```{r, echo=FALSE, message=FALSE, eval = F}
+# Forces Bioconductor R packages to use version 3.11 as of May 2nd 2020.
+#if(BiocManager::version() != "3.11"){
+#  BiocManager::install(Bioc_package_list, version = "3.11")
+#}
+```
+
+```{r, eval=T, echo=F, message=FALSE, warning=FALSE}
+# Automatically create a bib database for R packages
+knitr::write_bib(c(.packages(), R_package_list, Bioc_package_list), 'packages.bib')
+```
+
+{{< pagebreak >}}
+
+## Data
+
+### Data Sources
+
+The foundation of the course is a comprehensive collection of gene expression and clinical characteristics for patients with cancer of the ovaries, called *CuratedOvarianData* [LINK](http://bioconductor.org/packages/release/data/experiment/html/curatedOvarianData.html).
+
+The package contains gene expression biomarker data collected at time of diagnosis from patients with ovarian cancer, along with matched "phenodata" about their subsequent health outcomes, such as how long they lived. A project culminating in the paper "curatedOvarianData: clinically annotated data for the ovarian cancer transcriptome" [LINK](https://doi.org/10.1093/database/bat013), collected, processed and harmonized existing ovarian cancer data in the literature. Data is ready for direct data analysis.
+
+We will also draw from the similar *CuratedBreastData* package [LINK](https://www.bioconductor.org/packages/release/data/experiment/html/curatedBreastData.html).
+
+{{< pagebreak >}}
+
+### Data Structure
+
+@fig-dataStructure is a cartoon of the data structure. Each of several studies includes a large number of candidate gene expression biomarkers, and a few outcomes, or labels, or phenotypes. Candidate biomarkers are arranged so that rows have comparable meaning across studies. This type of data allows us to explore biomarker evaluation, discovery, validation, meta-analysis, and classification using a single dataset.
+
+![Data Structure](Figures/DataStructure.pdf){#fig-dataStructure}
+
+{{< pagebreak >}}
+
+## Course Topics
+
+| Research Goal                       | Question                                               | Data                         |
+|------------------|------------------------------------|------------------|
+| Biomarker Evaluation                | Utility of biomarker for clinical decision and...      | 1 study, 1 biomarker         |
+|                                     | ...its generalilzability                               | k studies, 1 biomarker       |
+| Biomarker Discovery                 | Search / prioritization of candidate biomarkers and... | 1 study, p biomarkers        |
+|                                     | ... its reblicability across studies                   | k studies, p biomarkers      |
+| Biomarker-based Risk Stratification | Prediction of future patient outcomes                  | design your own data subsets |
+
+: Questions considered in the course and their relation to @fig-dataStructure
+
+| Research Goal                       | Quantitative Method                                                                                                                                                                                  |
+|--------------------------|----------------------------------------------|
+| Biomarker Evaluation                | Odds ratios and relative risks, sensitivity, specificity, ROC analysis, effect sizes, priors + posteriors; MCMC (as implementable in Rjags), value of information analysis, time-to-event biomarkers |
+|                                     | Biomarker Meta-analysis Systematic reviews, basic hierarchical models, MCMC for hierarchical models                                                                                                  |
+| Biomarker Discovery                 | High dimensional biomarker searches, multiple testing, False Discovery Rates, regression to the mean                                                                                                 |
+|                                     | Cross-study concordance, r-values                                                                                                                                                                    |
+| Biomarker-based Risk Stratification | Selected basic machine learning algorithms (e.g. clipping, CART, top scoring pairs), cross-validation versus cross-study validation.                                                                 |
+
+: Questions considered in the course and related methodologies
+
+SPUDS https://uraf.harvard.edu/uraf-opportunities/spuds

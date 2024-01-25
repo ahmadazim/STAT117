@@ -1,0 +1,30 @@
+{
+    "id": "30F9FD3F",
+    "path": "~/Documents/Harvard/2024_HSpring/STAT117_TF/STAT117/about.qmd",
+    "project_path": "about.qmd",
+    "type": "quarto_markdown",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1705675617473.0,
+    "source_on_save": false,
+    "relative_order": 2,
+    "properties": {
+        "rmdVisualMode": "false",
+        "rmdVisualWrapConfigured": "true",
+        "source_window_id": "",
+        "Source": "Source",
+        "docOutlineVisible": "1",
+        "rmdVisualCollapsedChunks": "",
+        "cursorPosition": "13,40",
+        "scrollLine": "5"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1706106867,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1706106867181,
+    "read_only": false,
+    "read_only_alternatives": []
+}

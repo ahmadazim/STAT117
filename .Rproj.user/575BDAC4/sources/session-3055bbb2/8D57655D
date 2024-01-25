@@ -1,0 +1,31 @@
+{
+    "id": "8D57655D",
+    "path": "~/Documents/Harvard/2024_HSpring/STAT117_TF/STAT117/L12-shrinkage.qmd",
+    "project_path": "L12-shrinkage.qmd",
+    "type": "quarto_markdown",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1705677472728.0,
+    "source_on_save": false,
+    "relative_order": 5,
+    "properties": {
+        "rmdVisualMode": "false",
+        "rmdVisualWrapConfigured": "true",
+        "source_window_id": "",
+        "Source": "Source",
+        "docOutlineVisible": "1",
+        "rmdVisualModeLocation": "2:0",
+        "cursorPosition": "6,13",
+        "scrollLine": "0",
+        "rmdVisualCollapsedChunks": ""
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1705677531,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1705677531613,
+    "read_only": false,
+    "read_only_alternatives": []
+}

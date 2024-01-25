@@ -5,7 +5,11 @@
     "Source": "Source",
     "docOutlineVisible": "1",
     "rmdVisualModeLocation": "2:0",
+<<<<<<< HEAD
     "cursorPosition": "20,0",
+=======
+    "cursorPosition": "6,13",
+>>>>>>> 92c20afe76ab07d31ab0497a205dfd81dae5acec
     "scrollLine": "0",
     "rmdVisualCollapsedChunks": ""
 }

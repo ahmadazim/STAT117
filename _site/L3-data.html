@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2024-01-30">
+<meta name="dcterms.date" content="2023-01-31">
 
 <title>STAT 117: Data Analysis in Modern Biostatistics</title>
 <style>
@@ -158,7 +158,7 @@ div.csl-indent {
     <ul class="dropdown-menu" aria-labelledby="nav-menu-lectures">    
         <li>
     <a class="dropdown-item" href="./L1-intro.html">
- <span class="dropdown-text">Lecture 1 Introduction</span></a>
+ <span class="dropdown-text">Lecture 1 (January 24, 2023) Introduction</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./L2-biomarkers.html">
@@ -174,27 +174,27 @@ div.csl-indent {
   </li>  
         <li>
     <a class="dropdown-item" href="./L5-decision.html">
- <span class="dropdown-text">Lecture 5: Decision Analysis</span></a>
+ <span class="dropdown-text">Lecture 5 (February 7, 2023) Decision Analysis</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./L6-bayes.html">
- <span class="dropdown-text">Lecture 6: Bayesian Modeling</span></a>
+ <span class="dropdown-text">Lecture 6 (February 9, 2023) Bayesian Modeling</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./L7-mcmc.html">
- <span class="dropdown-text">Lecture 7: Monte Carlo Markov Chains</span></a>
+ <span class="dropdown-text">Lecture 7 (February 14, 2023) Monte Carlo Markov Chains</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./L8-timetoevent.html">
- <span class="dropdown-text">Lecture 8: Time to Event Data</span></a>
+ <span class="dropdown-text">Lecture 8 (February 16, 2023) Time to Event Data</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./L9-comparing.html">
- <span class="dropdown-text">Lecture 9: Comparing Criteria for Biomarker Discovery</span></a>
+ <span class="dropdown-text">Lecture 9 (February 21, 2023) Comparing Criteria for Biomarker Discovery</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./L10-fdr.html">
- <span class="dropdown-text">Lecture 10: False Discovery Rates</span></a>
+ <span class="dropdown-text">Lecture 10 (February 28, 2023) False Discovery Rates</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./L11-regmean.html">
@@ -205,8 +205,13 @@ div.csl-indent {
  <span class="dropdown-text">Lecture 12: Shrinkage</span></a>
   </li>  
         <li>
+    <a class="dropdown-item" href="./L14-shrinkage2.html">
+ <span class="dropdown-text">Lecture 14 (March 21, 2023) Shrinkage part 2</span></a>
+  </li>  
+        <li class="dropdown-header">L15-metaanlysis2.qmd</li>
+        <li>
     <a class="dropdown-item" href="./L17-twomarkers.html">
- <span class="dropdown-text">Lecture 17</span></a>
+ <span class="dropdown-text">Lecture 17 (March 29, 2023)</span></a>
   </li>  
     </ul>
   </li>
@@ -263,7 +268,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 30, 2024</p>
+      <p class="date">January 31, 2023</p>
     </div>
   </div>
   
@@ -324,19 +329,6 @@ Reading Notes
 <p>For those interested in understanding RNA-seq a bit more, I recommend the sections “Overview” and “Alignment and Quantification” from <a href="https://doi.org/10.1146/annurev-biodatasci-072018-021255">@VandenBerge2019arbds</a></p>
 <p><a href="https://doi.org/10.1186/1471-2105-14-S9-S1">@Xu2013bmcb</a> report a head-to-head comparison of Affy and RNA-seq high throughput measurements. RNA-seq generates count data. It is interesting to look at <a href="https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-14-S9-S1/figures/1">Figure 1</a> and think about how to interpret the “stripes” in panel B.</p>
 <p>Microarrays are rarely used for discovery these days. Many of the statistical challenges of biomarker discovery, however, have remained the same. The advantage of using microarrays for this course is there there are far more studies readily available, so certain parts of the course still work a lot better with microarray than RNA-seq.</p>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Question for Debate
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>What are some of the advantages and disadvantages of RNA-Seq compared to microarray techniques, especially in terms of identification of differentially expressed genes, cost, and other factors?</p>
-</div>
-</div>
 <div style="page-break-after: always;"></div>
 </section>
 </section>
@@ -374,19 +366,6 @@ Question for Debate
 </figure>
 </div>
 <p>It may seem disappointing that there are only two clinical annotations that all of these datasets have. When we originally created the dataset we recontacted all the groups that originally generated the data to try to fill as many of the gaps as possible. Unfortunately some of the clinical data may not have been collected, or may not be easy to share due to privacy concerns or investigators’ reluctance. Since we compiled this data, the field has moved towards larger coordinated efforts across multiple institutions, which have had better outcomes in terms of completeness and homogeneity of phenotypes. An example is <a href="https://dcc.icgc.org/">PCAWG</a> but heterogeneity and missingness of labels remain important issues in health data.</p>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Question for Debate
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Handling missing data is a prominent challenge, particularly in the context of clinical data collection. What data collection standards should be in place, and what are some effective methods for managing missingness (and more broadly, data quality) in these datasets?</p>
-</div>
-</div>
 <div style="page-break-after: always;"></div>
 </section>
 <section id="loading-the-package-and-extracting-expression-data-matrices" class="level3">
@@ -557,19 +536,7 @@ Quantile Normlization
 </div>
 </div>
 </div>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Question for Debate
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>A variety of data normalization are performed in RNA-Seq analysis. What are some of the different methods of normalization, and what is their impact on data interpretability?</p>
-</div>
-</div>
+<div style="page-break-after: always;"></div>
 </section>
 </section>
 <section id="references" class="level2">

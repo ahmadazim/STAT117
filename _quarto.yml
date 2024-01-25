@@ -24,9 +24,9 @@ website:
           - L10-fdr.qmd
           - L11-regmean.qmd
           - L12-shrinkage.qmd
+          - L14-shrinkage2.qmd
+          - L15-metaanlysis2.qmd
           - L17-twomarkers.qmd
-          #- L14-shrinkage2.qmd
-          #- L15-metaanalysis2.qmd
           # - L16-metrics.qmd
           #- L13-metrics.qmd
 
