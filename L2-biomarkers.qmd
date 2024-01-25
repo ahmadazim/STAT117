@@ -1,6 +1,5 @@
 ---
 date: January 25, 2024
-lightbox: true
 ---
 
 # Lecture 2: Cancer Biomarkers
@@ -9,7 +8,8 @@ lightbox: true
 
 Cancer arises from evolution of cells within tissues. Changes in the genome code and organization result in changes in cell characteristics. Natural selection operates on this variability so that, for example, cells that divide faster and invade surrounding tissues are sometimes able to grow large colonies and generate tumors. @Podlaha:2012vw explains these concepts. @fig-cancerEvolution From @Podlaha:2012vw illustrates the typical stages of cancer progression for a cancer that resists to treatment. In this example, we begin with normal cells (blue circles). The progression to cancer starts when a cell acquires a genetic change (for example a DNA mutation, or a chromosomal translocation) which results in a larger and more fit population compared to the normal cells. @Podlaha:2012vw remarks that "This process involves the evolution of multiple 'novel' cellular traits. Most somatic alterations in epithelial cells lining the colon, for instance, are not advantageous and will disappear with the death of a cell. Occasionally, an alteration that increases the proliferation rate of a cell arises, allowing this cell to increase in number. This population of 'rogue' cells can decline with the onset of anti-cancer therapy; however, the arrival of an alteration conferring drug resistance reverses the effects of treatment and allows new growth (b). In some cases, resistance to an anti-cancer drug may already be present in a small subset of tumor cells. In such a scenario, the population of sensitive cancer cells will decline and eventually be replaced by drug-resistant cells. Further alterations may be necessary to enable tumor cells to metastasize (c) and spread to other tissues (d)." 
 
-![Cancer Evolution a the Cell Level](Figures/Podlaha.pdf){#fig-cancerEvolution}
+![Cancer Evolution a the Cell Level](Figures/Podlaha.pdf){#fig-cancerEvolution width="95%" height="5in"}
+
 
 {{< pagebreak >}}
 
@@ -17,7 +17,7 @@ Cancer arises from evolution of cells within tissues. Changes in the genome code
 
 Many factors contribute to the changes in the genome represented by a lighting in @fig-cancerEvolution. @Song2018s review the main categories of causes, also summarized in @fig-cancerCauses
 
-![Categories of Cancer Causes and their Position in Cancer Evolution](Figures/CancerCauses.pdf){#fig-cancerCauses}
+![Categories of Cancer Causes and their Position in Cancer Evolution](Figures/CancerCauses.pdf){#fig-cancerCauses width="95%" height="6in"}
 
 {{< pagebreak >}}
 
@@ -57,7 +57,7 @@ In contrast to early detection biomarkers, **prognostic biomarkers** are used at
 
 **Therapy selection biomarkers** are those that in addition to severity can predict response to specific treatments. The medical literature often uses the term "predictive" for these biomarkers, but we will avoid this here, because in statistics the word predictive has a broader meaning. These biomarkers can be used at any stage after diagnosis. Some biomarkers are both prognostic and helpful in therapy selection. The distinction between prognostic and therapy-selection markers is somewhat challenging empirically, because very few diagnosed patients go untreated.
 
-![Broad Categories of Use for Biomarkers from @ou2021jto](Figures/Biomarkers.pdf){#fig-useBiomarkers}
+![Broad Categories of Use for Biomarkers from @ou2021jto](Figures/Biomarkers.pdf){#fig-useBiomarkers width="95%" height="5in"}
 
 Additional readings:
 
@@ -72,7 +72,11 @@ Today the search for novel and more effective biomarkers often leverages our abi
 We can measure:
 
 | Type                                  | Issues                                                                                                                           |
+<<<<<<< HEAD
 |-------------------------|-----------------------------------------------|
+=======
+|-------------------------|----------------------------------------------|
+>>>>>>> 5426b84e136e2bccade619eca492b328568f1eff
 | DNA                                   | We can read most of the 6+ gigabase pairs in the human genome, count copies of genome sections, compare genomes across cells     |
 |                                       | Relatively easy to define and read, getting cheaper                                                                              |
 |                                       | A couple of steps removed from shedding light on what the cell(s) are doing                                                      |
@@ -89,15 +93,15 @@ To gain a better understanding of how gene expression analysis fits into the bro
 
 \newpage
 
-![Pyramid of complexity. From [\@Chakraborty2018bmri](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6192166/) "The pyramid represents the flow of information from genome (top) to transcriptome (middle), to proteome (bottom). The complexity increases from genome to proteome (indicated by down arrow). The complexity of transcriptome is largely mediated by temporal dynamics and alternative splicing. In contrast, spatiotemporal dynamics and posttranslational modifications (PTMs) are mainly responsible for high proteome complexity. Examples of PTMs include phosphorylation (P) and acetylation (Ac)".](Figures/ChakrabortyF1.pdf)
+![Pyramid of complexity. From [\@Chakraborty2018bmri](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6192166/) "The pyramid represents the flow of information from genome (top) to transcriptome (middle), to proteome (bottom). The complexity increases from genome to proteome (indicated by down arrow). The complexity of transcriptome is largely mediated by temporal dynamics and alternative splicing. In contrast, spatiotemporal dynamics and posttranslational modifications (PTMs) are mainly responsible for high proteome complexity. Examples of PTMs include phosphorylation (P) and acetylation (Ac)".](Figures/ChakrabortyF1.pdf){width="95%" height="6in"}
 
 \newpage
 
-![Omics From [\@Chakraborty2018bmri](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6192166/)](Figures/ChakrabortyT1.pdf){width="140%"}
+![Omics From [\@Chakraborty2018bmri](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6192166/)](Figures/ChakrabortyT1.pdf){width="95%" height="5in"}
 
 \newpage
 
-![Roles of NGS [\@Chakraborty2018bmri](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6192166/)](Figures/ChakrabortyF4.pdf){width="100%"}
+![Roles of NGS [\@Chakraborty2018bmri](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6192166/)](Figures/ChakrabortyF4.pdf){width="100%" height="5in"}
 
 {{< pagebreak >}}
 
@@ -131,7 +135,7 @@ A biotech startup collects:
 
 They measure a blood biomarker in all samples and present you with the following plot:
 
-```{r, echo=F, message=F, warnings = F, cache=T}
+```{r, echo=T, message=F, warnings = F, cache=T}
 library(MASS)
 library(ggplot2)
 set.seed(117); nn = 100
