@@ -54,7 +54,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -159,6 +179,10 @@ window.Quarto = {
     <a class="nav-link" href="./about.html"> 
 <span class="menu-text">Syllabus</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./schedule.html"> 
+<span class="menu-text">Schedule</span></a>
+  </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-lectures" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Lectures</span>
@@ -182,27 +206,27 @@ window.Quarto = {
   </li>  
         <li>
     <a class="dropdown-item" href="./L5-decision.html">
- <span class="dropdown-text">Lecture 5: Decision Analysis</span></a>
+ <span class="dropdown-text">Lecture 5 (February 7, 2023) Decision Analysis</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./L6-bayes.html">
- <span class="dropdown-text">Lecture 6: Bayesian Modeling</span></a>
+ <span class="dropdown-text">Lecture 6 (February 9, 2023) Bayesian Modeling</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./L7-mcmc.html">
- <span class="dropdown-text">Lecture 7: Monte Carlo Markov Chains</span></a>
+ <span class="dropdown-text">Lecture 7 (February 14, 2023) Monte Carlo Markov Chains</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./L8-timetoevent.html">
- <span class="dropdown-text">Lecture 8: Time to Event Data</span></a>
+ <span class="dropdown-text">Lecture 8 (February 16, 2023) Time to Event Data</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./L9-comparing.html">
- <span class="dropdown-text">Lecture 9: Comparing Criteria for Biomarker Discovery</span></a>
+ <span class="dropdown-text">Lecture 9 (February 21, 2023) Comparing Criteria for Biomarker Discovery</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./L10-fdr.html">
- <span class="dropdown-text">Lecture 10: False Discovery Rates</span></a>
+ <span class="dropdown-text">Lecture 10 (February 28, 2023) False Discovery Rates</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./L11-regmean.html">
@@ -213,8 +237,13 @@ window.Quarto = {
  <span class="dropdown-text">Lecture 12: Shrinkage</span></a>
   </li>  
         <li>
+    <a class="dropdown-item" href="./L14-shrinkage2.html">
+ <span class="dropdown-text">Lecture 14 (March 21, 2023) Shrinkage part 2</span></a>
+  </li>  
+        <li class="dropdown-header">L15-metaanlysis2.qmd</li>
+        <li>
     <a class="dropdown-item" href="./L17-twomarkers.html">
- <span class="dropdown-text">Lecture 17</span></a>
+ <span class="dropdown-text">Lecture 17 (March 29, 2023)</span></a>
   </li>  
     </ul>
   </li>
@@ -234,7 +263,7 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#lecture-10-false-discovery-rates" id="toc-lecture-10-false-discovery-rates" class="nav-link active" data-scroll-target="#lecture-10-false-discovery-rates">Lecture 10: False Discovery Rates</a>
+  <li><a href="#lecture-10-february-28-2023-false-discovery-rates" id="toc-lecture-10-february-28-2023-false-discovery-rates" class="nav-link active" data-scroll-target="#lecture-10-february-28-2023-false-discovery-rates">Lecture 10 (February 28, 2023) False Discovery Rates</a>
   <ul class="collapse">
   <li><a href="#multiple-testing" id="toc-multiple-testing" class="nav-link" data-scroll-target="#multiple-testing">Multiple Testing</a>
   <ul class="collapse">
@@ -264,14 +293,14 @@ window.Quarto = {
 
 
 <div style="page-break-after: always;"></div>
-<section id="lecture-10-false-discovery-rates" class="level1">
-<h1>Lecture 10: False Discovery Rates</h1>
+<section id="lecture-10-february-28-2023-false-discovery-rates" class="level1">
+<h1>Lecture 10 (February 28, 2023) False Discovery Rates</h1>
 <section id="multiple-testing" class="level2">
 <h2 class="anchored" data-anchor-id="multiple-testing">Multiple Testing</h2>
 <section id="intro" class="level3">
 <h3 class="anchored" data-anchor-id="intro">Intro</h3>
 <p>In our previous discussion we played with various approaches for discovering sets of promising biomarkers. How can we assess the quality of the discovery process and results? The most basic version of this assessment is based on assuming there is a binary truth at the gene level, representing biomarker with and without biological signal, and that the discovery process is about revealing this vector of binary labels. Formally, this is a multiple hypothesis testing problem.</p>
-<p>The literature of multiple testing is enormously big. A favorite of mine is <a href="https://doi.org/10.1214/ss/1177011945">@Tukey:1991ga</a></p>
+<p>The literature of multiple testing is enormously big. A favorite of mine is <a href="https://doi.org/10.1214/ss/1177011945"><span class="citation" data-cites="Tukey:1991ga">Tukey (<span>1991</span>)</span></a></p>
 </section>
 <section id="setting-and-notation" class="level3">
 <h3 class="anchored" data-anchor-id="setting-and-notation">Setting and notation:</h3>
@@ -360,13 +389,13 @@ Higher Criticism
 </ul>
 </div>
 </div>
-<p>Hint: <a href="http://projecteuclid.org/euclid.ss/1425492437">@Donoho2015ss</a></p>
+<p>Hint: <a href="http://projecteuclid.org/euclid.ss/1425492437"><span class="citation" data-cites="Donoho2015ss">Donoho and Jin (<span>2015</span>)</span></a></p>
 <div style="page-break-after: always;"></div>
 </section>
 </section>
 <section id="false-discovery-rates" class="level2">
 <h2 class="anchored" data-anchor-id="false-discovery-rates">False Discovery Rates</h2>
-<p>A simple way to think about the discovery process is to focus on a list of promising candidates (or “discoveries”), as we did in our previous lecture. If we know the true data generating model for each gene, we could, for example, look at this table:</p>
+A simple way to think about the discovery process is to focus on a list of promising candidates (or “discoveries”), as we did in our previous lecture. If we know the true data generating model for each gene, we could, for example, look at this table:
 <p>It is common to study the proportion <span class="math inline">\(R_0/R\)</span> of discoveries for which the true data generating model is null.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -385,7 +414,7 @@ Note
 </div>
 </div>
 <p>This parameter can be estimated from a couple of different perspectives. If you are interested in evaluating the list generating <em>process</em> you may be interested in a frequentist expectation. Bounds can be obtained using methods like Benjamini-Hochberg (see below). If your focus is on the actual list rather than the procedure, Bayesian estimates may be your choice.</p>
-<p>We review many of the connections here: <a href="https://biostats.bepress.com/jhubiostat/paper115/">@muel:parm:rice:2007</a></p>
+<p>We review many of the connections here: <a href="https://biostats.bepress.com/jhubiostat/paper115/"><span class="citation" data-cites="muel:parm:rice:2007">Müller, Parmigiani, and Rice (<span>2007</span>)</span></a></p>
 <div style="page-break-after: always;"></div>
 <section id="frequentist-definition-of-fdr" class="level3">
 <h3 class="anchored" data-anchor-id="frequentist-definition-of-fdr">Frequentist Definition of FDR</h3>
@@ -485,7 +514,7 @@ Note
 \]</span></p>
 <p>In EB, the denominator, for any given cutoff, can be estimated empirically from the geneome-wide distribution of <span class="math inline">\(z_g\)</span>’s. Just don’t pick the cutoff so that the list is empty.</p>
 <p>The numerator is a bit trickier. If the disctribution of the <span class="math inline">\(z\)</span>’s under the null is known (as is the case for example with <span class="math inline">\(z\)</span>-scores for which normality can be trusted, <span class="math inline">\(\bar F_0 (z)\)</span> can be estimated that way. If not, one approach is to use the geneome-wide distribution of <span class="math inline">\(z_g\)</span>’s after a permutation that mimics the global null. <span class="math inline">\(p_A\)</span> is not identifiable w/out parametric / smoothness assumptions on the distributions of the <span class="math inline">\(z\)</span>’s. A surprisingly useful approximation is <span class="math inline">\(1-p_A = 1\)</span>, which gives a conservative bounds to EF FDR, but often a reasonably realistic one.</p>
-<p><a href="https://doi.org/10.1214/aos/1051027871">@Efron2003as</a></p>
+<p><a href="https://doi.org/10.1214/aos/1051027871"><span class="citation" data-cites="Efron2003as">Efron (<span>2003</span>)</span></a></p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -562,13 +591,27 @@ Note
 </section>
 </section>
 <section id="references" class="level2">
-<h2 class="anchored" data-anchor-id="references">References</h2>
+
+
 
 
 </section>
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Donoho2015ss" class="csl-entry" role="listitem">
+Donoho, David, and Jiashun Jin. 2015. <span>“Higher Criticism for Large-Scale Inference, Especially for Rare and Weak Effects.”</span> <em>Statistical Science</em> 30 (1): 1–25. <a href="https://doi.org/10.1214/14-STS506">https://doi.org/10.1214/14-STS506</a>.
+</div>
+<div id="ref-Efron2003as" class="csl-entry" role="listitem">
+Efron, Bradley. 2003. <span>“<span class="nocase">Robbins, empirical Bayes and microarrays</span>.”</span> <em>The Annals of Statistics</em> 31 (2): 366–78. <a href="https://doi.org/10.1214/aos/1051027871">https://doi.org/10.1214/aos/1051027871</a>.
+</div>
+<div id="ref-muel:parm:rice:2007" class="csl-entry" role="listitem">
+Müller, P, G Parmigiani, and K. Rice. 2007. <span>“<span>FDR</span> and <span>B</span>ayesian Multiple Comparisons Rules.”</span> In <em>Bayesian Statistics 8</em>, edited by J. M. Bernardo, S. Bayarri, J. O. Berger, A. P. Dawid, D. Heckerman, A. F. M. Smith, and M. West. Oxford University Press. <a href="https://biostats.bepress.com/jhubiostat/paper115/">https://biostats.bepress.com/jhubiostat/paper115/</a>.
+</div>
+<div id="ref-Tukey:1991ga" class="csl-entry" role="listitem">
+Tukey, John W. 1991. <span>“<span class="nocase">The Philosophy of Multiple Comparisons</span>.”</span> <em>Statistical Science</em> 6 (1): 100–116. <a href="https://doi.org/10.1214/ss/1177011945">https://doi.org/10.1214/ss/1177011945</a>.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

@@ -180,6 +180,10 @@ window.Quarto = {
     <a class="nav-link" href="./about.html"> 
 <span class="menu-text">Syllabus</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./schedule.html"> 
+<span class="menu-text">Schedule</span></a>
+  </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-lectures" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Lectures</span>
@@ -203,27 +207,27 @@ window.Quarto = {
   </li>  
         <li>
     <a class="dropdown-item" href="./L5-decision.html">
- <span class="dropdown-text">Lecture 5: Decision Analysis</span></a>
+ <span class="dropdown-text">Lecture 5 (February 7, 2023) Decision Analysis</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./L6-bayes.html">
- <span class="dropdown-text">Lecture 6: Bayesian Modeling</span></a>
+ <span class="dropdown-text">Lecture 6 (February 9, 2023) Bayesian Modeling</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./L7-mcmc.html">
- <span class="dropdown-text">Lecture 7: Monte Carlo Markov Chains</span></a>
+ <span class="dropdown-text">Lecture 7 (February 14, 2023) Monte Carlo Markov Chains</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./L8-timetoevent.html">
- <span class="dropdown-text">Lecture 8: Time to Event Data</span></a>
+ <span class="dropdown-text">Lecture 8 (February 16, 2023) Time to Event Data</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./L9-comparing.html">
- <span class="dropdown-text">Lecture 9: Comparing Criteria for Biomarker Discovery</span></a>
+ <span class="dropdown-text">Lecture 9 (February 21, 2023) Comparing Criteria for Biomarker Discovery</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./L10-fdr.html">
- <span class="dropdown-text">Lecture 10: False Discovery Rates</span></a>
+ <span class="dropdown-text">Lecture 10 (February 28, 2023) False Discovery Rates</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./L11-regmean.html">
@@ -234,8 +238,13 @@ window.Quarto = {
  <span class="dropdown-text">Lecture 12: Shrinkage</span></a>
   </li>  
         <li>
+    <a class="dropdown-item" href="./L14-shrinkage2.html">
+ <span class="dropdown-text">Lecture 14 (March 21, 2023) Shrinkage part 2</span></a>
+  </li>  
+        <li class="dropdown-header">L15-metaanlysis2.qmd</li>
+        <li>
     <a class="dropdown-item" href="./L17-twomarkers.html">
- <span class="dropdown-text">Lecture 17</span></a>
+ <span class="dropdown-text">Lecture 17 (March 29, 2023)</span></a>
   </li>  
     </ul>
   </li>
@@ -255,7 +264,7 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#lecture-6-bayesian-modeling" id="toc-lecture-6-bayesian-modeling" class="nav-link active" data-scroll-target="#lecture-6-bayesian-modeling">Lecture 6: Bayesian Modeling</a>
+  <li><a href="#lecture-6-february-9-2023-bayesian-modeling" id="toc-lecture-6-february-9-2023-bayesian-modeling" class="nav-link active" data-scroll-target="#lecture-6-february-9-2023-bayesian-modeling">Lecture 6 (February 9, 2023) Bayesian Modeling</a>
   <ul class="collapse">
   <li><a href="#bayesian-models" id="toc-bayesian-models" class="nav-link" data-scroll-target="#bayesian-models">Bayesian Models</a>
   <ul class="collapse">
@@ -302,8 +311,8 @@ window.Quarto = {
 </header>
 
 
-<section id="lecture-6-bayesian-modeling" class="level1">
-<h1>Lecture 6: Bayesian Modeling</h1>
+<section id="lecture-6-february-9-2023-bayesian-modeling" class="level1">
+<h1>Lecture 6 (February 9, 2023) Bayesian Modeling</h1>
 <section id="bayesian-models" class="level2">
 <h2 class="anchored" data-anchor-id="bayesian-models">Bayesian Models</h2>
 <p>So far we focused on statistical summaries, but have paid little attention to uncertainty about them. When we say that the PPV at a level of -1 for ZNF487 expression is .2, how sure are we? When we look at the comparison between the PR curves or benefit curves of two biomarkers, how reliably can we say that one is above the other? We are going to approach these questions using Bayesian models. Both “Bayesian” and “model” are very loaded words. We could go w/out models at all and rely on resampling techniques like the bootstrap to generate uncertainty statements. Or we could specify models, but use non-Bayesian methods, such as maximum likelihood, for our uncertainty. There are pros and cons of each of these choices. Models are powerful and can amplify the value of your data if you get them approximately right (a nontrivial task). Bayes is powerful, general and simple in concept, but a bit high maintenance compared to its frequentist counterparts. There are cool model-free or model-robust Bayesian techniques, but we will only scratch the surface there.</p>
@@ -465,19 +474,19 @@ P(y^*|x^*, y, x) =\int_{\theta} P(y^* | x^*, \theta) P(\theta|y, x)d\theta
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(alpha)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.8331511</code></pre>
+<pre><code>[1] 0.833786</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(alpha)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.1034034</code></pre>
+<pre><code>[1] 0.1034035</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(beta)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.6657966</code></pre>
+<pre><code>[1] 0.6666097</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(beta)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.1306234</code></pre>
+<pre><code>[1] 0.130531</code></pre>
 </div>
 </div>
 <p>We may also examine the positive distribution of the positive predictive value. This illustrate how easy it is to derive posterior distribution of transformations of the variables. To begin, we fix the prevalence of the population at <span class="math inline">\(0.25\)</span>.</p>
@@ -498,11 +507,11 @@ P(y^*|x^*, y, x) =\int_{\theta} P(y^* | x^*, \theta) P(\theta|y, x)d\theta
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(pi.x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.603507</code></pre>
+<pre><code>[1] 0.6047792</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(pi.x <span class="sc">&gt;</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.72132</code></pre>
+<pre><code>[1] 0.7243</code></pre>
 </div>
 </div>
 <p>The posterior predictive value can be analyzed further. Specifically, we can plot the joint distribution of the posterior predictive value against <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>, made using <code>ggplot2</code>.</p>
@@ -602,11 +611,11 @@ P(y^*|x^*, y, x) =\int_{\theta} P(y^* | x^*, \theta) P(\theta|y, x)d\theta
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>pi.x <span class="ot">=</span> (pi<span class="sc">*</span>beta)<span class="sc">/</span>(pi<span class="sc">*</span>beta<span class="sc">+</span>(<span class="dv">1</span><span class="sc">-</span>pi)<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>alpha))</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(pi.x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.715938</code></pre>
+<pre><code>[1] 0.7166342</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(pi.x<span class="sc">&gt;</span>.<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.93074</code></pre>
+<pre><code>[1] 0.93329</code></pre>
 </div>
 </div>
 <p>The histogram is as follows.</p>

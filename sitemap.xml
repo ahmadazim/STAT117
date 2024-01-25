@@ -2,70 +2,74 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://ahmadazim.github.io/STAT117/L2-biomarkers.html</loc>
-    <lastmod>2024-01-24T21:43:51.544Z</lastmod>
+    <lastmod>2024-01-25T07:46:02.953Z</lastmod>
   </url>
   <url>
-    <loc>https://ahmadazim.github.io/STAT117/L9-comparing.html</loc>
-    <lastmod>2024-01-23T13:04:16.872Z</lastmod>
+    <loc>https://ahmadazim.github.io/STAT117/L8-timetoevent.html</loc>
+    <lastmod>2024-01-25T07:46:02.959Z</lastmod>
   </url>
   <url>
-    <loc>https://ahmadazim.github.io/STAT117/L5-decision.html</loc>
-    <lastmod>2024-01-24T21:44:26.336Z</lastmod>
+    <loc>https://ahmadazim.github.io/STAT117/L10-fdr.html</loc>
+    <lastmod>2024-01-25T07:46:02.951Z</lastmod>
   </url>
   <url>
-    <loc>https://ahmadazim.github.io/STAT117/about.html</loc>
-    <lastmod>2024-01-24T14:34:27.173Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ahmadazim.github.io/STAT117/index.html</loc>
-    <lastmod>2024-01-19T21:54:59.832Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ahmadazim.github.io/STAT117/L15-metaanalysis2.html</loc>
-    <lastmod>2024-01-23T13:06:06.002Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ahmadazim.github.io/STAT117/L1-intro.html</loc>
-    <lastmod>2024-01-24T21:43:58.594Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ahmadazim.github.io/STAT117/L14-shrinkage2.html</loc>
-    <lastmod>2024-01-23T13:05:47.390Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ahmadazim.github.io/STAT117/L12-shrinkage.html</loc>
-    <lastmod>2024-01-23T13:05:10.755Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ahmadazim.github.io/STAT117/L3-data.html</loc>
-    <lastmod>2024-01-24T14:17:58.866Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ahmadazim.github.io/STAT117/L7-mcmc.html</loc>
-    <lastmod>2024-01-23T13:03:38.358Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ahmadazim.github.io/STAT117/L6-bayes.html</loc>
-    <lastmod>2024-01-24T21:44:42.127Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ahmadazim.github.io/STAT117/L4-metrics.html</loc>
-    <lastmod>2024-01-24T14:24:21.579Z</lastmod>
+    <loc>https://ahmadazim.github.io/STAT117/L17-twomarkers.html</loc>
+    <lastmod>2024-01-25T07:46:02.953Z</lastmod>
   </url>
   <url>
     <loc>https://ahmadazim.github.io/STAT117/L11-regmean.html</loc>
     <lastmod>2024-01-19T21:17:35.692Z</lastmod>
   </url>
   <url>
-    <loc>https://ahmadazim.github.io/STAT117/L17-twomarkers.html</loc>
-    <lastmod>2024-01-23T13:06:29.254Z</lastmod>
+    <loc>https://ahmadazim.github.io/STAT117/L4-metrics.html</loc>
+    <lastmod>2024-01-25T07:46:02.955Z</lastmod>
   </url>
   <url>
-    <loc>https://ahmadazim.github.io/STAT117/L10-fdr.html</loc>
-    <lastmod>2024-01-23T13:04:32.873Z</lastmod>
+    <loc>https://ahmadazim.github.io/STAT117/L6-bayes.html</loc>
+    <lastmod>2024-01-25T07:46:02.957Z</lastmod>
   </url>
   <url>
-    <loc>https://ahmadazim.github.io/STAT117/L8-timetoevent.html</loc>
-    <lastmod>2024-01-23T13:04:03.324Z</lastmod>
+    <loc>https://ahmadazim.github.io/STAT117/L7-mcmc.html</loc>
+    <lastmod>2024-01-25T07:46:02.958Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ahmadazim.github.io/STAT117/L3-data.html</loc>
+    <lastmod>2024-01-25T16:57:13.612Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ahmadazim.github.io/STAT117/L12-shrinkage.html</loc>
+    <lastmod>2024-01-25T07:46:02.951Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ahmadazim.github.io/STAT117/L14-shrinkage2.html</loc>
+    <lastmod>2024-01-25T07:46:02.952Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ahmadazim.github.io/STAT117/L1-intro.html</loc>
+    <lastmod>2024-01-25T07:46:02.950Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ahmadazim.github.io/STAT117/L15-metaanalysis2.html</loc>
+    <lastmod>2024-01-25T07:46:02.952Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ahmadazim.github.io/STAT117/index.html</loc>
+    <lastmod>2024-01-19T21:54:59.832Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ahmadazim.github.io/STAT117/about.html</loc>
+    <lastmod>2024-01-25T07:46:03.016Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ahmadazim.github.io/STAT117/L5-decision.html</loc>
+    <lastmod>2024-01-25T07:46:02.956Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ahmadazim.github.io/STAT117/L9-comparing.html</loc>
+    <lastmod>2024-01-25T07:46:02.959Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ahmadazim.github.io/STAT117/schedule.html</loc>
+    <lastmod>2024-01-25T12:15:14.580Z</lastmod>
   </url>
 </urlset>

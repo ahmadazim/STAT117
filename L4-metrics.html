@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2024-02-01">
+<meta name="dcterms.date" content="2023-02-02">
 
 <title>STAT 117: Data Analysis in Modern Biostatistics</title>
 <style>
@@ -179,6 +179,10 @@ window.Quarto = {
     <a class="nav-link" href="./about.html"> 
 <span class="menu-text">Syllabus</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./schedule.html"> 
+<span class="menu-text">Schedule</span></a>
+  </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-lectures" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Lectures</span>
@@ -202,27 +206,27 @@ window.Quarto = {
   </li>  
         <li>
     <a class="dropdown-item" href="./L5-decision.html">
- <span class="dropdown-text">Lecture 5: Decision Analysis</span></a>
+ <span class="dropdown-text">Lecture 5 (February 7, 2023) Decision Analysis</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./L6-bayes.html">
- <span class="dropdown-text">Lecture 6: Bayesian Modeling</span></a>
+ <span class="dropdown-text">Lecture 6 (February 9, 2023) Bayesian Modeling</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./L7-mcmc.html">
- <span class="dropdown-text">Lecture 7: Monte Carlo Markov Chains</span></a>
+ <span class="dropdown-text">Lecture 7 (February 14, 2023) Monte Carlo Markov Chains</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./L8-timetoevent.html">
- <span class="dropdown-text">Lecture 8: Time to Event Data</span></a>
+ <span class="dropdown-text">Lecture 8 (February 16, 2023) Time to Event Data</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./L9-comparing.html">
- <span class="dropdown-text">Lecture 9: Comparing Criteria for Biomarker Discovery</span></a>
+ <span class="dropdown-text">Lecture 9 (February 21, 2023) Comparing Criteria for Biomarker Discovery</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./L10-fdr.html">
- <span class="dropdown-text">Lecture 10: False Discovery Rates</span></a>
+ <span class="dropdown-text">Lecture 10 (February 28, 2023) False Discovery Rates</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./L11-regmean.html">
@@ -233,8 +237,13 @@ window.Quarto = {
  <span class="dropdown-text">Lecture 12: Shrinkage</span></a>
   </li>  
         <li>
+    <a class="dropdown-item" href="./L14-shrinkage2.html">
+ <span class="dropdown-text">Lecture 14 (March 21, 2023) Shrinkage part 2</span></a>
+  </li>  
+        <li class="dropdown-header">L15-metaanlysis2.qmd</li>
+        <li>
     <a class="dropdown-item" href="./L17-twomarkers.html">
- <span class="dropdown-text">Lecture 17</span></a>
+ <span class="dropdown-text">Lecture 17 (March 29, 2023)</span></a>
   </li>  
     </ul>
   </li>
@@ -300,7 +309,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">February 1, 2024</p>
+      <p class="date">February 2, 2023</p>
     </div>
   </div>
   
@@ -345,19 +354,7 @@ Debulking
 </div>
 </div>
 <p>We will further define the debulking variable to be <span class="math inline">\(1\)</span> if optimal, and <span class="math inline">\(0\)</span> if suboptimal. For <code>ZNF487</code> this results in higher levels of gene expression being generally associated with optimal debulking.</p>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Question for Debate
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>The dichotomization of phenotypes or labels (e.g.&nbsp;categorizing tumor debulking status as ‘successful’ or ‘not successful’) often oversimplifies complex clinical realities. How does this impacts clinical decision-making?</p>
-</div>
-</div>
+<div style="page-break-after: always;"></div>
 </section>
 <section id="visualizations-of-biomarker-distribution-conditional-on-outcome" class="level2">
 <h2 class="anchored" data-anchor-id="visualizations-of-biomarker-distribution-conditional-on-outcome">Visualizations of Biomarker Distribution Conditional on Outcome</h2>
@@ -672,19 +669,7 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 </div>
 </div>
 <p>An even more important disconnect between statistical significance and clinical utility occurs in larger studies, where biomarker may achieve a rejection of the null as a result of biologically weak differences between the two class conditional distributions.</p>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Question for Debate
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>How do statistical summary measures like p-values and confidence intervals align with or differ from what is clinically meaningful in practice, especially in the context of biomarker evaluation?</p>
-</div>
-</div>
+<div style="page-break-after: always;"></div>
 <p>Finally, we discuss on how the ROC relates to the CDF and the labeling of positive and negative cases. Suppose that large or high values of the biomarker are associated with positive cases. In such a case, the ROC curve is created by plotting the following function:</p>
 <p><span class="math display">\[
 ROC_p = \{1-F_0(c), 1-F_1(c)\} \qquad \text{for} \ -\infty &lt; c &lt; \infty
@@ -829,19 +814,7 @@ Setting direction: controls &lt; cases</code></pre>
 </div>
 </div>
 </div>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Question for Debate
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>What are some of the applications, limitations, and interpretations of ROC curves and AUC in the assessment of biomarkers, particularly in the presence of class imbalances and multiple decision thresholds?</p>
-</div>
-</div>
+<p>Open for comments.</p>
 <div style="page-break-after: always;"></div>
 </section>
 <section id="pr-comparison" class="level3">
