@@ -1,0 +1,48 @@
+---
+title: "Schedule"
+---
+
+
+Tentative Weekly Outline. L = Lecture S = Section
+
+| Date            | Event | Topic                                         | Assignments and Deadlines                       |
+|-----------------|-------|-----------------------------------------------|-------------------------------------------------|
+| Jan 23          | L1    | Course introduction                           |                                                 |
+| Jan 25          | L2    | Cancer Evolution; Biomarkers                  |                                                 |
+| Jan 30          | L3    | Gene Expression Data                          |                                                 |
+| Jan 30 & Jan 31 | S1    | R tools                                       | Homework 1 (BE) Released                        |
+| Feb 1           | L4    | Biomarker Evaluation (BE)                     |                                                 |
+| Feb 6           | L5    | Decision Analysis                             |                                                 |
+| Feb 6 & 7       | S2    | PPV; ROC examples                             | Project 1 Released                              |
+| Feb 8           | L6    | Bayesian Analysis                             | Homework 1 (BE) Due                             |
+| Feb 13          | L7    | MCMC                                          |                                                 |
+| Feb 13 & 14     | S3    | Rjags                                         |                                                 |
+| Feb 15          | L8    | Time-to-event Data                            | Project 1 (MCMC on BE) Due                      |
+| Feb 20          | L9    | Comparing Criteria for Biomarker Discovery    |                                                 |
+| Feb 20 & 21     | S4    | Code for Biomarker Metrics                    |                                                 |
+| Feb 22          | P1    |                                               | Homework 2 (Discovery) Released                 |
+| Feb 27          | L10   | False Discovery Rates                         |                                                 |
+| Feb 27 & Feb 28 | S5    | FDR                                           |                                                 |
+| Feb 29          | L11   | Regression to the Mean                        | Homework 2 (Discovery) Due                      |
+| Mar 5           | L12   | Shrinkage                                     |                                                 |
+| Mar 5 & 6       | S7    | Midterm review                                | Take-home midterm exam window opens             |
+| Mar 7           | L13   | MCMC for Hierarchical Models over Genes       | Homework 3 (Meta-analysis) Released             |
+|                 |       | *SPRING BREAK*                                |                                                 |
+| Mar 19          | L14   | Meta-analysis                                 | Take-home midterm exam window closes            |
+| Mar 19 & 20     | S8    | meta package                                  |                                                 |
+| Mar 21          | L15   | MCMC for Hierarchical Models over Studies     | Homework 3 (Meta-analysis) Due                  |
+| Mar 26          | L16   | Top Scoring Pairs                             | Project 2 Released                              |
+| Mar 26 & 27     | S9    | switchbox package                             |.                                                |
+| Mar 28          | L17   | Basic Biomarker Combination                   | Project 2 Due                                   |
+| Apr 2           | P2a   |                                               |                                                 |
+| Apr 2 & 3       | S9    | Final project prep                            |                                                 |
+| Apr 4           | P2b   |                                               | Homework 4 (TSP; +/-) Released                  |
+| Apr 9           | L18   | Prediction of Future Studies                  |                                                 |
+| Apr 9 & 10      | S10   |                                               | Final Project Released                          |
+| Apr 11          | L19   | Validation Designs and Model Evaluation       | Homework 4 (TSP; +/-) Due                       |
+| Apr 16          |       |                                               |                                                 |
+| Apr 18          |       | Class Presentations for Final Projects        |                                                 |
+| Apr 23          |       |                                               |                                                 |
+| Apr 25          |       | *Reading Period*.                             |                                                 |
+|                 |       | **Final Project Due May 2nd by 11:59 PM**     |                                                 |
+

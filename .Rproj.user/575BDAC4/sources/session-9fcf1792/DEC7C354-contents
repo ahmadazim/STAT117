@@ -1,5 +1,8 @@
 ---
-date: February 1, 2024
+date: February 2, 2023
+format: 
+  html:
+    columns: 2
 ---
 
 {{< pagebreak >}}
@@ -30,12 +33,7 @@ table(pData(GSE32063_eset)[,"debulking"])
 
 We will further define the debulking variable to be $1$ if optimal, and $0$ if suboptimal. For `ZNF487` this results in higher levels of gene expression being generally associated with optimal debulking.
 
-::: callout-important
-## Question for Debate
-
-The dichotomization of phenotypes or labels (e.g. categorizing tumor debulking status as 'successful' or 'not successful’) often oversimplifies complex clinical realities. How does this impacts clinical decision-making?
-:::
-
+{{< pagebreak >}}
 
 ## Visualizations of Biomarker Distribution Conditional on Outcome
 
@@ -247,11 +245,7 @@ wilcox.test(XX_ANKRD66[YY_ANKRD66==TRUE],
 
 An even more important disconnect between statistical significance and clinical utility occurs in larger studies, where biomarker may achieve a rejection of the null as a result of biologically weak differences between the two class conditional distributions.
 
-::: callout-important
-## Question for Debate
-
-How do statistical summary measures like p-values and confidence intervals align with or differ from what is clinically meaningful in practice, especially in the context of biomarker evaluation?
-:::
+{{< pagebreak >}}
 
 Finally, we discuss on how the ROC relates to the CDF and the labeling of positive and negative cases. Suppose that large or high values of the biomarker are associated with positive cases. In such a case, the ROC curve is created by plotting the following function:
 
@@ -357,12 +351,7 @@ plot(roc(YY,XX),lwd=2,col="blue")
 plot(roc(YY,XX_ZNF585B),lwd=2,col="orange",add=TRUE)
 ```
 
-::: callout-important
-## Question for Debate
-
-What are some of the applications, limitations, and interpretations of ROC curves and AUC in the assessment of biomarkers, particularly in the presence of class imbalances and multiple decision thresholds?
-:::
-
+Open for comments.
 
 \newpage
 

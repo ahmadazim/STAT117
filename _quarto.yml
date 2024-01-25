@@ -10,6 +10,7 @@ website:
       - href: index.qmd
         text: Home
       - about.qmd
+      - schedule.qmd
       - text: "Lectures"
         menu:
           - L1-intro.qmd

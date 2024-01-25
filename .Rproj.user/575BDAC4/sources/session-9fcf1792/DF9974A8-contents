@@ -1,6 +1,6 @@
 \newpage
 
-# Lecture 7: Monte Carlo Markov Chains
+# Lecture 7 (February 14, 2023) Monte Carlo Markov Chains
 
 ## Monte Carlo Markov Chains (MCMC)
 
@@ -12,35 +12,34 @@ In more complex situations, for example when we are dealing with prior knowledge
 
 \newpage
 
-### Gibbs and Metropolis Sampling
+### Gibbs and Metropolis Sampling 
 
 To motivate, we note that the expectation of any function $f$ of a random variable $\theta$ with distribution $p(\theta)$ can be estimated arbitrarily accurately by:
 
-```{=tex}
 \begin{itemize}
 \item Generating a sample $\theta^1, \ldots \theta^M$
 \item Evaluating $$ E ( f(\theta) ) \approx \frac 1M \sum_1^M f(\theta^m)$$
 \end{itemize}
-```
-In \textbf{Gibbs Sampling}, a Monte Carlo sample from the joint distribution $p (\theta_1,\theta_2)$ can be obtained by iteratively sampling $p(\theta_1 | \theta_2)$ and $p(\theta_2 | \theta_1)$, where these are known distributions, called "full conditional" distributions.
+
+In \textbf{Gibbs Sampling}, a Monte Carlo sample from the joint distribution 
+$p (\theta_1,\theta_2)$ can be obtained by iteratively sampling $p(\theta_1 | \theta_2)$ and $p(\theta_2 | \theta_1)$, where these are known distributions, called "full conditional" distributions. 
 
 This is especially useful when the full conditionals are easy to sample from, but works in general, because full conditionals tend to be far more amenable to decent approximations that their multivariate counterparts.
 
-When the full conditionals are not easily tractable, a useful alternative is the Metropolis sampling algorithm.
+When the full conditionals are not easily tractable, a useful alternative is the Metropolis sampling algorithm. 
 
-```{=tex}
 \begin{itemize}
 \item Start with a symmetric transition kernel $q(\theta^m, \theta^{m+1})$.
 \item Given a current state $\theta^m$ this is used to generate a candidate next state $\theta^*$.
 \item Then either the transition is accepted and $\theta^{m+1} = \theta^*$ or it is not when $\theta^{m+1} = \theta^{m}$. The probability that the move is accepted is $min \left\{ 1, \frac {p(\theta^*)}{ p(\theta^{m})} \right\}$.
 \end{itemize}
-```
-Most Bayesian texts, including "Modeling in Medical Decision Making" on Canvas have chapters on MCMC. A nice monograph is [\@Gamerman2006](https://www.pdfdrive.com/markov-chain-monte-carlo-stochastic-simulation-for-bayesian-inference-e168647228.html).
+
+Most Bayesian texts, including "Modeling in Medical Decision Making" on Canvas have chapters on MCMC.
+A nice monograph is [@Gamerman2006](https://www.pdfdrive.com/markov-chain-monte-carlo-stochastic-simulation-for-bayesian-inference-e168647228.html).
 
 I find [Chi Feng's Animations](http://chi-feng.github.io/mcmc-demo/) extremely effective to getan intuition for these samplers!
 
 \newpage
-
 ## A simple parametric model for ZNF487
 
 ### Data
@@ -68,7 +67,8 @@ plot(exp(XX),YY,xlab=c("Expression of",GeneName),cex=2)
 
 ### Likelihood and Prior
 
-To illustrate, we model the two class conditional distributions of expression using gamma densities. The model specification is in this code chunk, which we will feed to JAGS via rJAGS below. JAGS is persnickety about paramter inputs. Check section 9.2 of the [JAGS manual](https://people.stat.sc.edu/hansont/stat740/jags_user_manual.pdf).
+To illustrate, we model the two class conditional distributions of expression using gamma densities.
+The model specification is in this code chunk, which we will feed to JAGS via rJAGS below. JAGS is persnickety about paramter inputs. Check section 9.2 of the [JAGS manual](https://people.stat.sc.edu/hansont/stat740/jags_user_manual.pdf).
 
 ```{r}
 GamModel ="model {
@@ -89,6 +89,7 @@ ss0, rr0, ss1 and rr1 are unknown shape and rate parameters. They are by definit
 ```{r, fig.cap="Illustration of the Effect of Precision on Half Normal Prior"}
 hist(abs(rnorm(1600,0,sd=sqrt(1/.001))),main="",xlab="parameter (rr or ss)",nclass=50)
 ```
+
 
 \newpage
 
@@ -124,6 +125,7 @@ GamModelJ = jags.model(textConnection(GamModel),
 mcmc.out = coda.samples(GamModelJ,c("rr0","rr1","ss0","ss1"),n.iter = 9000,thin=100)
 ```
 
+
 \newpage
 
 ### Trace Plots
@@ -141,7 +143,7 @@ plot(mcmc.out.short,smooth=F,auto.layout=T)
 
 \newpage
 
-The same diagnostic on the longer chain, after removing the burn-in, looks fine.
+The same diagnostic on the longer chain, after removing the burn-in, looks fine. 
 
 ```{r, fig.cap = "MCMC Trace"}
 cex <- 0.7
@@ -167,7 +169,9 @@ ss0 = as.vector(mcmc.out[[1]][,"ss0"]) # shape in dgamma R function (not to be c
 ss1 = as.vector(mcmc.out[[1]][,"ss1"])
 ```
 
-Each value of the chain gives us a model-based estimate of the class-conditional distributions. A straightforward summary is to average these densities point-wise over a grid.
+
+Each value of the chain gives us a model-based estimate of the class-conditional distributions.
+A straightforward summary is to average these densities point-wise over a grid.
 
 \newpage
 
@@ -199,10 +203,9 @@ pi = .1
 ppv.postmean = apply ( 1 / ( 1 + ((1-pi)/pi) * (ff0/ff1) ), 1, mean)
 plot(log(xx), ppv.postmean, xlab="Log Expression",ylab="Probability of Optimal Debulking",type="l",ylim=c(0,1))
 ```
-
 ### Posterior Uncertianty in Benefit Curves
 
-Importantly, we can also analyze the variability. We focus here on visualizing variability of the benefit curve. We evaluate the benefit curve at each draw of the parameter values, and graph a small subset.
+Importantly, we can also analyze the variability. We focus here on visualizing variability of the benefit curve. We evaluate the benefit curve at each draw of the parameter values, and graph a small subset. 
 
 ```{r}
 benefit.uncertain = function(pp,
@@ -239,6 +242,7 @@ return(list(tau=tau,benefitMarker=benefitMarker,
 }
 ```
 
+
 ```{r, fig.cap="Benefit of Biomarker against tau, with uncertainty. Prevalence .2"}
 set.seed(314)
 BU = benefit.uncertain(1/6)
@@ -248,9 +252,7 @@ plot(log(BU$tau),BU$benefitMarker[,1],
 for(ll in 1:ncol(BU$benefitMarker)) lines(log(BU$tau),BU$benefitMarker[,ll])
 abline(0,0)
 ```
-
 \newpage
-
 ```{r, fig.cap="Benefit of Biomarker against tau, with uncertainty. Prevalence .4"}
 BU = benefit.uncertain(.25)
 plot(log(BU$tau),BU$benefitMarker[,1],
@@ -259,7 +261,8 @@ plot(log(BU$tau),BU$benefitMarker[,1],
 for(ll in 2:ncol(BU$benefitMarker)) lines(log(BU$tau),BU$benefitMarker[,ll])
 abline(0,0)
 ```
-
 \newpage
 
 ## References
+
+
