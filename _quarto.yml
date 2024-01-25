@@ -1,6 +1,8 @@
 project:
   type: website
 
+bibliography: references.bib
+
 website:
   title: "STAT 117: Data Analysis in Modern Biostatistics"
   navbar:
@@ -33,6 +35,8 @@ format:
     theme: cosmo
     css: styles.css
     toc: true
+    includes:
+      lightbox: true
 
 editor: visual
 execute:

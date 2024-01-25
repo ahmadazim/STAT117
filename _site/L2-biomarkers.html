@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2023-01-26">
+<meta name="dcterms.date" content="2024-01-25">
 
 <title>STAT 117: Data Analysis in Modern Biostatistics</title>
 <style>
@@ -25,6 +25,7 @@ ul.task-list li input[type="checkbox"] {
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -223,7 +224,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 26, 2023</p>
+      <p class="date">January 25, 2024</p>
     </div>
   </div>
   
@@ -239,7 +240,7 @@ div.csl-indent {
 <h1>Lecture 2: Cancer Biomarkers</h1>
 <section id="cancer-evolution" class="level2">
 <h2 class="anchored" data-anchor-id="cancer-evolution">Cancer Evolution</h2>
-<p>Cancer arises from evolution of cells within tissues. Changes in the genome code and organization result in changes in cell characteristics. Natural selection operates on this variability so that, for example, cells that divide faster and invade surrounding tissues are sometimes able to grow large colonies and generate tumors. <span class="citation" data-cites="Podlaha:2012vw">@Podlaha:2012vw</span> explains these concepts. <a href="#fig-cancerEvolution" class="quarto-xref">Figure&nbsp;1</a> From <span class="citation" data-cites="Podlaha:2012vw">@Podlaha:2012vw</span> illustrates the typical stages of cancer progression for a cancer that resists to treatment. In this example, we begin with normal cells (blue circles). The progression to cancer starts when a cell acquires a genetic change (for example a DNA mutation, or a chromosomal translocation) which results in a larger and more fit population compared to the normal cells. <span class="citation" data-cites="Podlaha:2012vw">@Podlaha:2012vw</span> remarks that “This process involves the evolution of multiple ‘novel’ cellular traits. Most somatic alterations in epithelial cells lining the colon, for instance, are not advantageous and will disappear with the death of a cell. Occasionally, an alteration that increases the proliferation rate of a cell arises, allowing this cell to increase in number. This population of ‘rogue’ cells can decline with the onset of anti-cancer therapy; however, the arrival of an alteration conferring drug resistance reverses the effects of treatment and allows new growth (b). In some cases, resistance to an anti-cancer drug may already be present in a small subset of tumor cells. In such a scenario, the population of sensitive cancer cells will decline and eventually be replaced by drug-resistant cells. Further alterations may be necessary to enable tumor cells to metastasize (c) and spread to other tissues (d).”</p>
+<p>Cancer arises from evolution of cells within tissues. Changes in the genome code and organization result in changes in cell characteristics. Natural selection operates on this variability so that, for example, cells that divide faster and invade surrounding tissues are sometimes able to grow large colonies and generate tumors. <span class="citation" data-cites="Podlaha:2012vw">Podlaha et al. (<a href="#ref-Podlaha:2012vw" role="doc-biblioref">2012</a>)</span> explains these concepts. <a href="#fig-cancerEvolution" class="quarto-xref">Figure&nbsp;1</a> From <span class="citation" data-cites="Podlaha:2012vw">Podlaha et al. (<a href="#ref-Podlaha:2012vw" role="doc-biblioref">2012</a>)</span> illustrates the typical stages of cancer progression for a cancer that resists to treatment. In this example, we begin with normal cells (blue circles). The progression to cancer starts when a cell acquires a genetic change (for example a DNA mutation, or a chromosomal translocation) which results in a larger and more fit population compared to the normal cells. <span class="citation" data-cites="Podlaha:2012vw">Podlaha et al. (<a href="#ref-Podlaha:2012vw" role="doc-biblioref">2012</a>)</span> remarks that “This process involves the evolution of multiple ‘novel’ cellular traits. Most somatic alterations in epithelial cells lining the colon, for instance, are not advantageous and will disappear with the death of a cell. Occasionally, an alteration that increases the proliferation rate of a cell arises, allowing this cell to increase in number. This population of ‘rogue’ cells can decline with the onset of anti-cancer therapy; however, the arrival of an alteration conferring drug resistance reverses the effects of treatment and allows new growth (b). In some cases, resistance to an anti-cancer drug may already be present in a small subset of tumor cells. In such a scenario, the population of sensitive cancer cells will decline and eventually be replaced by drug-resistant cells. Further alterations may be necessary to enable tumor cells to metastasize (c) and spread to other tissues (d).”</p>
 <div id="fig-cancerEvolution" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-cancerEvolution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -254,7 +255,7 @@ Figure&nbsp;1: Cancer Evolution a the Cell Level
 </section>
 <section id="cancer-causes" class="level2">
 <h2 class="anchored" data-anchor-id="cancer-causes">Cancer Causes</h2>
-<p>Many factors contribute to the changes in the genome represented by a lighting in <a href="#fig-cancerEvolution" class="quarto-xref">Figure&nbsp;1</a>. <span class="citation" data-cites="Song2018s">@Song2018s</span> review the main categories of causes, also summarized in <a href="#fig-cancerCauses" class="quarto-xref">Figure&nbsp;2</a></p>
+<p>Many factors contribute to the changes in the genome represented by a lighting in <a href="#fig-cancerEvolution" class="quarto-xref">Figure&nbsp;1</a>. <span class="citation" data-cites="Song2018s">Song et al. (<a href="#ref-Song2018s" role="doc-biblioref">2018</a>)</span> review the main categories of causes, also summarized in <a href="#fig-cancerCauses" class="quarto-xref">Figure&nbsp;2</a></p>
 <div id="fig-cancerCauses" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-cancerCauses-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -353,12 +354,12 @@ Figure&nbsp;2: Categories of Cancer Causes and their Position in Cancer Evolutio
 <embed src="Figures/Biomarkers.pdf" class="img-fluid">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-useBiomarkers-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3: Broad Categories of Use for Biomarkers from <span class="citation" data-cites="ou2021jto">@ou2021jto</span>
+Figure&nbsp;3: Broad Categories of Use for Biomarkers from <span class="citation" data-cites="ou2021jto">Ou et al. (<a href="#ref-ou2021jto" role="doc-biblioref">2021</a>)</span>
 </figcaption>
 </figure>
 </div>
 <p>Additional readings:</p>
-<p>Context: <span class="citation" data-cites="Srivastava2020cebp">@Srivastava2020cebp</span>; Broad Statistical Perspective: <span class="citation" data-cites="ou2021jto">@ou2021jto</span></p>
+<p>Context: <span class="citation" data-cites="Srivastava2020cebp">Srivastava and Wagner (<a href="#ref-Srivastava2020cebp" role="doc-biblioref">2020</a>)</span>; Broad Statistical Perspective: <span class="citation" data-cites="ou2021jto">Ou et al. (<a href="#ref-ou2021jto" role="doc-biblioref">2021</a>)</span></p>
 <div style="page-break-after: always;"></div>
 </section>
 <section id="high-throughput-biology" class="level3">
@@ -435,7 +436,7 @@ Figure&nbsp;3: Broad Categories of Use for Biomarkers from <span class="citation
 </section>
 <section id="premises-for-measuring-gene-expression-profiles" class="level3">
 <h3 class="anchored" data-anchor-id="premises-for-measuring-gene-expression-profiles">Premises for Measuring Gene Expression Profiles</h3>
-<p>In our course we will use high throughput “transcriptomics” data. This is a quantification of the number of copies of messenger RNAs in a sample. We will label RNA measurement by “gene” —these “genes” will be our candidate biomarkers. The next lecture will go into more detail into how this is done. For now it is important to understand that old-fashioned genes are a limited and somewhat arbitrary way of organizing information from RNA analysis. The “What is a gene?” box in <span class="citation" data-cites="Hatje2019be">@Hatje2019be</span> is a very thoughtful and concise explanation. Highly recommended.</p>
+<p>In our course we will use high throughput “transcriptomics” data. This is a quantification of the number of copies of messenger RNAs in a sample. We will label RNA measurement by “gene” —these “genes” will be our candidate biomarkers. The next lecture will go into more detail into how this is done. For now it is important to understand that old-fashioned genes are a limited and somewhat arbitrary way of organizing information from RNA analysis. The “What is a gene?” box in <span class="citation" data-cites="Hatje2019be">Hatje et al. (<a href="#ref-Hatje2019be" role="doc-biblioref">2019</a>)</span> is a very thoughtful and concise explanation. Highly recommended.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -456,7 +457,7 @@ RNA levels have a higher likelihood of being accurate predictors of phenotype (a
 </div>
 </div>
 <p>A useful resource for those with limited biology lingo under their belt is the <a href="https://www.genome.gov/genetics-glossary">Talking Glossary of Genomic and Genetic Terms</a></p>
-<p>And for those who like historical landmarks…. <span class="citation" data-cites="Gilbert1978n">@Gilbert1978n</span></p>
+<p>And for those who like historical landmarks…. <span class="citation" data-cites="Gilbert1978n">Gilbert (<a href="#ref-Gilbert1978n" role="doc-biblioref">1978</a>)</span></p>
 <div style="page-break-after: always;"></div>
 </section>
 <section id="discussion-example" class="level3">
@@ -548,8 +549,25 @@ Reverse Causation
 </section>
 <section id="references" class="level2">
 <h2 class="anchored" data-anchor-id="references">References</h2>
-<div id="refs" role="list">
-
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Gilbert1978n" class="csl-entry" role="listitem">
+Gilbert, Walter. 1978. <span>“Why Genes in Pieces?”</span> <em>Nature</em> 271 (5645): 501–1. <a href="https://doi.org/10.1038/271501a0">https://doi.org/10.1038/271501a0</a>.
+</div>
+<div id="ref-Hatje2019be" class="csl-entry" role="listitem">
+Hatje, Klas, Stefanie Mühlhausen, Dominic Simm, and Martin Kollmar. 2019. <span>“The Protein-Coding Human Genome: Annotating High-Hanging Fruits.”</span> <em>BioEssays</em> 41 (11): 1900066. https://doi.org/<a href="https://doi.org/10.1002/bies.201900066">https://doi.org/10.1002/bies.201900066</a>.
+</div>
+<div id="ref-ou2021jto" class="csl-entry" role="listitem">
+Ou, Fang-Shu, Stefan Michiels, Yu Shyr, Alex A Adjei, and Ann L Oberg. 2021. <span>“Biomarker Discovery and Validation: Statistical Considerations.”</span> <em>Journal of Thoracic Oncology</em> 16 (4): 537–45. <a href="https://www.jto.org/article/S1556-0864(21)01663-4/fulltext">https://www.jto.org/article/S1556-0864(21)01663-4/fulltext</a>.
+</div>
+<div id="ref-Podlaha:2012vw" class="csl-entry" role="listitem">
+Podlaha, Ondrej, Markus Riester, Subhajyoti De, and Franziska Michor. 2012. <span>“<span class="nocase">Evolution of the cancer genome.</span>”</span> <em>Trends in Genetics</em> 28 (4): 155–63. <a href="https://doi.org/10.1016/j.tig.2012.01.003">https://doi.org/10.1016/j.tig.2012.01.003</a>.
+</div>
+<div id="ref-Song2018s" class="csl-entry" role="listitem">
+Song, Mingyang, Bert Vogelstein, Edward L. Giovannucci, Walter C. Willett, and Cristian Tomasetti. 2018. <span>“Cancer Prevention: Molecular and Epidemiologic Consensus.”</span> <em>Science</em> 361 (6409): 1317–18. <a href="https://doi.org/10.1126/science.aau3830">https://doi.org/10.1126/science.aau3830</a>.
+</div>
+<div id="ref-Srivastava2020cebp" class="csl-entry" role="listitem">
+Srivastava, Sudhir, and Paul D. Wagner. 2020. <span>“<span class="nocase">The Early Detection Research Network: A National Infrastructure to Support the Discovery, Development, and Validation of Cancer Biomarkers</span>.”</span> <em>Cancer Epidemiology, Biomarkers &amp; Prevention</em> 29 (12): 2401–10. <a href="https://doi.org/10.1158/1055-9965.EPI-20-0237">https://doi.org/10.1158/1055-9965.EPI-20-0237</a>.
+</div>
 </div>
 
 

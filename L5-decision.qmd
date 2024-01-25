@@ -1,4 +1,6 @@
-{{< pagebreak >}}
+---
+date: February 6, 2024
+---
 
 # Lecture 5: Decision Analysis
 

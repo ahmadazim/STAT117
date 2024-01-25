@@ -6,6 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2024-02-06">
 
 <title>STAT 117: Data Analysis in Modern Biostatistics</title>
 <style>
@@ -58,6 +59,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -271,17 +273,37 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+</div>
 
 
 
-<div style="page-break-after: always;"></div>
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 6, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
 <section id="lecture-5-decision-analysis" class="level1">
 <h1>Lecture 5: Decision Analysis</h1>
 <section id="decision-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="decision-analysis">Decision Analysis</h2>
 <section id="decision-tree" class="level3">
 <h3 class="anchored" data-anchor-id="decision-tree">Decision Tree</h3>
-<p>We will now introduce biomarker analysis through a decision-theoretic framework. “Modeling in Medical Decision Making” goes over these concepts in detail. I posted a copy on the canvas files. A seminal paper on this topic in the medical area is <span class="citation" data-cites="Pauker1980nejm">[@Pauker1980nejm]</span>.</p>
+<p>We will now introduce biomarker analysis through a decision-theoretic framework. “Modeling in Medical Decision Making” goes over these concepts in detail. I posted a copy on the canvas files. A seminal paper on this topic in the medical area is <span class="citation" data-cites="Pauker1980nejm">(<a href="#ref-Pauker1980nejm" role="doc-biblioref">Pauker and Kassirer 1980</a>)</span>.</p>
 <p>We try to model the clinical application of biomarker expressions levels to medical decision making. Our model can be use to quantify the value using the marker for specific individuals and groups, and ca also be used to determine the optimal threshold for a continuous marker in a formal way. We begin with a fixed threshold.</p>
 <p>To motivate our discussion, we introduce an example where a clinician must make an informed decision regarding whether to conduct a surgery for an ovarian cancer patient when it is not known ahead of time whether the surgery can be performed “optimally” as defined earlier. Should the clinician conduct a surgery where the tumor is operable optimally, then a large utility should be subsequently accrued by the patient. However, a low utility may be experienced by the patient when a surgery is performed while the tumor was only amanable to a suboptimal outcome. We present the following decision tree that captures such a scenario.</p>
 <div class="quarto-figure quarto-figure-center">
@@ -439,8 +461,10 @@ Negative Benefit?
 </section>
 <section id="references" class="level2">
 <h2 class="anchored" data-anchor-id="references">References</h2>
-<div id="refs" role="list">
-
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Pauker1980nejm" class="csl-entry" role="listitem">
+Pauker, Stephen G, and Jerome P Kassirer. 1980. <span>“The Threshold Approach to Clinical Decision Making.”</span> <em>New England Journal of Medicine</em> 302 (20): 1109–17.
+</div>
 </div>
 
 

@@ -1,4 +1,6 @@
-\newpage
+---
+date: February 8, 2024
+---
 
 # Lecture 6: Bayesian Modeling
 

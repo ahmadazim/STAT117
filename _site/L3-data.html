@@ -59,6 +59,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -306,7 +307,7 @@ Reading Notes
 <ul>
 <li><p>RMA (slides 13-17) was used to preprocess the data we will use. A high-level understanding is useful. It produces summaries of expression at the level of the probe-set.</p></li>
 <li><p>It is useful to know the difference between a probe (a single 25-nucleotide sequence), a probe-set (a group of probes predicted to appear on the coding sequence of a gene) and a gene (a region of DNA believed to often be the source of information for the production of a particular set of related proteins).</p></li>
-<li><p>Multiple probe-sets can map the same gene (for a digression about this see <span class="citation" data-cites="stalteri2007bmcb">[@stalteri2007bmcb]</span>) To keep things simple and to cross-reference features across technologies we have averaged over these and will use data at the gene level <span class="citation" data-cites="ganzfried2013curatedovariandata">[@ganzfried2013curatedovariandata]</span>.</p></li>
+<li><p>Multiple probe-sets can map the same gene (for a digression about this see <span class="citation" data-cites="stalteri2007bmcb">(<a href="#ref-stalteri2007bmcb" role="doc-biblioref">Stalteri and Harrison 2007</a>)</span>) To keep things simple and to cross-reference features across technologies we have averaged over these and will use data at the gene level <span class="citation" data-cites="ganzfried2013curatedovariandata">(<a href="#ref-ganzfried2013curatedovariandata" role="doc-biblioref">Ganzfried et al. 2013</a>)</span>.</p></li>
 <li><p>Think about quantile normalization (QN) when looking at Slide 19. Does QN help? Does it remove the artifact in bad.cel completely? Does it remove the “fog” in NEG10-1?</p></li>
 <li><p>We will cover differential expression later in the course (Slides 23-29). You are welcome to take a peek, but you can skip for now.</p></li>
 <li><p>Each of the bullets on Slide 30 embeds its own sources of both noise and systematic biases.</p></li>
@@ -342,7 +343,7 @@ Question for Debate
 <section id="batch-effects" class="level2">
 <h2 class="anchored" data-anchor-id="batch-effects">Batch Effects</h2>
 <p>High-throughput biology data are often produced in batches for efficiency or practical restrictions. Differences across how these batches are handled (in any of the bullets in Slide 30 of <a href="https://cbdm.uni-mainz.de/files/2016/02/GE_microarrays.pdf">Katerina Taskova’s Introduction to Microarray Analysis</a>), can drive significant variation across batches, resulting in so-called batch effects.</p>
-<p>CuratedOvarianData has been preprocessed to adjust for batches defined by the study of origin using <a href="https://www.bu.edu/jlab/wp-assets/ComBat/Download.html">Combat</a> <span class="citation" data-cites="Johnson2006">[@Johnson2006]</span>. Other batch effects may be present.</p>
+<p>CuratedOvarianData has been preprocessed to adjust for batches defined by the study of origin using <a href="https://www.bu.edu/jlab/wp-assets/ComBat/Download.html">Combat</a> <span class="citation" data-cites="Johnson2006">(<a href="#ref-Johnson2006" role="doc-biblioref">Johnson, Li, and Rabinovic 2006</a>)</span>. Other batch effects may be present.</p>
 <p><a href="https://doi.org/10.1038/nrg2825">@Leek2010nrg</a> wrote a useful overview of batch effects.</p>
 <div style="page-break-after: always;"></div>
 </section>
@@ -503,7 +504,7 @@ Quantile Normlization
 </div>
 </div>
 <div style="page-break-after: always;"></div>
-<p>Clustered heatmap of the top 100 most variable genes in the Yoshirara study. The technology is Agilent. <a href="https://doi.org/10.1158/1078-0432.CCR-11-2725">@yoshihara2012</a> describes the preprocessing approach. This set of 40 patients is “Dataset B” in <span class="citation" data-cites="yoshihara2012">[@yoshihara2012]</span>.</p>
+<p>Clustered heatmap of the top 100 most variable genes in the Yoshirara study. The technology is Agilent. <a href="https://doi.org/10.1158/1078-0432.CCR-11-2725">@yoshihara2012</a> describes the preprocessing approach. This set of 40 patients is “Dataset B” in <span class="citation" data-cites="yoshihara2012">(<a href="#ref-yoshihara2012" role="doc-biblioref">Yoshihara et al. 2012</a>)</span>.</p>
 <div class="cell" data-warnings="false">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>sds <span class="ot">=</span> <span class="fu">apply</span>(<span class="fu">exprs</span>(GSE32063_eset),<span class="dv">1</span>,sd)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gplots)</span>
@@ -573,8 +574,19 @@ Question for Debate
 </section>
 <section id="references" class="level2">
 <h2 class="anchored" data-anchor-id="references">References</h2>
-<div id="refs" role="list">
-
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-ganzfried2013curatedovariandata" class="csl-entry" role="listitem">
+Ganzfried, Benjamin Frederick, Markus Riester, Benjamin Haibe-Kains, Thomas Risch, Svitlana Tyekucheva, Ina Jazic, Xin Victoria Wang, et al. 2013. <span>“Curated<span>O</span>varian<span>D</span>ata: Clinically Annotated Data for the Ovarian Cancer Transcriptome.”</span> <em>Database (Oxford)</em> 2013: bat013. <a href="https://doi.org/10.1093/database/bat013">https://doi.org/10.1093/database/bat013</a>.
+</div>
+<div id="ref-Johnson2006" class="csl-entry" role="listitem">
+Johnson, W. Evan, Cheng Li, and Ariel Rabinovic. 2006. <span>“<span class="nocase">Adjusting batch effects in microarray expression data using empirical Bayes methods</span>.”</span> <em>Biostatistics</em> 8 (1): 118–27. <a href="https://doi.org/10.1093/biostatistics/kxj037">https://doi.org/10.1093/biostatistics/kxj037</a>.
+</div>
+<div id="ref-stalteri2007bmcb" class="csl-entry" role="listitem">
+Stalteri, Maria A, and Andrew P Harrison. 2007. <span>“Interpretation of Multiple Probe Sets Mapping to the Same Gene in Affymetrix GeneChips.”</span> <em>BMC Bioinformatics</em> 8 (1). <a href="https://doi.org/10.1186/1471-2105-8-13">https://doi.org/10.1186/1471-2105-8-13</a>.
+</div>
+<div id="ref-yoshihara2012" class="csl-entry" role="listitem">
+Yoshihara, Kosuke, Tatsuhiko Tsunoda, Daichi Shigemizu, Hiroyuki Fujiwara, Masayuki Hatae, Hisaya Fujiwara, Hideaki Masuzaki, et al. 2012. <span>“High-Risk Ovarian Cancer Based on 126-Gene Expression Signature Is Uniquely Characterized by Downregulation of Antigen Presentation Pathway.”</span> <em>Clinical Cancer Research</em> 18 (5): 1374–85. <a href="https://doi.org/10.1158/1078-0432.ccr-11-2725">https://doi.org/10.1158/1078-0432.ccr-11-2725</a>.
+</div>
 </div>
 
 
