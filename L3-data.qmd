@@ -1,5 +1,5 @@
 ---
-date: January 31, 2023
+date: January 30, 2024
 ---
 
 # Lecture 3: Data
@@ -58,6 +58,12 @@ For those interested in understanding RNA-seq a bit more, I recommend the sectio
 
 Microarrays are rarely used for discovery these days. Many of the statistical challenges of biomarker discovery, however, have remained the same. The advantage of using microarrays for this course is there there are far more studies readily available, so certain parts of the course still work a lot better with microarray than RNA-seq.
 
+::: callout-important
+## Question for Debate
+
+What are some of the advantages and disadvantages of RNA-Seq compared to microarray techniques, especially in terms of identification of differentially expressed genes, cost, and other factors?
+:::
+
 {{< pagebreak >}}
 
 ## Batch Effects
@@ -91,6 +97,12 @@ Detailed description of dataset [\@ganzfried2013curatedovariandata](https://acad
 ![This heatmap visualizes for each curated clinical characteristic (rows) the availability in each data set (columns). Red indicates that the corresponding characteristic is available for at least one sample in the data set. See [\@ganzfried2013curatedovariandata](https://academic.oup.com/database/article-abstract/doi/10.1093/database/bat013/330978) for further details.](Figures/GanzfriedF2.pdf)
 
 It may seem disappointing that there are only two clinical annotations that all of these datasets have. When we originally created the dataset we recontacted all the groups that originally generated the data to try to fill as many of the gaps as possible. Unfortunately some of the clinical data may not have been collected, or may not be easy to share due to privacy concerns or investigators' reluctance. Since we compiled this data, the field has moved towards larger coordinated efforts across multiple institutions, which have had better outcomes in terms of completeness and homogeneity of phenotypes. An example is [PCAWG](https://dcc.icgc.org/) but heterogeneity and missingness of labels remain important issues in health data.
+
+::: callout-important
+## Question for Debate
+
+Handling missing data is a prominent challenge, particularly in the context of clinical data collection. What are some effective methods for managing missingness? What assumptions do these make? What would you want to know about data collection to decide which missing data approach makes more sense for your data?
+:::
 
 {{< pagebreak >}}
 
@@ -178,7 +190,11 @@ med.s = apply(exprs(GSE32063_eset),2,median)
 hist(med.s, main ="median by sample")
 ```
 
-\newpage
+::: callout-important
+## Question for Debate
+
+A variety of data normalization are performed in gene expression analysis. What are some of the different methods of normalization, what are some important assumptions they use, and what is their potential impact on data interpretability? For example what is the logic behind assuming that all samples have, say, the same median?
+:::
 
 ## References
 
