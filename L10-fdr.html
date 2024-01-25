@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.353">
+<meta name="generator" content="quarto-1.4.545">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>STAT 117: Data Analysis in Modern Biostatistics – l10-fdr</title>
+<title>STAT 117: Data Analysis in Modern Biostatistics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -79,7 +79,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -88,13 +94,42 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -103,9 +138,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">STAT 117: Data Analysis in Modern Biostatistics</span>
     </a>
@@ -117,81 +152,76 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html" rel="" target="">
- <span class="menu-text">Home</span></a>
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html" rel="" target="">
- <span class="menu-text">Syllabus</span></a>
+    <a class="nav-link" href="./about.html"> 
+<span class="menu-text">Syllabus</span></a>
   </li>  
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-lectures" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-lectures" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Lectures</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-lectures">    
         <li>
-    <a class="dropdown-item" href="./L1-intro.html" rel="" target="">
+    <a class="dropdown-item" href="./L1-intro.html">
  <span class="dropdown-text">Lecture 1 Introduction</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./L2-biomarkers.html" rel="" target="">
+    <a class="dropdown-item" href="./L2-biomarkers.html">
  <span class="dropdown-text">Lecture 2: Cancer Biomarkers</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./L3-data.html" rel="" target="">
+    <a class="dropdown-item" href="./L3-data.html">
  <span class="dropdown-text">Lecture 3: Data</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./L4-metrics.html" rel="" target="">
+    <a class="dropdown-item" href="./L4-metrics.html">
  <span class="dropdown-text">Lecture 4: Basics of Biomarker Evaluation</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./L5-decision.html" rel="" target="">
- <span class="dropdown-text">Lecture 5 (February 7, 2023) Decision Analysis</span></a>
+    <a class="dropdown-item" href="./L5-decision.html">
+ <span class="dropdown-text">Lecture 5: Decision Analysis</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./L6-bayes.html" rel="" target="">
- <span class="dropdown-text">Lecture 6 (February 9, 2023) Bayesian Modeling</span></a>
+    <a class="dropdown-item" href="./L6-bayes.html">
+ <span class="dropdown-text">Lecture 6: Bayesian Modeling</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./L7-mcmc.html" rel="" target="">
- <span class="dropdown-text">Lecture 7 (February 14, 2023) Monte Carlo Markov Chains</span></a>
+    <a class="dropdown-item" href="./L7-mcmc.html">
+ <span class="dropdown-text">Lecture 7: Monte Carlo Markov Chains</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./L8-timetoevent.html" rel="" target="">
- <span class="dropdown-text">Lecture 8 (February 16, 2023) Time to Event Data</span></a>
+    <a class="dropdown-item" href="./L8-timetoevent.html">
+ <span class="dropdown-text">Lecture 8: Time to Event Data</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./L9-comparing.html" rel="" target="">
- <span class="dropdown-text">Lecture 9 (February 21, 2023) Comparing Criteria for Biomarker Discovery</span></a>
+    <a class="dropdown-item" href="./L9-comparing.html">
+ <span class="dropdown-text">Lecture 9: Comparing Criteria for Biomarker Discovery</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./L10-fdr.html" rel="" target="">
- <span class="dropdown-text">Lecture 10 (February 28, 2023) False Discovery Rates</span></a>
+    <a class="dropdown-item" href="./L10-fdr.html">
+ <span class="dropdown-text">Lecture 10: False Discovery Rates</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./L11-regmean.html" rel="" target="">
+    <a class="dropdown-item" href="./L11-regmean.html">
  <span class="dropdown-text">Lecture 11: Regression to the Mean</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./L12-shrinkage.html" rel="" target="">
+    <a class="dropdown-item" href="./L12-shrinkage.html">
  <span class="dropdown-text">Lecture 12: Shrinkage</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./L14-shrinkage2.html" rel="" target="">
- <span class="dropdown-text">Lecture 14 (March 21, 2023) Shrinkage part 2</span></a>
-  </li>  
-        <li class="dropdown-header">L15-metaanlysis2.qmd</li>
-        <li>
-    <a class="dropdown-item" href="./L17-twomarkers.html" rel="" target="">
- <span class="dropdown-text">Lecture 17 (March 29, 2023)</span></a>
+    <a class="dropdown-item" href="./L17-twomarkers.html">
+ <span class="dropdown-text">Lecture 17</span></a>
   </li>  
     </ul>
   </li>
 </ul>
-            <div class="quarto-navbar-tools ms-auto">
-</div>
           </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -204,7 +234,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#lecture-10-february-28-2023-false-discovery-rates" id="toc-lecture-10-february-28-2023-false-discovery-rates" class="nav-link active" data-scroll-target="#lecture-10-february-28-2023-false-discovery-rates">Lecture 10 (February 28, 2023) False Discovery Rates</a>
+  <li><a href="#lecture-10-false-discovery-rates" id="toc-lecture-10-false-discovery-rates" class="nav-link active" data-scroll-target="#lecture-10-false-discovery-rates">Lecture 10: False Discovery Rates</a>
   <ul class="collapse">
   <li><a href="#multiple-testing" id="toc-multiple-testing" class="nav-link" data-scroll-target="#multiple-testing">Multiple Testing</a>
   <ul class="collapse">
@@ -232,15 +262,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
+
 <div style="page-break-after: always;"></div>
-<section id="lecture-10-february-28-2023-false-discovery-rates" class="level1">
-<h1>Lecture 10 (February 28, 2023) False Discovery Rates</h1>
+<section id="lecture-10-false-discovery-rates" class="level1">
+<h1>Lecture 10: False Discovery Rates</h1>
 <section id="multiple-testing" class="level2">
 <h2 class="anchored" data-anchor-id="multiple-testing">Multiple Testing</h2>
 <section id="intro" class="level3">
 <h3 class="anchored" data-anchor-id="intro">Intro</h3>
 <p>In our previous discussion we played with various approaches for discovering sets of promising biomarkers. How can we assess the quality of the discovery process and results? The most basic version of this assessment is based on assuming there is a binary truth at the gene level, representing biomarker with and without biological signal, and that the discovery process is about revealing this vector of binary labels. Formally, this is a multiple hypothesis testing problem.</p>
-<p>The literature of multiple testing is enormously big. A favorite of mine is <a href="https://doi.org/10.1214/ss/1177011945"><span class="citation" data-cites="Tukey:1991ga">@Tukey:1991ga</span></a></p>
+<p>The literature of multiple testing is enormously big. A favorite of mine is <a href="https://doi.org/10.1214/ss/1177011945">@Tukey:1991ga</a></p>
 </section>
 <section id="setting-and-notation" class="level3">
 <h3 class="anchored" data-anchor-id="setting-and-notation">Setting and notation:</h3>
@@ -292,7 +323,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="L10-fdr_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Histograms of P-values, for the 100 patient subset (left) and Entire Set</figcaption>
+<figcaption>Histograms of P-values, for the 100 patient subset (left) and Entire Set</figcaption>
 </figure>
 </div>
 </div>
@@ -307,7 +338,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="L10-fdr_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Empirical CDFs of P-values, for the 100 patient subset (left) and Entire Set</figcaption>
+<figcaption>Empirical CDFs of P-values, for the 100 patient subset (left) and Entire Set</figcaption>
 </figure>
 </div>
 </div>
@@ -329,13 +360,13 @@ Higher Criticism
 </ul>
 </div>
 </div>
-<p>Hint: <a href="http://projecteuclid.org/euclid.ss/1425492437"><span class="citation" data-cites="Donoho2015ss">@Donoho2015ss</span></a></p>
+<p>Hint: <a href="http://projecteuclid.org/euclid.ss/1425492437">@Donoho2015ss</a></p>
 <div style="page-break-after: always;"></div>
 </section>
 </section>
 <section id="false-discovery-rates" class="level2">
 <h2 class="anchored" data-anchor-id="false-discovery-rates">False Discovery Rates</h2>
-A simple way to think about the discovery process is to focus on a list of promising candidates (or “discoveries”), as we did in our previous lecture. If we know the true data generating model for each gene, we could, for example, look at this table:
+<p>A simple way to think about the discovery process is to focus on a list of promising candidates (or “discoveries”), as we did in our previous lecture. If we know the true data generating model for each gene, we could, for example, look at this table:</p>
 <p>It is common to study the proportion <span class="math inline">\(R_0/R\)</span> of discoveries for which the true data generating model is null.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -354,7 +385,7 @@ Note
 </div>
 </div>
 <p>This parameter can be estimated from a couple of different perspectives. If you are interested in evaluating the list generating <em>process</em> you may be interested in a frequentist expectation. Bounds can be obtained using methods like Benjamini-Hochberg (see below). If your focus is on the actual list rather than the procedure, Bayesian estimates may be your choice.</p>
-<p>We review many of the connections here: <a href="https://biostats.bepress.com/jhubiostat/paper115/"><span class="citation" data-cites="muel:parm:rice:2007">@muel:parm:rice:2007</span></a></p>
+<p>We review many of the connections here: <a href="https://biostats.bepress.com/jhubiostat/paper115/">@muel:parm:rice:2007</a></p>
 <div style="page-break-after: always;"></div>
 <section id="frequentist-definition-of-fdr" class="level3">
 <h3 class="anchored" data-anchor-id="frequentist-definition-of-fdr">Frequentist Definition of FDR</h3>
@@ -378,7 +409,7 @@ Note
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="L10-fdr_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Benjamini-Hochberg Plots</figcaption>
+<figcaption>Benjamini-Hochberg Plots</figcaption>
 </figure>
 </div>
 </div>
@@ -454,7 +485,7 @@ Note
 \]</span></p>
 <p>In EB, the denominator, for any given cutoff, can be estimated empirically from the geneome-wide distribution of <span class="math inline">\(z_g\)</span>’s. Just don’t pick the cutoff so that the list is empty.</p>
 <p>The numerator is a bit trickier. If the disctribution of the <span class="math inline">\(z\)</span>’s under the null is known (as is the case for example with <span class="math inline">\(z\)</span>-scores for which normality can be trusted, <span class="math inline">\(\bar F_0 (z)\)</span> can be estimated that way. If not, one approach is to use the geneome-wide distribution of <span class="math inline">\(z_g\)</span>’s after a permutation that mimics the global null. <span class="math inline">\(p_A\)</span> is not identifiable w/out parametric / smoothness assumptions on the distributions of the <span class="math inline">\(z\)</span>’s. A surprisingly useful approximation is <span class="math inline">\(1-p_A = 1\)</span>, which gives a conservative bounds to EF FDR, but often a reasonably realistic one.</p>
-<p><a href="https://doi.org/10.1214/aos/1051027871"><span class="citation" data-cites="Efron2003as">@Efron2003as</span></a></p>
+<p><a href="https://doi.org/10.1214/aos/1051027871">@Efron2003as</a></p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -480,7 +511,11 @@ Note
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main=</span><span class="st">""</span>,<span class="at">xlab=</span><span class="st">"z score"</span>)</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">density</span>(ScoresAll[,<span class="st">"nlpvalueT"</span>]),<span class="at">col=</span><span class="dv">2</span>,<span class="at">lwd=</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="L10-fdr_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="L10-fdr_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -613,10 +648,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -626,8 +660,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -640,6 +683,125 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -683,6 +845,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -708,6 +871,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -768,6 +957,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+
 
 
 
