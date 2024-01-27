@@ -72,11 +72,7 @@ Today the search for novel and more effective biomarkers often leverages our abi
 We can measure:
 
 | Type                                  | Issues                                                                                                                           |
-<<<<<<< HEAD
-|-------------------------|-----------------------------------------------|
-=======
 |-------------------------|----------------------------------------------|
->>>>>>> 5426b84e136e2bccade619eca492b328568f1eff
 | DNA                                   | We can read most of the 6+ gigabase pairs in the human genome, count copies of genome sections, compare genomes across cells     |
 |                                       | Relatively easy to define and read, getting cheaper                                                                              |
 |                                       | A couple of steps removed from shedding light on what the cell(s) are doing                                                      |
