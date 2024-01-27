@@ -1,5 +1,1 @@
-<<<<<<< HEAD
-{"headings":["lecture-1-introduction","goal","audience-and-prerequisites","r-and-rstudio-setup","data","data-sources","data-structure","course-topics"],"entries":[{"key":"fig-dataStructure","order":{"section":[1,4,2,0,0,0,0],"number":1},"caption":"Data Structure"}]}
-=======
-{"headings":["lecture-1-january-24-2023-introduction","goal","audience-and-prerequisites","r-and-rstudio-setup","data","data-sources","data-structure","course-topics"],"entries":[{"order":{"number":1,"section":[1,4,2,0,0,0,0]},"key":"fig-dataStructure","caption":"Data Structure"}]}
->>>>>>> 92c20afe76ab07d31ab0497a205dfd81dae5acec
+{"entries":[{"caption":"Data Structure","order":{"number":1,"section":[1,4,2,0,0,0,0]},"key":"fig-dataStructure"}],"headings":["lecture-1-introduction","goal","audience-and-prerequisites","r-and-rstudio-setup","data","data-sources","data-structure","course-topics"]}

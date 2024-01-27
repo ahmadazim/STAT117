@@ -180,6 +180,10 @@ window.Quarto = {
     <a class="nav-link" href="./about.html"> 
 <span class="menu-text">Syllabus</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./schedule.html"> 
+<span class="menu-text">Schedule</span></a>
+  </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-lectures" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Lectures</span>
@@ -187,7 +191,7 @@ window.Quarto = {
     <ul class="dropdown-menu" aria-labelledby="nav-menu-lectures">    
         <li>
     <a class="dropdown-item" href="./L1-intro.html">
- <span class="dropdown-text">Lecture 1 (January 24, 2023) Introduction</span></a>
+ <span class="dropdown-text">Lecture 1 Introduction</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./L2-biomarkers.html">
@@ -284,7 +288,6 @@ window.Quarto = {
 
 
 
-<<<<<<< HEAD
 <div class="quarto-title-meta">
 
     
@@ -303,13 +306,8 @@ window.Quarto = {
 </header>
 
 
-<section id="lecture-5-decision-analysis" class="level1">
-<h1>Lecture 5: Decision Analysis</h1>
-=======
-<div style="page-break-after: always;"></div>
 <section id="lecture-5-february-7-2023-decision-analysis" class="level1">
 <h1>Lecture 5 (February 7, 2023) Decision Analysis</h1>
->>>>>>> 92c20afe76ab07d31ab0497a205dfd81dae5acec
 <section id="decision-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="decision-analysis">Decision Analysis</h2>
 <section id="decision-tree" class="level3">
@@ -376,8 +374,8 @@ p \left[ (1-F_1(\tau)) u_{11} + F_1(\tau) u_{10} \right] + (1-p) \left[ (1-F_0(\
 - \max  \left( p u_{11} + (1-p) u_{10}, p u_{01} + (1-p) u_{00} \right)
 \end{align*}\]</span>
 <p>This quantity can be used to assess the expected utility as a function of the threshold, assuming one proceeds optimally.</p>
-<p>This logic is an example of “Value of Information” analysis (VoI), a very general principle for quantifying the value of collecting a particular piece of data, in the context of solving a specific decision task. <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7612603/"><span class="citation" data-cites="Jackson2022arsa">@Jackson2022arsa</span></a> review this extensively and provide many useful references.</p>
-<p><a href="http://dx.doi.org/10.1198/000313008X370302"><span class="citation" data-cites="vickers2008as">@vickers2008as</span></a> has an interesting perspective on how to bypass the specification of the ratio <span class="math inline">\(( u_{00}-u_{10} )/( u_{11}-u_{01} )\)</span>, which results in an approach called decision curve analysis.</p>
+<p>This logic is an example of “Value of Information” analysis (VoI), a very general principle for quantifying the value of collecting a particular piece of data, in the context of solving a specific decision task. <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7612603/"><span class="citation" data-cites="Jackson2022arsa">Jackson et al. (<span>2022</span>)</span></a> review this extensively and provide many useful references.</p>
+<p><a href="http://dx.doi.org/10.1198/000313008X370302"><span class="citation" data-cites="vickers2008as">Vickers (<span>2008</span>)</span></a> has an interesting perspective on how to bypass the specification of the ratio <span class="math inline">\(( u_{00}-u_{10} )/( u_{11}-u_{01} )\)</span>, which results in an approach called decision curve analysis.</p>
 <div style="page-break-after: always;"></div>
 </section>
 <section id="illustration" class="level3">
@@ -473,8 +471,14 @@ Negative Benefit?
 <section id="references" class="level2">
 <h2 class="anchored" data-anchor-id="references">References</h2>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Jackson2022arsa" class="csl-entry" role="listitem">
+Jackson, Christopher H., Gianluca Baio, Anna Heath, Mark Strong, Nicky J. Welton, and Edward C. F. Wilson. 2022. <span>“Value of Information Analysis in Models to Inform Health Policy.”</span> <em>Annual Review of Statistics and Its Application</em> 9 (35415193): 95–118. <a href="https://doi.org/10.1146/annurev-statistics-040120-010730">https://doi.org/10.1146/annurev-statistics-040120-010730</a>.
+</div>
 <div id="ref-Pauker1980nejm" class="csl-entry" role="listitem">
 Pauker, Stephen G, and Jerome P Kassirer. 1980. <span>“The Threshold Approach to Clinical Decision Making.”</span> <em>New England Journal of Medicine</em> 302 (20): 1109–17.
+</div>
+<div id="ref-vickers2008as" class="csl-entry" role="listitem">
+Vickers, Andrew J. 2008. <span>“Decision Analysis for the Evaluation of Diagnostic Tests, Prediction Models, and Molecular Markers.”</span> <em>The American Statistician</em> 62 (4): 314–20. <a href="https://doi.org/10.1198/000313008x370302">https://doi.org/10.1198/000313008x370302</a>.
 </div>
 </div>
 

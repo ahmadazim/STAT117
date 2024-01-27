@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 /* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
@@ -117,6 +151,10 @@ div.csl-indent {
     <a class="nav-link" href="./about.html"> 
 <span class="menu-text">Syllabus</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./schedule.html"> 
+<span class="menu-text">Schedule</span></a>
+  </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-lectures" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Lectures</span>
@@ -124,7 +162,7 @@ div.csl-indent {
     <ul class="dropdown-menu" aria-labelledby="nav-menu-lectures">    
         <li>
     <a class="dropdown-item" href="./L1-intro.html">
- <span class="dropdown-text">Lecture 1 (January 24, 2023) Introduction</span></a>
+ <span class="dropdown-text">Lecture 1 Introduction</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./L2-biomarkers.html">
@@ -249,7 +287,7 @@ div.csl-indent {
 <div id="fig-cancerEvolution" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-cancerEvolution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<embed src="Figures/Podlaha.pdf" class="img-fluid">
+<embed src="Figures/Podlaha.pdf" style="width:95.0%;height:5in">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cancerEvolution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;1: Cancer Evolution a the Cell Level
@@ -264,7 +302,7 @@ Figure&nbsp;1: Cancer Evolution a the Cell Level
 <div id="fig-cancerCauses" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-cancerCauses-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<embed src="Figures/CancerCauses.pdf" class="img-fluid">
+<embed src="Figures/CancerCauses.pdf" style="width:95.0%;height:6in">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cancerCauses-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;2: Categories of Cancer Causes and their Position in Cancer Evolution
@@ -356,7 +394,7 @@ Figure&nbsp;2: Categories of Cancer Causes and their Position in Cancer Evolutio
 <div id="fig-useBiomarkers" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-useBiomarkers-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<embed src="Figures/Biomarkers.pdf" class="img-fluid">
+<embed src="Figures/Biomarkers.pdf" style="width:95.0%;height:5in">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-useBiomarkers-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;3: Broad Categories of Use for Biomarkers from <span class="citation" data-cites="ou2021jto">Ou et al. (<a href="#ref-ou2021jto" role="doc-biblioref">2021</a>)</span>
@@ -371,69 +409,29 @@ Figure&nbsp;3: Broad Categories of Use for Biomarkers from <span class="citation
 <h3 class="anchored" data-anchor-id="high-throughput-biology">High Throughput Biology</h3>
 <p>Today the search for novel and more effective biomarkers often leverages our ability to interrogate the molecular biology of the cell using high throughput technologies.</p>
 <p>We can measure:</p>
-<table class="table">
-<caption>Levels and Types of High Throughput Biology Measurements used in Biomarker Research; An important take-home point is the trade-off between ease of measurement and biological relevance of high-throughput biology investigations.</caption>
-<colgroup>
-<col style="width: 34%">
-<col style="width: 65%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Type</th>
-<th>Issues</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>DNA</td>
-<td>We can read most of the 6+ gigabase pairs in the human genome, count copies of genome sections, compare genomes across cells</td>
-</tr>
-<tr class="even">
-<td></td>
-<td>Relatively easy to define and read, getting cheaper</td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>A couple of steps removed from shedding light on what the cell(s) are doing</td>
-</tr>
-<tr class="even">
-<td>Various Aspects of Protein Production</td>
-<td>Hard to define and poorly understood, somewhat hard to do well, getting cheaper</td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>Far more relevant for shedding light on what the cell(s) are doing</td>
-</tr>
-<tr class="even">
-<td>Proteins</td>
-<td>Relatively easy to define, very hard to measure well, expensive. 100.000+ estimated proteins, likely a substantial underestimate</td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>The most relevant for shedding light on what the cell(s) are doing</td>
-</tr>
-</tbody>
-</table>
+<div class="line-block">Type | Issues |</div>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD |————————-|———————————————–| ======= |————————-|———————————————-| &gt;&gt;&gt;&gt;&gt;&gt;&gt; 5426b84e136e2bccade619eca492b328568f1eff | DNA | We can read most of the 6+ gigabase pairs in the human genome, count copies of genome sections, compare genomes across cells | | | Relatively easy to define and read, getting cheaper | | | A couple of steps removed from shedding light on what the cell(s) are doing | | Various Aspects of Protein Production | Hard to define and poorly understood, somewhat hard to do well, getting cheaper | | | Far more relevant for shedding light on what the cell(s) are doing | | Proteins | Relatively easy to define, very hard to measure well, expensive. 100.000+ estimated proteins, likely a substantial underestimate | | | The most relevant for shedding light on what the cell(s) are doing |</p>
+<p>: Levels and Types of High Throughput Biology Measurements used in Biomarker Research; An important take-home point is the trade-off between ease of measurement and biological relevance of high-throughput biology investigations.</p>
 <div style="page-break-after: always;"></div>
 <p>To gain a better understanding of how gene expression analysis fits into the broader landscape of different omics data see <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6192166/">@Chakraborty2018bmri</a> who provides a brief overview of the different applications for high throughput biology platforms. Since 2018, when this article was written, at least to major brakthrough have occurred: the ability to measure these in single cells, and the ability to take measurement without disruptin the spatial organization of cells in the original tissue.</p>
 <div style="page-break-after: always;"></div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><embed src="Figures/ChakrabortyF1.pdf" class="img-fluid"></p>
+<p><embed src="Figures/ChakrabortyF1.pdf" style="width:95.0%;height:6in"></p>
 <figcaption>Pyramid of complexity. From <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6192166/">@Chakraborty2018bmri</a> “The pyramid represents the flow of information from genome (top) to transcriptome (middle), to proteome (bottom). The complexity increases from genome to proteome (indicated by down arrow). The complexity of transcriptome is largely mediated by temporal dynamics and alternative splicing. In contrast, spatiotemporal dynamics and posttranslational modifications (PTMs) are mainly responsible for high proteome complexity. Examples of PTMs include phosphorylation (P) and acetylation (Ac)”.</figcaption>
 </figure>
 </div>
 <div style="page-break-after: always;"></div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><embed src="Figures/ChakrabortyT1.pdf" class="img-fluid" style="width:140.0%"></p>
+<p><embed src="Figures/ChakrabortyT1.pdf" style="width:95.0%;height:5in"></p>
 <figcaption>Omics From <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6192166/">@Chakraborty2018bmri</a></figcaption>
 </figure>
 </div>
 <div style="page-break-after: always;"></div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><embed src="Figures/ChakrabortyF4.pdf" class="img-fluid" style="width:100.0%"></p>
+<p><embed src="Figures/ChakrabortyF4.pdf" style="width:100.0%;height:5in"></p>
 <figcaption>Roles of NGS <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6192166/">@Chakraborty2018bmri</a></figcaption>
 </figure>
 </div>
@@ -474,6 +472,16 @@ RNA levels have a higher likelihood of being accurate predictors of phenotype (a
 </ul>
 <p>They measure a blood biomarker in all samples and present you with the following plot:</p>
 <div class="cell" data-warnings="false">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">117</span>); nn <span class="ot">=</span> <span class="dv">100</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">=</span> <span class="fu">data.frame</span>( </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">XX =</span> <span class="fu">c</span>(<span class="fu">rnegbin</span>( nn, <span class="at">mu =</span> <span class="dv">20</span>, <span class="at">theta =</span> <span class="fl">1.0</span> ),</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rnegbin</span>( nn, <span class="at">mu =</span> <span class="dv">120</span>, <span class="at">theta =</span> <span class="fl">1.5</span> )),</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">yy =</span> <span class="fu">rep</span>(letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>],<span class="at">each =</span> nn) )</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat,<span class="fu">aes</span>(<span class="at">x=</span>XX)) <span class="sc">+</span> </span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">data=</span><span class="fu">subset</span>(dat,yy <span class="sc">==</span> <span class="st">'a'</span>),<span class="at">fill =</span> <span class="st">"orange"</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">data=</span><span class="fu">subset</span>(dat,yy <span class="sc">==</span> <span class="st">'b'</span>),<span class="at">fill =</span> <span class="st">"blue"</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">

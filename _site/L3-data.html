@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2023-01-31">
+<meta name="dcterms.date" content="2024-01-30">
 
 <title>STAT 117: Data Analysis in Modern Biostatistics</title>
 <style>
@@ -151,6 +151,10 @@ div.csl-indent {
     <a class="nav-link" href="./about.html"> 
 <span class="menu-text">Syllabus</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./schedule.html"> 
+<span class="menu-text">Schedule</span></a>
+  </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-lectures" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Lectures</span>
@@ -158,7 +162,7 @@ div.csl-indent {
     <ul class="dropdown-menu" aria-labelledby="nav-menu-lectures">    
         <li>
     <a class="dropdown-item" href="./L1-intro.html">
- <span class="dropdown-text">Lecture 1 (January 24, 2023) Introduction</span></a>
+ <span class="dropdown-text">Lecture 1 Introduction</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./L2-biomarkers.html">
@@ -268,7 +272,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 31, 2023</p>
+      <p class="date">January 30, 2024</p>
     </div>
   </div>
   
@@ -329,6 +333,19 @@ Reading Notes
 <p>For those interested in understanding RNA-seq a bit more, I recommend the sections “Overview” and “Alignment and Quantification” from <a href="https://doi.org/10.1146/annurev-biodatasci-072018-021255">@VandenBerge2019arbds</a></p>
 <p><a href="https://doi.org/10.1186/1471-2105-14-S9-S1">@Xu2013bmcb</a> report a head-to-head comparison of Affy and RNA-seq high throughput measurements. RNA-seq generates count data. It is interesting to look at <a href="https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-14-S9-S1/figures/1">Figure 1</a> and think about how to interpret the “stripes” in panel B.</p>
 <p>Microarrays are rarely used for discovery these days. Many of the statistical challenges of biomarker discovery, however, have remained the same. The advantage of using microarrays for this course is there there are far more studies readily available, so certain parts of the course still work a lot better with microarray than RNA-seq.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Question for Debate
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>What are some of the advantages and disadvantages of RNA-Seq compared to microarray techniques, especially in terms of identification of differentially expressed genes, cost, and other factors?</p>
+</div>
+</div>
 <div style="page-break-after: always;"></div>
 </section>
 </section>
@@ -366,6 +383,19 @@ Reading Notes
 </figure>
 </div>
 <p>It may seem disappointing that there are only two clinical annotations that all of these datasets have. When we originally created the dataset we recontacted all the groups that originally generated the data to try to fill as many of the gaps as possible. Unfortunately some of the clinical data may not have been collected, or may not be easy to share due to privacy concerns or investigators’ reluctance. Since we compiled this data, the field has moved towards larger coordinated efforts across multiple institutions, which have had better outcomes in terms of completeness and homogeneity of phenotypes. An example is <a href="https://dcc.icgc.org/">PCAWG</a> but heterogeneity and missingness of labels remain important issues in health data.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Question for Debate
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Handling missing data is a prominent challenge, particularly in the context of clinical data collection. What are some effective methods for managing missingness? What assumptions do these make? What would you want to know about data collection to decide which missing data approach makes more sense for your data?</p>
+</div>
+</div>
 <div style="page-break-after: always;"></div>
 </section>
 <section id="loading-the-package-and-extracting-expression-data-matrices" class="level3">
@@ -536,7 +566,19 @@ Quantile Normlization
 </div>
 </div>
 </div>
-<div style="page-break-after: always;"></div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Question for Debate
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A variety of data normalization are performed in gene expression analysis. What are some of the different methods of normalization, what are some important assumptions they use, and what is their potential impact on data interpretability? For example what is the logic behind assuming that all samples have, say, the same median?</p>
+</div>
+</div>
 </section>
 </section>
 <section id="references" class="level2">

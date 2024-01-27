@@ -54,7 +54,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -159,6 +179,10 @@ window.Quarto = {
     <a class="nav-link" href="./about.html"> 
 <span class="menu-text">Syllabus</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./schedule.html"> 
+<span class="menu-text">Schedule</span></a>
+  </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-lectures" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Lectures</span>
@@ -166,7 +190,7 @@ window.Quarto = {
     <ul class="dropdown-menu" aria-labelledby="nav-menu-lectures">    
         <li>
     <a class="dropdown-item" href="./L1-intro.html">
- <span class="dropdown-text">Lecture 1 (January 24, 2023) Introduction</span></a>
+ <span class="dropdown-text">Lecture 1 Introduction</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./L2-biomarkers.html">
@@ -406,12 +430,12 @@ concordant discordant     tied.x     tied.y    tied.xy
 <section id="log-hazard-modeling" class="level3">
 <h3 class="anchored" data-anchor-id="log-hazard-modeling">Log Hazard Modeling</h3>
 <p>The next level of analysis is regression. The most common way to model time-to-event data, with or without censoring, is via hazard (or intensity) functions.</p>
-<p><a href="https://doi-org.ezp-prod1.hul.harvard.edu/10.1002/sim.8757"><span class="citation" data-cites="KraghAndersen2021sim">@KraghAndersen2021sim</span></a> provide a thoughtful and concise introduction to time-to-event data. Highly recommended.</p>
+<p><a href="https://doi-org.ezp-prod1.hul.harvard.edu/10.1002/sim.8757"><span class="citation" data-cites="KraghAndersen2021sim">Kragh Andersen et al. (<span>2021</span>)</span></a> provide a thoughtful and concise introduction to time-to-event data. Highly recommended.</p>
 </section>
 <section id="exponential-and-weibull-time-to-event-distributions" class="level3">
 <h3 class="anchored" data-anchor-id="exponential-and-weibull-time-to-event-distributions">Exponential and Weibull Time-to-Event Distributions</h3>
 <p>Let’s start our discussion by calculating the hazard function for Exponential and Weibull distribution.</p>
-<p>The Weibull fits a lot of cancer survival data fairly well. <a href="{https://doi.org/10.1038/s41467-022-28410-9"><span class="citation" data-cites="Plana2022nc">@Plana2022nc</span></a> looks at Weibull fit across hundreds of studies —very interesting work.</p>
+<p>The Weibull fits a lot of cancer survival data fairly well. <a href="{https://doi.org/10.1038/s41467-022-28410-9"><span class="citation" data-cites="Plana2022nc">Plana et al. (<span>2022</span>)</span></a> looks at Weibull fit across hundreds of studies —very interesting work.</p>
 <p>The hazard of the weibull is a polynomial function of time. The <span class="math inline">\(v\)</span> parameter controls whether the event rate is slowing down or picking up speed with time. <span class="math inline">\(\lambda\)</span> acts as an intercept for hazard. A popular tactic is to model <span class="math inline">\(log h\)</span>, via <span class="math inline">\(\log \lambda\)</span> as a function of the biomarker.</p>
 <p>To illustrate this, we will consider the <code>POSTN</code> gene within the <code>GSE32063_eset</code> dataset. In the coding chunk that follows, we will consider <code>XX</code> as the gene expression and <code>XXgmedian</code> as the binary variable created through dichotomizing the expression values at the median.</p>
 <div class="cell">
@@ -586,13 +610,21 @@ Metrics
 </section>
 </section>
 <section id="references" class="level2">
-<h2 class="anchored" data-anchor-id="references">References</h2>
+
+
 
 
 </section>
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-KraghAndersen2021sim" class="csl-entry" role="listitem">
+Kragh Andersen, Per, Maja Pohar Perme, Hans C. van Houwelingen, Richard J. Cook, Pierre Joly, Torben Martinussen, Jeremy M. G. Taylor, Michal Abrahamowicz, and Terry M. Therneau. 2021. <span>“Analysis of Time-to-Event for Observational Studies: Guidance to the Use of Intensity Models.”</span> <em>Statistics in Medicine</em> 40 (1): 185–211. https://doi.org/<a href="https://doi.org/10.1002/sim.8757">https://doi.org/10.1002/sim.8757</a>.
+</div>
+<div id="ref-Plana2022nc" class="csl-entry" role="listitem">
+Plana, Deborah, Geoffrey Fell, Brian M. Alexander, Adam C. Palmer, and Peter K. Sorger. 2022. <span>“Cancer Patient Survival Can Be Parametrized to Improve Trial Precision and Reveal Time-Dependent Therapeutic Effects.”</span> <em>Nature Communications</em> 13 (1): 873. <a href="https://doi.org/10.1038/s41467-022-28410-9">https://doi.org/10.1038/s41467-022-28410-9</a>.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
